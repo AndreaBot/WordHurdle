@@ -23,7 +23,6 @@ class GameViewController: UIViewController {
                 let char = randomWord[randomWord.index(randomWord.startIndex, offsetBy: characterIndex)]
                 characterArray.append(String(char))
                 characterIndex += 1
-                print(characterArray)
             }
         }
     }
@@ -77,23 +76,30 @@ class GameViewController: UIViewController {
         }
         
         func progressGame() {
-                
+            var alertTitle = ""
+            var alertMessage = ""
             if allAttempts[txtFieldArrayIndex]!.allSatisfy({ UITextField in
                 UITextField.backgroundColor == .systemGreen
             }) {
-                endGameAlert()
+                alertTitle = "Congrats!"
+                alertMessage = "You succeeded!"
+                endGameAlert(alertTitle, alertMessage)
             } else {
-                disableTxtFields(allAttempts[txtFieldArrayIndex]!)
                 if txtFieldArrayIndex + 1 <= (allAttempts.count - 1) {
+                    disableTxtFields(allAttempts[txtFieldArrayIndex]!)
                     txtFieldArrayIndex += 1
                     enableTxtFields(allAttempts[txtFieldArrayIndex]!)
+                } else {
+                    alertTitle = "Darn it..."
+                    alertMessage = "The secret word was: \n\(randomWord.uppercased())"
+                    endGameAlert(alertTitle, alertMessage)
                 }
             }
         }
     }
     
-    func endGameAlert() {
-        let alert = UIAlertController(title: "Congrats!", message: "You succeded!", preferredStyle: .alert)
+    func endGameAlert(_ title: String, _ message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alert.addAction(UIAlertAction(title: "New Game", style: .default, handler: { UIAlertAction in
             self.startNewGame()
@@ -102,6 +108,7 @@ class GameViewController: UIViewController {
     }
     
     func startNewGame() {
+        txtFieldArrayIndex = 0
         characterArray = [String]()
         randomWord = AllWords.words.randomElement()!
         print(randomWord)
