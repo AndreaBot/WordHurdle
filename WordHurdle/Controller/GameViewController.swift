@@ -15,6 +15,7 @@ class GameViewController: UIViewController {
     
     var characterArray = [String]()
     var txtFieldArrayIndex = 0
+    var index = 0
     
     var randomWord = "" {
         didSet {
@@ -39,9 +40,18 @@ class GameViewController: UIViewController {
         }
     }
     
+    func setTextFieldDelegate(_ txtFieldArray: [UITextField]) {
+        for txtBox in txtFieldArray {
+            txtBox.delegate = self
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         startNewGame()
+        setTextFieldDelegate(firstAttempt)
+        setTextFieldDelegate(secondAttempt)
+        
     }
     
     
@@ -54,7 +64,7 @@ class GameViewController: UIViewController {
         }
         
         checkGuess(allAttempts[txtFieldArrayIndex]!)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             progressGame()
         }
         
@@ -125,6 +135,35 @@ class GameViewController: UIViewController {
         }
     }
 }
+
+extension GameViewController: UITextFieldDelegate {
+
+    func moveToNextTextField(currentTextField: UITextField) {
+        let allAttempts = [firstAttempt, secondAttempt]
+        if let currentIndex = allAttempts[txtFieldArrayIndex]!.firstIndex(of: currentTextField) {
+            if currentIndex + 1 <= 4 {
+                let nextTextField = allAttempts[txtFieldArrayIndex]![currentIndex + 1]
+                nextTextField.becomeFirstResponder()
+            }
+        }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        let newText = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? ""
+        
+        if newText.count > 1 {
+            return false
+        }
+        if newText.count == 1 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                self.moveToNextTextField(currentTextField: textField)
+            }
+        }
+        return true
+    }
+}
+
 
 
 
