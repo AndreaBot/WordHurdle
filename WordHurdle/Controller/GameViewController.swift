@@ -42,12 +42,7 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        randomWord = AllWords.words.randomElement()!
-        print(randomWord)
-        
-        let allAttempts = [firstAttempt, secondAttempt]
-        disableTxtFields(allAttempts[1]!)
-        
+        startNewGame()
     }
     
     
@@ -60,12 +55,8 @@ class GameViewController: UIViewController {
         }
         
         checkGuess(allAttempts[txtFieldArrayIndex]!)
-        
-        disableTxtFields(allAttempts[txtFieldArrayIndex]!)
-        
-        if txtFieldArrayIndex + 1 <= (allAttempts.count - 1) {
-            txtFieldArrayIndex += 1
-            enableTxtFields(allAttempts[txtFieldArrayIndex]!)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            progressGame()
         }
         
         func checkGuess(_ txtFieldArray: [UITextField]) {
@@ -74,16 +65,61 @@ class GameViewController: UIViewController {
             for letter in guessedLetters {
                 if letter == characterArray[txtFieldIndex] {
                     txtFieldArray[txtFieldIndex].backgroundColor = .systemGreen
-                }  else if characterArray.contains(where: { string in
+                } else if characterArray.contains(where: { string in
                     string == letter
                 }) {
                     txtFieldArray[txtFieldIndex].backgroundColor = .systemYellow
                 } else {
                     txtFieldArray[txtFieldIndex].backgroundColor = .systemGray
                 }
-                
                 txtFieldIndex += 1
+            }
+        }
+        
+        func progressGame() {
+                
+            if allAttempts[txtFieldArrayIndex]!.allSatisfy({ UITextField in
+                UITextField.backgroundColor == .systemGreen
+            }) {
+                endGameAlert()
+            } else {
+                disableTxtFields(allAttempts[txtFieldArrayIndex]!)
+                if txtFieldArrayIndex + 1 <= (allAttempts.count - 1) {
+                    txtFieldArrayIndex += 1
+                    enableTxtFields(allAttempts[txtFieldArrayIndex]!)
+                }
+            }
+        }
+    }
+    
+    func endGameAlert() {
+        let alert = UIAlertController(title: "Congrats!", message: "You succeded!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "New Game", style: .default, handler: { UIAlertAction in
+            self.startNewGame()
+        }))
+        present(alert, animated: true)
+    }
+    
+    func startNewGame() {
+        characterArray = [String]()
+        randomWord = AllWords.words.randomElement()!
+        print(randomWord)
+        
+        let allAttempts = [firstAttempt, secondAttempt]
+        enableTxtFields(allAttempts[0]!)
+        disableTxtFields(allAttempts[1]!)
+        
+        for attempt in allAttempts {
+            for box in attempt! {
+                box.text = ""
+                box.backgroundColor = .white
             }
         }
     }
 }
+
+
+
+
+
