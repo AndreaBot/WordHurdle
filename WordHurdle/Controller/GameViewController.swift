@@ -11,9 +11,10 @@ class GameViewController: UIViewController {
     
     
     @IBOutlet var firstAttempt: [UITextField]!
-    
+    @IBOutlet var secondAttempt: [UITextField]!
     
     var characterArray = [String]()
+    var txtFieldArrayIndex = 0
     
     var randomWord = "" {
         didSet {
@@ -27,43 +28,60 @@ class GameViewController: UIViewController {
         }
     }
     
-    func generateRandomWord() -> String {
-        return AllWords.words.randomElement()!
+    func disableTxtFields(_ fieldsArray: [UITextField]) {
+        for field in fieldsArray {
+            field.isEnabled = false
+        }
+    }
+    
+    func enableTxtFields(_ fieldsArray: [UITextField]) {
+        for field in fieldsArray {
+            field.isEnabled = true
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        randomWord = generateRandomWord()
+        randomWord = AllWords.words.randomElement()!
         print(randomWord)
+        
+        let allAttempts = [firstAttempt, secondAttempt]
+        disableTxtFields(allAttempts[1]!)
+        
     }
     
     
     @IBAction func checkIsPressed(_ sender: UIButton) {
-        
+        let allAttempts = [firstAttempt, secondAttempt]
         var guessedLetters = [String]()
         
-        for textField in firstAttempt {
+        for textField in allAttempts[txtFieldArrayIndex]! {
             guessedLetters.append(textField.text!)
-            }
-        
-        checkGuess()
-        
-        for textField in firstAttempt {
-            textField.isEnabled = false
         }
         
-        func checkGuess() {
+        checkGuess(allAttempts[txtFieldArrayIndex]!)
+        
+        disableTxtFields(allAttempts[txtFieldArrayIndex]!)
+        
+        if txtFieldArrayIndex + 1 <= (allAttempts.count - 1) {
+            txtFieldArrayIndex += 1
+            enableTxtFields(allAttempts[txtFieldArrayIndex]!)
+        }
+        
+        func checkGuess(_ txtFieldArray: [UITextField]) {
             var txtFieldIndex = 0
+            
             for letter in guessedLetters {
                 if letter == characterArray[txtFieldIndex] {
-                    firstAttempt[txtFieldIndex].backgroundColor = .systemGreen
+                    txtFieldArray[txtFieldIndex].backgroundColor = .systemGreen
                 }  else if characterArray.contains(where: { string in
                     string == letter
                 }) {
-                    firstAttempt[txtFieldIndex].backgroundColor = .systemYellow
+                    txtFieldArray[txtFieldIndex].backgroundColor = .systemYellow
                 } else {
-                    firstAttempt[txtFieldIndex].backgroundColor = .systemGray
+                    txtFieldArray[txtFieldIndex].backgroundColor = .systemGray
                 }
+                
                 txtFieldIndex += 1
             }
         }
