@@ -20,7 +20,6 @@ class GameViewController: UIViewController {
     
     var characterArray = [String]()
     var txtFieldArrayIndex = 0
-    var index = 0
     
     var randomWord = "" {
         didSet {
@@ -33,34 +32,25 @@ class GameViewController: UIViewController {
         }
     }
     
-    func disableTxtFields(_ fieldsArray: [UITextField]) {
-        for field in fieldsArray {
-            field.isEnabled = false
+    func disableTxtFields(_ txtFieldsArray: [UITextField]) {
+        for txtField in txtFieldsArray {
+            txtField.isEnabled = false
         }
     }
     
-    func enableTxtFields(_ fieldsArray: [UITextField]) {
-        for field in fieldsArray {
-            field.isEnabled = true
+    func enableTxtFields(_ txtFieldsArray: [UITextField]) {
+        for txtField in txtFieldsArray {
+            txtField.isEnabled = true
         }
     }
     
-    func setTextFieldDelegate(_ txtFieldArray: [UITextField]) {
-        for txtBox in txtFieldArray {
-            txtBox.delegate = self
-        }
+    func setTextFieldDelegate(_ txtField: UITextField) {
+        txtField.delegate = self
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         startNewGame()
-        setTextFieldDelegate(firstAttempt)
-        setTextFieldDelegate(secondAttempt)
-        setTextFieldDelegate(thirdAttempt)
-        setTextFieldDelegate(fourthAttempt)
-        setTextFieldDelegate(fifthAttempt)
-        setTextFieldDelegate(sixthAttempt)
-        
     }
     
     
@@ -114,6 +104,9 @@ class GameViewController: UIViewController {
                     disableTxtFields(allAttempts[txtFieldArrayIndex]!)
                     txtFieldArrayIndex += 1
                     enableTxtFields(allAttempts[txtFieldArrayIndex]!)
+                    
+                    allAttempts[txtFieldArrayIndex]![0].becomeFirstResponder()
+                    
                 } else {
                     alertTitle = "Darn it..."
                     alertMessage = "The secret word was: \n\(randomWord.uppercased())"
@@ -135,32 +128,36 @@ class GameViewController: UIViewController {
     func timedAlert(_ guess: String) {
         let alert = UIAlertController(title: "Try again", message: "\(guess.uppercased()) is not a valid word", preferredStyle: .actionSheet)
         present(alert, animated: true)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             self.dismiss(animated: true)
         }
         
     }
     
     func startNewGame() {
-        txtFieldArrayIndex = 0
+        let allAttempts = [firstAttempt, secondAttempt, thirdAttempt, fourthAttempt, fifthAttempt, sixthAttempt]
+        
+        for attempt in allAttempts {
+            for txtField in attempt! {
+                setTextFieldDelegate(txtField)
+                txtField.layer.borderColor = CGColor(red: 0, green: 0.3, blue: 1, alpha: 1)
+                txtField.text = ""
+                txtField.backgroundColor = .white
+                txtField.layer.borderWidth = 0
+            }
+        }
+        
         characterArray = [String]()
         randomWord = AllWords.words.randomElement()!
         print(randomWord)
         
-        let allAttempts = [firstAttempt, secondAttempt, thirdAttempt, fourthAttempt, fifthAttempt, sixthAttempt]
         enableTxtFields(allAttempts[0]!)
-        disableTxtFields(allAttempts[1]!)
-        disableTxtFields(allAttempts[2]!)
-        disableTxtFields(allAttempts[3]!)
-        disableTxtFields(allAttempts[4]!)
-        disableTxtFields(allAttempts[5]!)
-        
-        for attempt in allAttempts {
-            for box in attempt! {
-                box.text = ""
-                box.backgroundColor = .white
-            }
+        for txtFieldArray in allAttempts.dropFirst() {
+            disableTxtFields(txtFieldArray!)
         }
+        
+        txtFieldArrayIndex = 0
+        allAttempts[txtFieldArrayIndex]![0].becomeFirstResponder()
     }
 }
 
@@ -189,6 +186,14 @@ extension GameViewController: UITextFieldDelegate {
             }
         }
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.layer.borderWidth = 0
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.layer.borderWidth = textField.frame.height/15
     }
 }
 
