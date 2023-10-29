@@ -9,6 +9,6 @@ import Foundation
 
 struct AllWords {
     
-    static let words = ["clear", "enemy", "dusty", "color"]
+    static let words = ["CLEAR", "ENEMY", "DUSTY", "COLOR"]
     
 }

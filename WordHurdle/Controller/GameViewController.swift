@@ -12,6 +12,11 @@ class GameViewController: UIViewController {
     
     @IBOutlet var firstAttempt: [UITextField]!
     @IBOutlet var secondAttempt: [UITextField]!
+    @IBOutlet var thirdAttempt: [UITextField]!
+    @IBOutlet var fourthAttempt: [UITextField]!
+    @IBOutlet var fifthAttempt: [UITextField]!
+    @IBOutlet var sixthAttempt: [UITextField]!
+    
     
     var characterArray = [String]()
     var txtFieldArrayIndex = 0
@@ -51,12 +56,16 @@ class GameViewController: UIViewController {
         startNewGame()
         setTextFieldDelegate(firstAttempt)
         setTextFieldDelegate(secondAttempt)
+        setTextFieldDelegate(thirdAttempt)
+        setTextFieldDelegate(fourthAttempt)
+        setTextFieldDelegate(fifthAttempt)
+        setTextFieldDelegate(sixthAttempt)
         
     }
     
     
     @IBAction func checkIsPressed(_ sender: UIButton) {
-        let allAttempts = [firstAttempt, secondAttempt]
+        let allAttempts = [firstAttempt, secondAttempt, thirdAttempt, fourthAttempt, fifthAttempt, sixthAttempt]
         var guessedLetters = [String]()
         
         for textField in allAttempts[txtFieldArrayIndex]! {
@@ -138,9 +147,13 @@ class GameViewController: UIViewController {
         randomWord = AllWords.words.randomElement()!
         print(randomWord)
         
-        let allAttempts = [firstAttempt, secondAttempt]
+        let allAttempts = [firstAttempt, secondAttempt, thirdAttempt, fourthAttempt, fifthAttempt, sixthAttempt]
         enableTxtFields(allAttempts[0]!)
         disableTxtFields(allAttempts[1]!)
+        disableTxtFields(allAttempts[2]!)
+        disableTxtFields(allAttempts[3]!)
+        disableTxtFields(allAttempts[4]!)
+        disableTxtFields(allAttempts[5]!)
         
         for attempt in allAttempts {
             for box in attempt! {
@@ -154,7 +167,7 @@ class GameViewController: UIViewController {
 extension GameViewController: UITextFieldDelegate {
 
     func moveToNextTextField(currentTextField: UITextField) {
-        let allAttempts = [firstAttempt, secondAttempt]
+        let allAttempts = [firstAttempt, secondAttempt, thirdAttempt, fourthAttempt, fifthAttempt, sixthAttempt]
         if let currentIndex = allAttempts[txtFieldArrayIndex]!.firstIndex(of: currentTextField) {
             if currentIndex + 1 <= 4 {
                 let nextTextField = allAttempts[txtFieldArrayIndex]![currentIndex + 1]
