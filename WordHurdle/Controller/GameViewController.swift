@@ -25,8 +25,9 @@ class GameViewController: UIViewController {
         didSet {
             var characterIndex = 0
             for _ in randomWord {
-                let char = randomWord[randomWord.index(randomWord.startIndex, offsetBy: characterIndex)]
-                characterArray.append(String(char))
+                let char = String(randomWord[randomWord.index(randomWord.startIndex, offsetBy: characterIndex)])
+                characterArray.append(char)
+                AllLetters.addCounter(char)
                 characterIndex += 1
             }
         }
@@ -50,7 +51,9 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(AllLetters.letters)
         startNewGame()
+        
     }
     
     
@@ -66,30 +69,55 @@ class GameViewController: UIViewController {
             let guess = guessedLetters.joined()
             return gameWord == guess
         }) {
-            checkGuess(allAttempts[txtFieldArrayIndex]!)
+            checkGreen(allAttempts[txtFieldArrayIndex]!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [self] in
+                checkRest(allAttempts[txtFieldArrayIndex]!)
+            }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 progressGame()
+                print(AllLetters.letters)
             }} else {
                 timedAlert(guessedLetters.joined())
             }
         
-        func checkGuess(_ txtFieldArray: [UITextField]) {
+        func checkGreen(_ txtFieldArray: [UITextField]) {
             var txtFieldIndex = 0
             
             for letter in guessedLetters {
                 if letter == characterArray[txtFieldIndex] {
                     txtFieldArray[txtFieldIndex].backgroundColor = .systemGreen
-                } else if characterArray.contains(where: { string in
-                    string == letter
-                }) {
-                    txtFieldArray[txtFieldIndex].backgroundColor = .systemYellow
-                } else {
-                    txtFieldArray[txtFieldIndex].backgroundColor = .systemGray
+                    AllLetters.letters[letter]! -= 1
                 }
                 txtFieldIndex += 1
             }
         }
         
+        func checkRest(_ txtFieldArray: [UITextField]) {
+            var txtFieldIndex = 0
+            
+            for letter in guessedLetters {
+                
+                if characterArray.contains(where: { string in
+                    string == letter
+                }) && (AllLetters.letters[letter]! > 0) {
+                    if txtFieldArray[txtFieldIndex].backgroundColor != .systemGreen {
+                        txtFieldArray[txtFieldIndex].backgroundColor = .systemYellow
+                    }
+                } else if !characterArray.contains(where: { string in
+                    string == letter
+                }) || characterArray.contains(where: { string in
+                    string == letter
+                }) && (AllLetters.letters[letter]! == 0) {
+
+                    if txtFieldArray[txtFieldIndex].backgroundColor != .systemGreen {
+                        txtFieldArray[txtFieldIndex].backgroundColor = .systemGray
+                    }
+                }
+                
+                txtFieldIndex += 1
+            }
+        }
+
         func progressGame() {
             var alertTitle = ""
             var alertMessage = ""
@@ -135,6 +163,8 @@ class GameViewController: UIViewController {
     }
     
     func startNewGame() {
+        
+        AllLetters.resetCounters()
         let allAttempts = [firstAttempt, secondAttempt, thirdAttempt, fourthAttempt, fifthAttempt, sixthAttempt]
         
         for attempt in allAttempts {
@@ -158,6 +188,8 @@ class GameViewController: UIViewController {
         
         txtFieldArrayIndex = 0
         allAttempts[txtFieldArrayIndex]![0].becomeFirstResponder()
+        
+        
     }
 }
 
