@@ -63,10 +63,16 @@ class GameViewController: UIViewController {
             guessedLetters.append(textField.text!)
         }
         
-        checkGuess(allAttempts[txtFieldArrayIndex]!)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            progressGame()
-        }
+        if AllWords.words.contains(where: { gameWord in
+            let guess = guessedLetters.joined()
+            return gameWord == guess
+        }) {
+            checkGuess(allAttempts[txtFieldArrayIndex]!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                progressGame()
+            }} else {
+                timedAlert(guessedLetters.joined())
+            }
         
         func checkGuess(_ txtFieldArray: [UITextField]) {
             var txtFieldIndex = 0
@@ -115,6 +121,15 @@ class GameViewController: UIViewController {
             self.startNewGame()
         }))
         present(alert, animated: true)
+    }
+    
+    func timedAlert(_ guess: String) {
+        let alert = UIAlertController(title: "Try again", message: "\(guess.uppercased()) is not a valid word", preferredStyle: .actionSheet)
+        present(alert, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            self.dismiss(animated: true)
+        }
+        
     }
     
     func startNewGame() {
