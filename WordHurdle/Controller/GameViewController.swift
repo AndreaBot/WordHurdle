@@ -57,6 +57,15 @@ class GameViewController: UIViewController {
     
     @IBAction func checkIsPressed(_ sender: UIButton) {
         let allAttempts = [firstAttempt, secondAttempt, thirdAttempt, fourthAttempt, fifthAttempt, sixthAttempt]
+        if allAttempts[txtFieldArrayIndex]!.allSatisfy({ UITextField in
+            UITextField.text != ""
+        }) {
+            performCheck()
+        }
+    }
+    
+    func performCheck() {
+        let allAttempts = [firstAttempt, secondAttempt, thirdAttempt, fourthAttempt, fifthAttempt, sixthAttempt]
         var guessedLetters = [String]()
         
         for textField in allAttempts[txtFieldArrayIndex]! {
@@ -73,7 +82,6 @@ class GameViewController: UIViewController {
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 progressGame()
-                print(AllLetters.letters)
             }} else {
                 timedAlert(guessedLetters.joined())
             }
@@ -172,6 +180,7 @@ class GameViewController: UIViewController {
                 txtField.text = ""
                 txtField.backgroundColor = .white
                 txtField.layer.borderWidth = 0
+                txtField.returnKeyType = .done
             }
         }
         
@@ -192,7 +201,7 @@ class GameViewController: UIViewController {
 }
 
 extension GameViewController: UITextFieldDelegate {
-
+    
     func moveToNextTextField(currentTextField: UITextField) {
         let allAttempts = [firstAttempt, secondAttempt, thirdAttempt, fourthAttempt, fifthAttempt, sixthAttempt]
         if let currentIndex = allAttempts[txtFieldArrayIndex]!.firstIndex(of: currentTextField) {
@@ -225,7 +234,21 @@ extension GameViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.layer.borderWidth = textField.frame.height/15
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let allAttempts = [firstAttempt, secondAttempt, thirdAttempt, fourthAttempt, fifthAttempt, sixthAttempt]
+        
+        if allAttempts[txtFieldArrayIndex]!.allSatisfy({ UITextField in
+            UITextField.text != ""
+        }) { 
+            performCheck()
+            return true
+        } else {
+            return false
+        }
+    }
 }
+    
 
 
 
