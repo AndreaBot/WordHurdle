@@ -51,9 +51,7 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(AllLetters.letters)
         startNewGame()
-        
     }
     
     
