@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
 class GameViewController: UIViewController {
     
@@ -22,6 +23,14 @@ class GameViewController: UIViewController {
     var allAttempts = [[UITextField]]()
     var characterArray = [String]()
     var txtFieldArrayIndex = 0
+
+    
+    @objc func clear() {
+        allAttempts[txtFieldArrayIndex][0].becomeFirstResponder()
+        for attempt in allAttempts[txtFieldArrayIndex] {
+            attempt.text = ""
+        }
+    }
     
     var randomWord = "" {
         didSet {
@@ -192,6 +201,7 @@ class GameViewController: UIViewController {
     }
     
     func startNewGame() {
+        
         AllLetters.resetCounters()
         
         for attempt in allAttempts {
@@ -205,6 +215,7 @@ class GameViewController: UIViewController {
                 txtField.returnKeyType = .done
                 txtField.autocorrectionType = .no
                 txtField.spellCheckingType = .no
+                txtField.keyboardToolbar.doneBarButton.setTarget(self, action: #selector(clear))
             }
         }
         
@@ -221,6 +232,7 @@ class GameViewController: UIViewController {
         allAttempts[txtFieldArrayIndex][0].becomeFirstResponder()
         checkButton.isEnabled = true
     }
+
 }
 
 extension GameViewController: UITextFieldDelegate {
