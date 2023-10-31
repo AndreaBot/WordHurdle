@@ -14,7 +14,6 @@
 		62A9583B2AEC52BA0056FA25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62A9583A2AEC52BA0056FA25 /* Assets.xcassets */; };
 		62A9583E2AEC52BA0056FA25 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62A9583C2AEC52BA0056FA25 /* LaunchScreen.storyboard */; };
 		62A958462AEC52F60056FA25 /* AllWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A958452AEC52F60056FA25 /* AllWords.swift */; };
-		62A9584B2AEC54360056FA25 /* MyStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A9584A2AEC54360056FA25 /* MyStatsViewController.swift */; };
 		62A9584D2AEC54430056FA25 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A9584C2AEC54430056FA25 /* GameViewController.swift */; };
 		62A958522AEF16BB0056FA25 /* AllLetters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A958512AEF16BB0056FA25 /* AllLetters.swift */; };
 /* End PBXBuildFile section */
@@ -29,7 +28,6 @@
 		62A9583D2AEC52BA0056FA25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		62A9583F2AEC52BA0056FA25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		62A958452AEC52F60056FA25 /* AllWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllWords.swift; sourceTree = "<group>"; };
-		62A9584A2AEC54360056FA25 /* MyStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStatsViewController.swift; sourceTree = "<group>"; };
 		62A9584C2AEC54430056FA25 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		62A958512AEF16BB0056FA25 /* AllLetters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllLetters.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -89,7 +87,6 @@
 			isa = PBXGroup;
 			children = (
 				62A958352AEC52B50056FA25 /* HomeViewController.swift */,
-				62A9584A2AEC54360056FA25 /* MyStatsViewController.swift */,
 				62A9584C2AEC54430056FA25 /* GameViewController.swift */,
 			);
 			path = Controller;
@@ -174,7 +171,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62A9584B2AEC54360056FA25 /* MyStatsViewController.swift in Sources */,
 				62A958362AEC52B50056FA25 /* HomeViewController.swift in Sources */,
 				62A958522AEF16BB0056FA25 /* AllLetters.swift in Sources */,
 				62A958462AEC52F60056FA25 /* AllWords.swift in Sources */,

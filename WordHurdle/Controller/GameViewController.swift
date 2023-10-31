@@ -17,6 +17,7 @@ class GameViewController: UIViewController {
     @IBOutlet var fifthAttempt: [UITextField]!
     @IBOutlet var sixthAttempt: [UITextField]!
     
+    @IBOutlet weak var checkButton: UIButton!
     
     var characterArray = [String]()
     var txtFieldArrayIndex = 0
@@ -56,6 +57,10 @@ class GameViewController: UIViewController {
         view.addGestureRecognizer(exitKeyboard)
     }
     
+    
+    @IBAction func newGameIsPressed(_ sender: UIButton) {
+        startNewGame()
+    }
     
     @IBAction func checkIsPressed(_ sender: UIButton) {
         let allAttempts = [firstAttempt, secondAttempt, thirdAttempt, fourthAttempt, fifthAttempt, sixthAttempt]
@@ -137,6 +142,7 @@ class GameViewController: UIViewController {
                 alertTitle = "Congrats!"
                 alertMessage = "You succeeded!"
                 endGameAlert(alertTitle, alertMessage)
+                checkButton.isEnabled = false
             } else {
                 
                 if txtFieldArrayIndex + 1 <= (allAttempts.count - 1) {
@@ -154,6 +160,7 @@ class GameViewController: UIViewController {
                     alertTitle = "Darn it..."
                     alertMessage = "The secret word was: \n\(randomWord.uppercased())"
                     endGameAlert(alertTitle, alertMessage)
+                    checkButton.isEnabled = false
                 }
             }
         }
@@ -204,7 +211,7 @@ class GameViewController: UIViewController {
         
         txtFieldArrayIndex = 0
         allAttempts[txtFieldArrayIndex]![0].becomeFirstResponder()
-        
+        checkButton.isEnabled = true
         
     }
 }
