@@ -194,9 +194,12 @@ class GameViewController: UIViewController {
                 setTextFieldDelegate(txtField)
                 txtField.layer.borderColor = CGColor(red: 0, green: 0.3, blue: 1, alpha: 1)
                 txtField.text = ""
+                txtField.textColor = UIColor(white: 0.2, alpha: 1)
                 txtField.backgroundColor = .white
                 txtField.layer.borderWidth = 0
                 txtField.returnKeyType = .done
+                txtField.autocorrectionType = .no
+                txtField.spellCheckingType = .no
             }
         }
         
@@ -212,7 +215,6 @@ class GameViewController: UIViewController {
         txtFieldArrayIndex = 0
         allAttempts[txtFieldArrayIndex]![0].becomeFirstResponder()
         checkButton.isEnabled = true
-        
     }
 }
 
