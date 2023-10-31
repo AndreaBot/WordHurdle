@@ -143,6 +143,10 @@ class GameViewController: UIViewController {
                 alertMessage = "You succeeded!"
                 endGameAlert(alertTitle, alertMessage)
                 checkButton.isEnabled = false
+                for attempt in allAttempts {
+                    disableTxtFields(attempt!)
+                }
+                
             } else {
                 
                 if txtFieldArrayIndex + 1 <= (allAttempts.count - 1) {
@@ -161,6 +165,9 @@ class GameViewController: UIViewController {
                     alertMessage = "The secret word was: \n\(randomWord.uppercased())"
                     endGameAlert(alertTitle, alertMessage)
                     checkButton.isEnabled = false
+                    for attempt in allAttempts {
+                        disableTxtFields(attempt!)
+                    }
                 }
             }
         }
