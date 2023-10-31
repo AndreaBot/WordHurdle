@@ -52,6 +52,8 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         startNewGame()
+        let exitKeyboard = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
+        view.addGestureRecognizer(exitKeyboard)
     }
     
     
@@ -82,9 +84,10 @@ class GameViewController: UIViewController {
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 progressGame()
-            }} else {
-                timedAlert(guessedLetters.joined())
             }
+        } else {
+            timedAlert(guessedLetters.joined())
+        }
         
         func checkGreen(_ txtFieldArray: [UITextField]) {
             var txtFieldIndex = 0
@@ -127,6 +130,7 @@ class GameViewController: UIViewController {
         func progressGame() {
             var alertTitle = ""
             var alertMessage = ""
+            
             if allAttempts[txtFieldArrayIndex]!.allSatisfy({ UITextField in
                 UITextField.backgroundColor == .systemGreen
             }) {
@@ -134,11 +138,16 @@ class GameViewController: UIViewController {
                 alertMessage = "You succeeded!"
                 endGameAlert(alertTitle, alertMessage)
             } else {
+                
                 if txtFieldArrayIndex + 1 <= (allAttempts.count - 1) {
                     disableTxtFields(allAttempts[txtFieldArrayIndex]!)
+                    for txtField in allAttempts[txtFieldArrayIndex]! {
+                        if txtField.backgroundColor == .systemGreen {
+                            AllLetters.letters[txtField.text!]! += 1
+                        }
+                    }
                     txtFieldArrayIndex += 1
                     enableTxtFields(allAttempts[txtFieldArrayIndex]!)
-                    
                     allAttempts[txtFieldArrayIndex]![0].becomeFirstResponder()
                     
                 } else {
