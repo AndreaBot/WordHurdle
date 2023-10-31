@@ -19,6 +19,7 @@ class GameViewController: UIViewController {
     
     @IBOutlet weak var checkButton: UIButton!
     
+    var allAttempts = [[UITextField]]()
     var characterArray = [String]()
     var txtFieldArrayIndex = 0
     
@@ -52,6 +53,7 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        allAttempts = [firstAttempt, secondAttempt, thirdAttempt, fourthAttempt, fifthAttempt, sixthAttempt]
         startNewGame()
         let exitKeyboard = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(exitKeyboard)
@@ -63,8 +65,7 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func checkIsPressed(_ sender: UIButton) {
-        let allAttempts = [firstAttempt, secondAttempt, thirdAttempt, fourthAttempt, fifthAttempt, sixthAttempt]
-        if allAttempts[txtFieldArrayIndex]!.allSatisfy({ UITextField in
+        if allAttempts[txtFieldArrayIndex].allSatisfy({ UITextField in
             UITextField.text != ""
         }) {
             performCheck()
@@ -72,10 +73,9 @@ class GameViewController: UIViewController {
     }
     
     func performCheck() {
-        let allAttempts = [firstAttempt, secondAttempt, thirdAttempt, fourthAttempt, fifthAttempt, sixthAttempt]
         var guessedLetters = [String]()
         
-        for textField in allAttempts[txtFieldArrayIndex]! {
+        for textField in allAttempts[txtFieldArrayIndex] {
             guessedLetters.append(textField.text!)
         }
         
@@ -83,9 +83,9 @@ class GameViewController: UIViewController {
             let guess = guessedLetters.joined()
             return gameWord == guess
         }) {
-            checkGreen(allAttempts[txtFieldArrayIndex]!)
+            checkGreen(allAttempts[txtFieldArrayIndex])
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [self] in
-                checkRest(allAttempts[txtFieldArrayIndex]!)
+                checkRest(allAttempts[txtFieldArrayIndex])
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 progressGame()
@@ -136,7 +136,7 @@ class GameViewController: UIViewController {
             var alertTitle = ""
             var alertMessage = ""
             
-            if allAttempts[txtFieldArrayIndex]!.allSatisfy({ UITextField in
+            if allAttempts[txtFieldArrayIndex].allSatisfy({ UITextField in
                 UITextField.backgroundColor == .systemGreen
             }) {
                 alertTitle = "Congrats!"
@@ -144,21 +144,21 @@ class GameViewController: UIViewController {
                 endGameAlert(alertTitle, alertMessage)
                 checkButton.isEnabled = false
                 for attempt in allAttempts {
-                    disableTxtFields(attempt!)
+                    disableTxtFields(attempt)
                 }
                 
             } else {
                 
                 if txtFieldArrayIndex + 1 <= (allAttempts.count - 1) {
-                    disableTxtFields(allAttempts[txtFieldArrayIndex]!)
-                    for txtField in allAttempts[txtFieldArrayIndex]! {
+                    disableTxtFields(allAttempts[txtFieldArrayIndex])
+                    for txtField in allAttempts[txtFieldArrayIndex] {
                         if txtField.backgroundColor == .systemGreen {
                             AllLetters.letters[txtField.text!]! += 1
                         }
                     }
                     txtFieldArrayIndex += 1
-                    enableTxtFields(allAttempts[txtFieldArrayIndex]!)
-                    allAttempts[txtFieldArrayIndex]![0].becomeFirstResponder()
+                    enableTxtFields(allAttempts[txtFieldArrayIndex])
+                    allAttempts[txtFieldArrayIndex][0].becomeFirstResponder()
                     
                 } else {
                     alertTitle = "Darn it..."
@@ -166,7 +166,7 @@ class GameViewController: UIViewController {
                     endGameAlert(alertTitle, alertMessage)
                     checkButton.isEnabled = false
                     for attempt in allAttempts {
-                        disableTxtFields(attempt!)
+                        disableTxtFields(attempt)
                     }
                 }
             }
@@ -192,12 +192,10 @@ class GameViewController: UIViewController {
     }
     
     func startNewGame() {
-        
         AllLetters.resetCounters()
-        let allAttempts = [firstAttempt, secondAttempt, thirdAttempt, fourthAttempt, fifthAttempt, sixthAttempt]
         
         for attempt in allAttempts {
-            for txtField in attempt! {
+            for txtField in attempt {
                 setTextFieldDelegate(txtField)
                 txtField.layer.borderColor = CGColor(red: 0, green: 0.3, blue: 1, alpha: 1)
                 txtField.text = ""
@@ -214,13 +212,13 @@ class GameViewController: UIViewController {
         randomWord = AllWords.words.randomElement()!
         print(randomWord)
         
-        enableTxtFields(allAttempts[0]!)
+        enableTxtFields(allAttempts[0])
         for txtFieldArray in allAttempts.dropFirst() {
-            disableTxtFields(txtFieldArray!)
+            disableTxtFields(txtFieldArray)
         }
         
         txtFieldArrayIndex = 0
-        allAttempts[txtFieldArrayIndex]![0].becomeFirstResponder()
+        allAttempts[txtFieldArrayIndex][0].becomeFirstResponder()
         checkButton.isEnabled = true
     }
 }
@@ -228,10 +226,9 @@ class GameViewController: UIViewController {
 extension GameViewController: UITextFieldDelegate {
     
     func moveToNextTextField(currentTextField: UITextField) {
-        let allAttempts = [firstAttempt, secondAttempt, thirdAttempt, fourthAttempt, fifthAttempt, sixthAttempt]
-        if let currentIndex = allAttempts[txtFieldArrayIndex]!.firstIndex(of: currentTextField) {
+        if let currentIndex = allAttempts[txtFieldArrayIndex].firstIndex(of: currentTextField) {
             if currentIndex + 1 <= 4 {
-                let nextTextField = allAttempts[txtFieldArrayIndex]![currentIndex + 1]
+                let nextTextField = allAttempts[txtFieldArrayIndex][currentIndex + 1]
                 nextTextField.becomeFirstResponder()
             }
         }
@@ -261,9 +258,7 @@ extension GameViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        let allAttempts = [firstAttempt, secondAttempt, thirdAttempt, fourthAttempt, fifthAttempt, sixthAttempt]
-        
-        if allAttempts[txtFieldArrayIndex]!.allSatisfy({ UITextField in
+        if allAttempts[txtFieldArrayIndex].allSatisfy({ UITextField in
             UITextField.text != ""
         }) { 
             performCheck()
