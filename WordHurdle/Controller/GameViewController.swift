@@ -158,7 +158,7 @@ class GameViewController: UIViewController {
                 
             } else {
                 
-                if txtFieldArrayIndex + 1 <= (allAttempts.count - 1) {
+                if txtFieldArrayIndex + 1 <= allAttempts.count - 1 {
                     disableTxtFields(allAttempts[txtFieldArrayIndex])
                     for txtField in allAttempts[txtFieldArrayIndex] {
                         if txtField.backgroundColor == .systemGreen {
