@@ -210,8 +210,12 @@ class GameViewController: UIViewController {
                 txtField.layer.borderColor = CGColor(red: 0, green: 0.3, blue: 1, alpha: 1)
                 txtField.text = ""
                 txtField.textColor = UIColor(white: 0.2, alpha: 1)
+                txtField.font = UIFont.systemFont(ofSize: 20)
                 txtField.backgroundColor = .white
                 txtField.layer.borderWidth = 0
+                txtField.borderStyle = .roundedRect
+                txtField.layer.cornerRadius = txtField.frame.height/10
+                txtField.layer.masksToBounds = true
                 txtField.returnKeyType = .done
                 txtField.autocorrectionType = .no
                 txtField.spellCheckingType = .no
@@ -266,7 +270,7 @@ extension GameViewController: UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.layer.borderWidth = textField.frame.height/15
+       textField.layer.borderWidth = textField.frame.height/18
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
