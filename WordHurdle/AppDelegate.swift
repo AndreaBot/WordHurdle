@@ -15,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.enableAutoToolbar = true
         IQKeyboardManager.shared.toolbarDoneBarButtonItemText = "Clear"
+        IQKeyboardManager.shared.toolbarNextBarButtonItemImage = UIImage(systemName: "chevron.right")
+        IQKeyboardManager.shared.toolbarPreviousBarButtonItemImage = UIImage(systemName: "chevron.left")
         
         return true
     }
