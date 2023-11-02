@@ -11,6 +11,7 @@ protocol GameLogicDelegate {
     func disableTxtFields(_ txtFieldsArray: [UITextField])
     func enableTxtFields(_ txtFieldsArray: [UITextField])
     func toggleCheckButton()
+    func showCheckResults()
 }
 
 struct GameLogic {
@@ -18,6 +19,7 @@ struct GameLogic {
     static var delegate: GameLogicDelegate?
     static var characterArray = [String]()
     static var txtFieldArrayIndex = 0
+    static var checkResults = [Int]()
     static var randomWord = "" {
         didSet {
             var characterIndex = 0
@@ -32,6 +34,7 @@ struct GameLogic {
     
     static func performCheck(_ VC: UIViewController, _ allAttempts: [[UITextField]]) {
         var guessedLetters = [String]()
+        checkResults = [0, 0, 0, 0, 0]
         
         for textField in allAttempts[txtFieldArrayIndex] {
             guessedLetters.append(textField.text!)
@@ -42,10 +45,13 @@ struct GameLogic {
             return gameWord == guess
         }) {
             checkGreen(allAttempts[txtFieldArrayIndex])
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 checkRest(allAttempts[txtFieldArrayIndex])
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                delegate?.showCheckResults()
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.7) {
                 progressGame(VC, allAttempts)
             }
         } else {
@@ -57,7 +63,7 @@ struct GameLogic {
             
             for letter in guessedLetters {
                 if letter == characterArray[txtFieldIndex] {
-                    txtFieldArray[txtFieldIndex].backgroundColor = .systemGreen
+                    checkResults[txtFieldIndex] = 3
                     AllLetters.letters[letter]! -= 1
                 }
                 txtFieldIndex += 1
@@ -66,26 +72,21 @@ struct GameLogic {
         
          func checkRest(_ txtFieldArray: [UITextField]) {
             var txtFieldIndex = 0
-            
             for letter in guessedLetters {
                 
-                if characterArray.contains(where: { string in
-                    string == letter
-                }) && (AllLetters.letters[letter]! > 0) {
-                    if txtFieldArray[txtFieldIndex].backgroundColor != .systemGreen {
-                        txtFieldArray[txtFieldIndex].backgroundColor = .systemYellow
+                if characterArray.contains(where: { string in string == letter}) && AllLetters.letters[letter]! > 0 {
+
+                    if checkResults[txtFieldIndex] != 3 {
+                        checkResults[txtFieldIndex] = 2
+                        AllLetters.letters[letter]! -= 1
                     }
-                } else if !characterArray.contains(where: { string in
-                    string == letter
-                }) || characterArray.contains(where: { string in
-                    string == letter
-                }) && (AllLetters.letters[letter]! == 0) {
-                    
-                    if txtFieldArray[txtFieldIndex].backgroundColor != .systemGreen {
-                        txtFieldArray[txtFieldIndex].backgroundColor = .systemGray
+                } else if !characterArray.contains(where: { string in string == letter }) 
+                            || characterArray.contains(where: { string in string == letter}) && (AllLetters.letters[letter]! == 0) {
+
+                    if checkResults[txtFieldIndex] != 3 {
+                        checkResults[txtFieldIndex] = 1
                     }
                 }
-                
                 txtFieldIndex += 1
             }
         }
@@ -114,7 +115,7 @@ struct GameLogic {
             if txtFieldArrayIndex + 1 <= allAttempts.count - 1 {
                 delegate?.disableTxtFields(allAttempts[txtFieldArrayIndex])
                 for txtField in allAttempts[txtFieldArrayIndex] {
-                    if txtField.backgroundColor == .systemGreen {
+                    if txtField.backgroundColor == .systemGreen || txtField.backgroundColor == .systemYellow {
                         AllLetters.letters[txtField.text!]! += 1
                     }
                 }

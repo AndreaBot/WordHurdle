@@ -95,6 +95,32 @@ extension GameViewController: GameLogicDelegate {
     func toggleCheckButton() {
         checkButton.isEnabled.toggle()
     }
+    
+    func showCheckResults() {
+        var index = 0
+        var delay = 0.0
+        
+        for txtField in allAttempts[GameLogic.txtFieldArrayIndex] {
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                
+                if GameLogic.checkResults[index] == 1 {
+                    UIView.transition(with: txtField, duration: 0.8, options: .transitionFlipFromLeft) {
+                        txtField.backgroundColor = .systemGray
+                    }
+                } else if GameLogic.checkResults[index] == 2 {
+                    UIView.transition(with: txtField, duration: 0.8, options: .transitionFlipFromLeft) {
+                        txtField.backgroundColor = .systemYellow
+                    }
+                } else {
+                    UIView.transition(with: txtField, duration: 0.8, options: .transitionFlipFromLeft) {
+                        txtField.backgroundColor = .systemGreen
+                    }
+                }
+                index += 1
+            }
+            delay += 0.18
+        }
+    }
 }
 
 
