@@ -21,38 +21,12 @@ class GameViewController: UIViewController {
     @IBOutlet weak var checkButton: UIButton!
     
     var allAttempts = [[UITextField]]()
-    var characterArray = [String]()
-    var txtFieldArrayIndex = 0
 
-    
     @objc func clear() {
-        allAttempts[txtFieldArrayIndex][0].becomeFirstResponder()
-        for attempt in allAttempts[txtFieldArrayIndex] {
+        let currentAttempt = allAttempts[GameLogic.txtFieldArrayIndex]
+        currentAttempt[0].becomeFirstResponder()
+        for attempt in currentAttempt {
             attempt.text = ""
-        }
-    }
-    
-    var randomWord = "" {
-        didSet {
-            var characterIndex = 0
-            for _ in randomWord {
-                let char = String(randomWord[randomWord.index(randomWord.startIndex, offsetBy: characterIndex)])
-                characterArray.append(char)
-                AllLetters.addCounter(char)
-                characterIndex += 1
-            }
-        }
-    }
-    
-    func disableTxtFields(_ txtFieldsArray: [UITextField]) {
-        for txtField in txtFieldsArray {
-            txtField.isEnabled = false
-        }
-    }
-    
-    func enableTxtFields(_ txtFieldsArray: [UITextField]) {
-        for txtField in txtFieldsArray {
-            txtField.isEnabled = true
         }
     }
     
@@ -63,188 +37,75 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         allAttempts = [firstAttempt, secondAttempt, thirdAttempt, fourthAttempt, fifthAttempt, sixthAttempt]
-        startNewGame()
-        let exitKeyboard = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
-        view.addGestureRecognizer(exitKeyboard)
+        setup()
+        GameLogic.startNewGame(allAttempts)
     }
     
     
     @IBAction func newGameIsPressed(_ sender: UIButton) {
-        startNewGame()
+        GameLogic.startNewGame(allAttempts)
     }
     
     @IBAction func checkIsPressed(_ sender: UIButton) {
-        if allAttempts[txtFieldArrayIndex].allSatisfy({ UITextField in
+        if allAttempts[GameLogic.txtFieldArrayIndex].allSatisfy({ UITextField in
             UITextField.text != ""
         }) {
-            performCheck()
+            GameLogic.performCheck(self, allAttempts)
         }
     }
     
-    func performCheck() {
-        var guessedLetters = [String]()
-        
-        for textField in allAttempts[txtFieldArrayIndex] {
-            guessedLetters.append(textField.text!)
-        }
-        
-        if AllWords.words.contains(where: { gameWord in
-            let guess = guessedLetters.joined()
-            return gameWord == guess
-        }) {
-            checkGreen(allAttempts[txtFieldArrayIndex])
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [self] in
-                checkRest(allAttempts[txtFieldArrayIndex])
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                progressGame()
-            }
-        } else {
-            timedAlert(guessedLetters.joined())
-        }
-        
-        func checkGreen(_ txtFieldArray: [UITextField]) {
-            var txtFieldIndex = 0
-            
-            for letter in guessedLetters {
-                if letter == characterArray[txtFieldIndex] {
-                    txtFieldArray[txtFieldIndex].backgroundColor = .systemGreen
-                    AllLetters.letters[letter]! -= 1
-                }
-                txtFieldIndex += 1
-            }
-        }
-        
-        func checkRest(_ txtFieldArray: [UITextField]) {
-            var txtFieldIndex = 0
-            
-            for letter in guessedLetters {
-                
-                if characterArray.contains(where: { string in
-                    string == letter
-                }) && (AllLetters.letters[letter]! > 0) {
-                    if txtFieldArray[txtFieldIndex].backgroundColor != .systemGreen {
-                        txtFieldArray[txtFieldIndex].backgroundColor = .systemYellow
-                    }
-                } else if !characterArray.contains(where: { string in
-                    string == letter
-                }) || characterArray.contains(where: { string in
-                    string == letter
-                }) && (AllLetters.letters[letter]! == 0) {
-
-                    if txtFieldArray[txtFieldIndex].backgroundColor != .systemGreen {
-                        txtFieldArray[txtFieldIndex].backgroundColor = .systemGray
-                    }
-                }
-                
-                txtFieldIndex += 1
-            }
-        }
-
-        func progressGame() {
-            var alertTitle = ""
-            var alertMessage = ""
-            
-            if allAttempts[txtFieldArrayIndex].allSatisfy({ UITextField in
-                UITextField.backgroundColor == .systemGreen
-            }) {
-                alertTitle = "Congrats!"
-                alertMessage = "You succeeded!"
-                endGameAlert(alertTitle, alertMessage)
-                checkButton.isEnabled = false
-                for attempt in allAttempts {
-                    disableTxtFields(attempt)
-                }
-                
-            } else {
-                
-                if txtFieldArrayIndex + 1 <= allAttempts.count - 1 {
-                    disableTxtFields(allAttempts[txtFieldArrayIndex])
-                    for txtField in allAttempts[txtFieldArrayIndex] {
-                        if txtField.backgroundColor == .systemGreen {
-                            AllLetters.letters[txtField.text!]! += 1
-                        }
-                    }
-                    txtFieldArrayIndex += 1
-                    enableTxtFields(allAttempts[txtFieldArrayIndex])
-                    allAttempts[txtFieldArrayIndex][0].becomeFirstResponder()
-                    
-                } else {
-                    alertTitle = "Darn it..."
-                    alertMessage = "The secret word was: \n\(randomWord.uppercased())"
-                    endGameAlert(alertTitle, alertMessage)
-                    checkButton.isEnabled = false
-                    for attempt in allAttempts {
-                        disableTxtFields(attempt)
-                    }
-                }
-            }
-        }
-    }
-    
-    func endGameAlert(_ title: String, _ message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        alert.addAction(UIAlertAction(title: "New Game", style: .default, handler: { UIAlertAction in
-            self.startNewGame()
-        }))
-        present(alert, animated: true)
-    }
-    
-    func timedAlert(_ guess: String) {
-        let alert = UIAlertController(title: "Try again", message: "\(guess.uppercased()) is not a valid word", preferredStyle: .actionSheet)
-        present(alert, animated: true)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            self.dismiss(animated: true)
-        }
-        
-    }
-    
-    func startNewGame() {
-        
-        AllLetters.resetCounters()
-        
+    func setup() {
+        GameLogic.delegate = self
+        let exitKeyboard = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
+        view.addGestureRecognizer(exitKeyboard)
         for attempt in allAttempts {
             for txtField in attempt {
                 setTextFieldDelegate(txtField)
-                txtField.layer.borderColor = CGColor(red: 0, green: 0.3, blue: 1, alpha: 1)
-                txtField.text = ""
-                txtField.textColor = UIColor(white: 0.2, alpha: 1)
-                txtField.font = UIFont.systemFont(ofSize: 20)
-                txtField.backgroundColor = .white
-                txtField.layer.borderWidth = 0
+                txtField.keyboardToolbar.doneBarButton.setTarget(self, action: #selector(clear))
+                txtField.autocorrectionType = .no
+                txtField.spellCheckingType = .no
                 txtField.borderStyle = .roundedRect
                 txtField.layer.cornerRadius = txtField.frame.height/10
                 txtField.layer.masksToBounds = true
                 txtField.returnKeyType = .done
-                txtField.autocorrectionType = .no
-                txtField.spellCheckingType = .no
-                txtField.keyboardToolbar.doneBarButton.setTarget(self, action: #selector(clear))
+                txtField.font = UIFont.systemFont(ofSize: 20)
+                txtField.textColor = UIColor(white: 0.2, alpha: 1)
+                txtField.layer.borderColor = CGColor(red: 0, green: 0.3, blue: 1, alpha: 1)
             }
         }
-        
-        characterArray = [String]()
-        randomWord = AllWords.words.randomElement()!
-        print(randomWord)
-        
-        enableTxtFields(allAttempts[0])
-        for txtFieldArray in allAttempts.dropFirst() {
-            disableTxtFields(txtFieldArray)
+    }
+}
+
+//MARK: - GameLogicDelegate
+
+extension GameViewController: GameLogicDelegate {
+    
+    func disableTxtFields(_ txtFieldsArray: [UITextField]) {
+        for txtField in txtFieldsArray {
+            txtField.isEnabled = false
         }
-        
-        txtFieldArrayIndex = 0
-        allAttempts[txtFieldArrayIndex][0].becomeFirstResponder()
-        checkButton.isEnabled = true
     }
 
+    func enableTxtFields(_ txtFieldsArray: [UITextField]) {
+        for txtField in txtFieldsArray {
+            txtField.isEnabled = true
+        }
+    }
+    
+    func toggleCheckButton() {
+        checkButton.isEnabled.toggle()
+    }
 }
+
+
+//MARK: - UITextFieldDelegate
 
 extension GameViewController: UITextFieldDelegate {
     
     func moveToNextTextField(currentTextField: UITextField) {
-        if let currentIndex = allAttempts[txtFieldArrayIndex].firstIndex(of: currentTextField) {
+        if let currentIndex = allAttempts[GameLogic.txtFieldArrayIndex].firstIndex(of: currentTextField) {
             if currentIndex + 1 <= 4 {
-                let nextTextField = allAttempts[txtFieldArrayIndex][currentIndex + 1]
+                let nextTextField = allAttempts[GameLogic.txtFieldArrayIndex][currentIndex + 1]
                 nextTextField.becomeFirstResponder()
             }
         }
@@ -274,10 +135,10 @@ extension GameViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if allAttempts[txtFieldArrayIndex].allSatisfy({ UITextField in
+        if allAttempts[GameLogic.txtFieldArrayIndex].allSatisfy({ UITextField in
             UITextField.text != ""
         }) { 
-            performCheck()
+            GameLogic.performCheck(self, allAttempts)
             return true
         } else {
             return false

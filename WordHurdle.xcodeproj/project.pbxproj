@@ -16,6 +16,8 @@
 		62A9584D2AEC54430056FA25 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A9584C2AEC54430056FA25 /* GameViewController.swift */; };
 		62A958522AEF16BB0056FA25 /* AllLetters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A958512AEF16BB0056FA25 /* AllLetters.swift */; };
 		62A958542AF40CBB0056FA25 /* Sacco-SemiBoldCondensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62A958532AF40CBA0056FA25 /* Sacco-SemiBoldCondensed.ttf */; };
+		62A958572AF4154F0056FA25 /* Game Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A958562AF4154F0056FA25 /* Game Logic.swift */; };
+		62A958592AF419FD0056FA25 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A958582AF419FD0056FA25 /* Alerts.swift */; };
 		6B26305E3E077D616DDBE793 /* Pods_WordHurdle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 081FCEA7FCEEF8E16516FFA6 /* Pods_WordHurdle.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +35,8 @@
 		62A9584C2AEC54430056FA25 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		62A958512AEF16BB0056FA25 /* AllLetters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllLetters.swift; sourceTree = "<group>"; };
 		62A958532AF40CBA0056FA25 /* Sacco-SemiBoldCondensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sacco-SemiBoldCondensed.ttf"; sourceTree = "<group>"; };
+		62A958562AF4154F0056FA25 /* Game Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game Logic.swift"; sourceTree = "<group>"; };
+		62A958582AF419FD0056FA25 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		6659A36D3A7CDB02553112AE /* Pods-WordHurdle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordHurdle.debug.xcconfig"; path = "Target Support Files/Pods-WordHurdle/Pods-WordHurdle.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,6 +99,8 @@
 			children = (
 				62A958452AEC52F60056FA25 /* AllWords.swift */,
 				62A958512AEF16BB0056FA25 /* AllLetters.swift */,
+				62A958562AF4154F0056FA25 /* Game Logic.swift */,
+				62A958582AF419FD0056FA25 /* Alerts.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -249,9 +255,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				62A958522AEF16BB0056FA25 /* AllLetters.swift in Sources */,
+				62A958572AF4154F0056FA25 /* Game Logic.swift in Sources */,
 				62A958462AEC52F60056FA25 /* AllWords.swift in Sources */,
 				62A958322AEC52B50056FA25 /* AppDelegate.swift in Sources */,
 				62A9584D2AEC54430056FA25 /* GameViewController.swift in Sources */,
+				62A958592AF419FD0056FA25 /* Alerts.swift in Sources */,
 				62A958342AEC52B50056FA25 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
