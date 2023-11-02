@@ -10,7 +10,6 @@ import UIKit
 protocol GameLogicDelegate {
     func disableTxtFields(_ txtFieldsArray: [UITextField])
     func enableTxtFields(_ txtFieldsArray: [UITextField])
-    func toggleCheckButton()
     func showCheckResults()
 }
 
@@ -105,7 +104,6 @@ struct GameLogic {
             Alerts.endGameAlert(VC, alertTitle, alertMessage, {
                 self.startNewGame(allAttempts)
             })
-            delegate?.toggleCheckButton()
             for attempt in allAttempts {
                 delegate?.disableTxtFields(attempt)
             }
@@ -130,7 +128,6 @@ struct GameLogic {
                 Alerts.endGameAlert(VC, alertTitle, alertMessage, {
                     self.startNewGame(allAttempts)
                 })
-                delegate?.toggleCheckButton()
                 for attempt in allAttempts {
                     delegate?.disableTxtFields(attempt)
                 }
@@ -158,6 +155,5 @@ struct GameLogic {
         
         GameLogic.txtFieldArrayIndex = 0
         allAttempts[txtFieldArrayIndex][0].becomeFirstResponder()
-        delegate?.toggleCheckButton()
     }
 }

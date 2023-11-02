@@ -18,8 +18,6 @@ class GameViewController: UIViewController {
     @IBOutlet var fifthAttempt: [UITextField]!
     @IBOutlet var sixthAttempt: [UITextField]!
     
-    @IBOutlet weak var checkButton: UIButton!
-    
     var allAttempts = [[UITextField]]()
 
     @objc func clear() {
@@ -68,13 +66,14 @@ class GameViewController: UIViewController {
                 txtField.layer.cornerRadius = txtField.frame.height/10
                 txtField.layer.masksToBounds = true
                 txtField.returnKeyType = .done
-                txtField.font = UIFont.systemFont(ofSize: 20)
+                txtField.font = UIFont.systemFont(ofSize: txtField.frame.height * 0.25)
                 txtField.textColor = UIColor(white: 0.2, alpha: 1)
                 txtField.layer.borderColor = CGColor(red: 0, green: 0.3, blue: 1, alpha: 1)
             }
         }
     }
 }
+
 
 //MARK: - GameLogicDelegate
 
@@ -90,10 +89,6 @@ extension GameViewController: GameLogicDelegate {
         for txtField in txtFieldsArray {
             txtField.isEnabled = true
         }
-    }
-    
-    func toggleCheckButton() {
-        checkButton.isEnabled.toggle()
     }
     
     func showCheckResults() {
