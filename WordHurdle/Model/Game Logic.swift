@@ -50,7 +50,7 @@ struct GameLogic {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 delegate?.showCheckResults()
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.7) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 progressGame(VC, allAttempts)
             }
         } else {
@@ -139,9 +139,13 @@ struct GameLogic {
         AllLetters.resetCounters()
         for attempt in allAttempts {
             for txtField in attempt {
-                txtField.text = ""
-                txtField.backgroundColor = .white
-                txtField.layer.borderWidth = 0
+                if txtField.backgroundColor != .white {
+                    UIView.transition(with: txtField, duration: 0.65, options: .transitionFlipFromRight) {
+                        txtField.text = ""
+                        txtField.backgroundColor = .white
+                        txtField.layer.borderWidth = 0
+                    }
+                }
             }
         }
         characterArray = [String]()

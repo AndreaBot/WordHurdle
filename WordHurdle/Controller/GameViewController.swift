@@ -99,15 +99,15 @@ extension GameViewController: GameLogicDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                 
                 if GameLogic.checkResults[index] == 1 {
-                    UIView.transition(with: txtField, duration: 0.8, options: .transitionFlipFromLeft) {
+                    UIView.transition(with: txtField, duration: 0.7, options: .transitionFlipFromLeft) {
                         txtField.backgroundColor = .systemGray
                     }
                 } else if GameLogic.checkResults[index] == 2 {
-                    UIView.transition(with: txtField, duration: 0.8, options: .transitionFlipFromLeft) {
+                    UIView.transition(with: txtField, duration: 0.7, options: .transitionFlipFromLeft) {
                         txtField.backgroundColor = .systemYellow
                     }
                 } else {
-                    UIView.transition(with: txtField, duration: 0.8, options: .transitionFlipFromLeft) {
+                    UIView.transition(with: txtField, duration: 0.7, options: .transitionFlipFromLeft) {
                         txtField.backgroundColor = .systemGreen
                     }
                 }
