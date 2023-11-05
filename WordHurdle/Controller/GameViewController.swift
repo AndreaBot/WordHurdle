@@ -53,7 +53,7 @@ class GameViewController: UIViewController {
     
     @IBAction func letterIsPressed(_ sender: UIButton) {
         
-        sender.alpha = 0.3
+        sender.alpha = 0.7
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             sender.alpha = 1
         }
@@ -100,6 +100,7 @@ class GameViewController: UIViewController {
 //MARK: - GameLogicDelegate
 
 extension GameViewController: GameLogicDelegate {
+    
     func enableKeyboard() {
         for key in keyboard {
             key.isEnabled = true
@@ -119,13 +120,9 @@ extension GameViewController: GameLogicDelegate {
     }
     
     func resetBoxes() {
-        for attempt in allAttempts {
-            for label in attempt {
-                label.text = ""
-            }
-        }
         for row in allAttempts {
             for view in row {
+                view.text = ""
                 if view.backgroundColor != .white {
                     UIView.transition(with: view, duration: 0.65, options: .transitionFlipFromRight) {
                         view.backgroundColor = .white
@@ -134,8 +131,10 @@ extension GameViewController: GameLogicDelegate {
                 view.layer.borderWidth = 0
             }
         }
+        for key in keyboard {
+            key.backgroundColor = .white
+        }
     }
-    
     
     func setBordersAndNavButtons() {
         let activeRow = allAttempts[GameLogic.labelArrayIndex]
@@ -158,6 +157,10 @@ extension GameViewController: GameLogicDelegate {
                     UIView.transition(with: view, duration: 0.7, options: .transitionFlipFromLeft) {
                         view.backgroundColor = .systemGray
                     }
+                    UIView.transition(with: view, duration: 0.7, options: .transitionCrossDissolve) {
+                        self.colorKeysClear(view.text!)
+                    }
+                    
                 } else if GameLogic.checkResults[index] == 2 {
                     UIView.transition(with: view, duration: 0.7, options: .transitionFlipFromLeft) {
                         view.backgroundColor = .systemYellow
@@ -166,13 +169,34 @@ extension GameViewController: GameLogicDelegate {
                     UIView.transition(with: view, duration: 0.7, options: .transitionFlipFromLeft) {
                         view.backgroundColor = .systemGreen
                     }
+                    UIView.transition(with: view, duration: 0.7, options: .transitionCrossDissolve) {
+                        self.colorKeysGreen(view.text!)
+                    }
+                    
                 }
-                
                 index += 1
             }
             delay += 0.18
         }
         resetLastBorder()
+    }
+    
+    func colorKeysGreen(_ letter: String) {
+        let keysToColor = keyboard.filter { UIButton in
+            UIButton.currentTitle == letter
+        }
+        for key in keysToColor {
+            key.backgroundColor = .systemGreen
+        }
+    }
+    
+    func colorKeysClear(_ letter: String) {
+        let keysToColor = keyboard.filter { UIButton in
+            UIButton.currentTitle == letter
+        }
+        for key in keysToColor {
+            key.backgroundColor = .clear
+        }
     }
 }
 
