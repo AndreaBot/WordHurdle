@@ -132,7 +132,9 @@ extension GameViewController: GameLogicDelegate {
             }
         }
         for key in keyboard {
-            key.backgroundColor = .white
+            UIView.transition(with: view, duration: 0.7, options: .transitionCrossDissolve) {
+                key.backgroundColor = .white
+            }
         }
     }
     
