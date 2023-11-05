@@ -8,8 +8,10 @@
 import UIKit
 
 protocol GameLogicDelegate {
-    func disableTxtFields(_ txtFieldsArray: [UITextField])
-    func enableTxtFields(_ txtFieldsArray: [UITextField])
+    func enableKeyboard()
+    func disableKeyboard()
+    func resetBoxes()
+    func setBordersAndNavButtons()
     func showCheckResults()
 }
 
@@ -17,8 +19,13 @@ struct GameLogic {
     
     static var delegate: GameLogicDelegate?
     static var characterArray = [String]()
-    static var txtFieldArrayIndex = 0
     static var checkResults = [Int]()
+    static var labelArrayIndex = 0
+    static var labelIndex = 0 {
+        didSet {
+            delegate?.setBordersAndNavButtons()
+        }
+    }
     static var randomWord = "" {
         didSet {
             var characterIndex = 0
@@ -28,24 +35,25 @@ struct GameLogic {
                 AllLetters.addCounter(char)
                 characterIndex += 1
             }
+            print(randomWord)
         }
     }
     
-    static func performCheck(_ VC: UIViewController, _ allAttempts: [[UITextField]]) {
+    static func performCheck(_ VC: UIViewController, _ allAttempts: [[UILabel]]) {
         var guessedLetters = [String]()
         checkResults = [0, 0, 0, 0, 0]
         
-        for textField in allAttempts[txtFieldArrayIndex] {
-            guessedLetters.append(textField.text!)
+        for label in allAttempts[labelArrayIndex] {
+            guessedLetters.append(label.text!)
         }
         
         if AllWords.words.contains(where: { gameWord in
             let guess = guessedLetters.joined()
             return gameWord == guess
         }) {
-            checkGreen(allAttempts[txtFieldArrayIndex])
+            checkGreen()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                checkRest(allAttempts[txtFieldArrayIndex])
+                checkRest()
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 delegate?.showCheckResults()
@@ -57,46 +65,46 @@ struct GameLogic {
             Alerts.timedAlert(VC, guessedLetters.joined())
         }
         
-         func checkGreen(_ txtFieldArray: [UITextField]) {
-            var txtFieldIndex = 0
+         func checkGreen() {
+            var labelIndex = 0
             
             for letter in guessedLetters {
-                if letter == characterArray[txtFieldIndex] {
-                    checkResults[txtFieldIndex] = 3
+                if letter == characterArray[labelIndex] {
+                    checkResults[labelIndex] = 3
                     AllLetters.letters[letter]! -= 1
                 }
-                txtFieldIndex += 1
+                labelIndex += 1
             }
         }
         
-         func checkRest(_ txtFieldArray: [UITextField]) {
-            var txtFieldIndex = 0
+         func checkRest() {
+            var labelIndex = 0
             for letter in guessedLetters {
                 
                 if characterArray.contains(where: { string in string == letter}) && AllLetters.letters[letter]! > 0 {
 
-                    if checkResults[txtFieldIndex] != 3 {
-                        checkResults[txtFieldIndex] = 2
+                    if checkResults[labelIndex] != 3 {
+                        checkResults[labelIndex] = 2
                         AllLetters.letters[letter]! -= 1
                     }
                 } else if !characterArray.contains(where: { string in string == letter }) 
                             || characterArray.contains(where: { string in string == letter}) && (AllLetters.letters[letter]! == 0) {
 
-                    if checkResults[txtFieldIndex] != 3 {
-                        checkResults[txtFieldIndex] = 1
+                    if checkResults[labelIndex] != 3 {
+                        checkResults[labelIndex] = 1
                     }
                 }
-                txtFieldIndex += 1
+                labelIndex += 1
             }
         }
     }
     
-    static private func progressGame(_ VC: UIViewController, _ allAttempts: [[UITextField]]) {
+    static private func progressGame(_ VC: UIViewController, _ allAttempts: [[UILabel]]) {
         var alertTitle = ""
         var alertMessage = ""
-        
-        if allAttempts[txtFieldArrayIndex].allSatisfy({ UITextField in
-            UITextField.backgroundColor == .systemGreen
+
+        if checkResults.allSatisfy({ Int in
+            Int == 3
         }) {
             //CORRECT WORD GUESSED (GAME WON)
             alertTitle = "Congrats!"
@@ -104,22 +112,23 @@ struct GameLogic {
             Alerts.endGameAlert(VC, alertTitle, alertMessage, {
                 self.startNewGame(allAttempts)
             })
-            for attempt in allAttempts {
-                delegate?.disableTxtFields(attempt)
-            }
+            delegate?.disableKeyboard()
             
         } else {
             //WRONG WORD GUESSED AND MORE ATTEMPTS REMAIN
-            if txtFieldArrayIndex + 1 <= allAttempts.count - 1 {
-                delegate?.disableTxtFields(allAttempts[txtFieldArrayIndex])
-                for txtField in allAttempts[txtFieldArrayIndex] {
-                    if txtField.backgroundColor == .systemGreen || txtField.backgroundColor == .systemYellow {
-                        AllLetters.letters[txtField.text!]! += 1
+            if labelArrayIndex + 1 <= allAttempts.count - 1 {
+                
+                var index = 0
+
+                for result in checkResults {
+                    if result == 3 || result == 2 {
+                        AllLetters.letters[allAttempts[labelArrayIndex][index].text!]! += 1
                     }
+                    index += 1
                 }
-                txtFieldArrayIndex += 1
-                delegate?.enableTxtFields(allAttempts[txtFieldArrayIndex])
-                allAttempts[txtFieldArrayIndex][0].becomeFirstResponder()
+                labelArrayIndex += 1
+                labelIndex = 0
+                
                 
             } else {
                 //WRONG WORD GUESSED AND NO MORE ATTEMPTS REMAIN (GAME LOST)
@@ -128,36 +137,18 @@ struct GameLogic {
                 Alerts.endGameAlert(VC, alertTitle, alertMessage, {
                     self.startNewGame(allAttempts)
                 })
-                for attempt in allAttempts {
-                    delegate?.disableTxtFields(attempt)
-                }
+                delegate?.disableKeyboard()
             }
         }
     }
     
-    static func startNewGame(_ allAttempts: [[UITextField]]) {
+    static func startNewGame(_ allAttempts: [[UILabel]]) {
         AllLetters.resetCounters()
-        for attempt in allAttempts {
-            for txtField in attempt {
-                if txtField.backgroundColor != .white {
-                    UIView.transition(with: txtField, duration: 0.65, options: .transitionFlipFromRight) {
-                        txtField.text = ""
-                        txtField.backgroundColor = .white
-                        txtField.layer.borderWidth = 0
-                    }
-                }
-            }
-        }
         characterArray = [String]()
+        delegate?.resetBoxes()
         randomWord = AllWords.words.randomElement()!
-        print(randomWord)
-        
-        delegate?.enableTxtFields(allAttempts[0])
-        for txtFieldArray in allAttempts.dropFirst() {
-            delegate?.disableTxtFields(txtFieldArray)
-        }
-        
-        GameLogic.txtFieldArrayIndex = 0
-        allAttempts[txtFieldArrayIndex][0].becomeFirstResponder()
+        labelArrayIndex = 0
+        labelIndex = 0
+        delegate?.enableKeyboard()
     }
 }

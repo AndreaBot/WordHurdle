@@ -11,26 +11,23 @@ import IQKeyboardManagerSwift
 class GameViewController: UIViewController {
     
     
-    @IBOutlet var firstAttempt: [UITextField]!
-    @IBOutlet var secondAttempt: [UITextField]!
-    @IBOutlet var thirdAttempt: [UITextField]!
-    @IBOutlet var fourthAttempt: [UITextField]!
-    @IBOutlet var fifthAttempt: [UITextField]!
-    @IBOutlet var sixthAttempt: [UITextField]!
-    
-    var allAttempts = [[UITextField]]()
+    @IBOutlet var firstAttempt: [UILabel]!
+    @IBOutlet var secondAttempt: [UILabel]!
+    @IBOutlet var thirdAttempt: [UILabel]!
+    @IBOutlet var fourthAttempt: [UILabel]!
+    @IBOutlet var fifthAttempt: [UILabel]!
+    @IBOutlet var sixthAttempt: [UILabel]!
 
-    @objc func clear() {
-        let currentAttempt = allAttempts[GameLogic.txtFieldArrayIndex]
-        currentAttempt[0].becomeFirstResponder()
-        for attempt in currentAttempt {
-            attempt.text = ""
-        }
-    }
+    @IBOutlet var keyboard: [UIButton]!
     
-    func setTextFieldDelegate(_ txtField: UITextField) {
-        txtField.delegate = self
-    }
+    @IBOutlet weak var newGameButton: UIButton!
+    
+    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var forwardButton: UIButton!
+    @IBOutlet weak var clearButton: UIButton!
+    
+    var allAttempts = [[UILabel]]()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,9 +41,37 @@ class GameViewController: UIViewController {
         GameLogic.startNewGame(allAttempts)
     }
     
+    @IBAction func navButtonIsPressed(_ sender: UIButton) {
+        GameLogic.labelIndex = sender.tag == 1 ? (GameLogic.labelIndex - 1) : (GameLogic.labelIndex + 1)
+
+    }
+    
+    @IBAction func clearButtonIsPressed(_ sender: UIButton) {
+        for attempt in allAttempts[GameLogic.labelArrayIndex] {
+            attempt.text = ""
+        }
+        GameLogic.labelIndex = 0
+    }
+    
+    @IBAction func letterIsPressed(_ sender: UIButton) {
+        
+        sender.alpha = 0.3
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            sender.alpha = 1
+        }
+        
+        let typedLetter = sender.currentTitle
+        
+        allAttempts[GameLogic.labelArrayIndex][GameLogic.labelIndex].text = typedLetter
+        if GameLogic.labelIndex < 4 {
+            GameLogic.labelIndex += 1
+        }
+    }
+    
+    
     @IBAction func checkIsPressed(_ sender: UIButton) {
-        if allAttempts[GameLogic.txtFieldArrayIndex].allSatisfy({ UITextField in
-            UITextField.text != ""
+        if allAttempts[GameLogic.labelArrayIndex].allSatisfy({ UILabel in
+            UILabel.text != ""
         }) {
             GameLogic.performCheck(self, allAttempts)
         }
@@ -54,23 +79,22 @@ class GameViewController: UIViewController {
     
     func setup() {
         GameLogic.delegate = self
-        let exitKeyboard = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
-        view.addGestureRecognizer(exitKeyboard)
+        newGameButton.layer.cornerRadius = newGameButton.frame.height/8
         for attempt in allAttempts {
-            for txtField in attempt {
-                setTextFieldDelegate(txtField)
-                txtField.keyboardToolbar.doneBarButton.setTarget(self, action: #selector(clear))
-                txtField.autocorrectionType = .no
-                txtField.spellCheckingType = .no
-                txtField.borderStyle = .roundedRect
-                txtField.layer.cornerRadius = txtField.frame.height/10
-                txtField.layer.masksToBounds = true
-                txtField.returnKeyType = .done
-                txtField.font = UIFont.systemFont(ofSize: txtField.frame.height * 0.25)
-                txtField.textColor = UIColor(white: 0.2, alpha: 1)
-                txtField.layer.borderColor = CGColor(red: 0, green: 0.3, blue: 1, alpha: 1)
+            for label in attempt {
+                label.font = UIFont.systemFont(ofSize: label.frame.height * 0.25)
+                label.textColor = UIColor(white: 0.2, alpha: 1)
+                label.backgroundColor = .white
+                label.textAlignment = .center
+                label.layer.cornerRadius = label.frame.height/8
+                label.layer.masksToBounds = true
+                label.layer.borderColor = CGColor(red: 0, green: 0.3, blue: 1, alpha: 1)
             }
         }
+    }
+    
+    func resetLastBorder() {
+        allAttempts[GameLogic.labelArrayIndex][GameLogic.labelIndex].layer.borderWidth = 0
     }
 }
 
@@ -78,95 +102,81 @@ class GameViewController: UIViewController {
 //MARK: - GameLogicDelegate
 
 extension GameViewController: GameLogicDelegate {
+    func enableKeyboard() {
+        for key in keyboard {
+            key.isEnabled = true
+        }
+        backButton.isEnabled = true
+        forwardButton.isEnabled = true
+        clearButton.isEnabled = true
+    }
     
-    func disableTxtFields(_ txtFieldsArray: [UITextField]) {
-        for txtField in txtFieldsArray {
-            txtField.isEnabled = false
+    func disableKeyboard() {
+        for key in keyboard {
+            key.isEnabled = false
+        }
+        backButton.isEnabled = false
+        forwardButton.isEnabled = false
+        clearButton.isEnabled = false
+    }
+    
+    func resetBoxes() {
+        for attempt in allAttempts {
+            for label in attempt {
+                label.text = ""
+            }
+        }
+        for row in allAttempts {
+            for view in row {
+                if view.backgroundColor != .white {
+                    UIView.transition(with: view, duration: 0.65, options: .transitionFlipFromRight) {
+                        view.backgroundColor = .white
+                    }
+                }
+                view.layer.borderWidth = 0
+            }
         }
     }
-
-    func enableTxtFields(_ txtFieldsArray: [UITextField]) {
-        for txtField in txtFieldsArray {
-            txtField.isEnabled = true
+    
+    
+    func setBordersAndNavButtons() {
+        let activeRow = allAttempts[GameLogic.labelArrayIndex]
+        for label in activeRow {
+            label.layer.borderWidth = 0
         }
+        activeRow[GameLogic.labelIndex].layer.borderWidth = activeRow[GameLogic.labelIndex].layer.frame.height/20
+        backButton.isEnabled = GameLogic.labelIndex == 0 ? false : true
+        forwardButton.isEnabled = GameLogic.labelIndex == 4 ? false : true
     }
     
     func showCheckResults() {
         var index = 0
         var delay = 0.0
         
-        for txtField in allAttempts[GameLogic.txtFieldArrayIndex] {
+        for view in allAttempts[GameLogic.labelArrayIndex] {
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                 
                 if GameLogic.checkResults[index] == 1 {
-                    UIView.transition(with: txtField, duration: 0.7, options: .transitionFlipFromLeft) {
-                        txtField.backgroundColor = .systemGray
+                    UIView.transition(with: view, duration: 0.7, options: .transitionFlipFromLeft) {
+                        view.backgroundColor = .systemGray
                     }
                 } else if GameLogic.checkResults[index] == 2 {
-                    UIView.transition(with: txtField, duration: 0.7, options: .transitionFlipFromLeft) {
-                        txtField.backgroundColor = .systemYellow
+                    UIView.transition(with: view, duration: 0.7, options: .transitionFlipFromLeft) {
+                        view.backgroundColor = .systemYellow
                     }
                 } else {
-                    UIView.transition(with: txtField, duration: 0.7, options: .transitionFlipFromLeft) {
-                        txtField.backgroundColor = .systemGreen
+                    UIView.transition(with: view, duration: 0.7, options: .transitionFlipFromLeft) {
+                        view.backgroundColor = .systemGreen
                     }
                 }
+                
                 index += 1
             }
             delay += 0.18
         }
+        resetLastBorder()
     }
 }
-
-
-//MARK: - UITextFieldDelegate
-
-extension GameViewController: UITextFieldDelegate {
-    
-    func moveToNextTextField(currentTextField: UITextField) {
-        if let currentIndex = allAttempts[GameLogic.txtFieldArrayIndex].firstIndex(of: currentTextField) {
-            if currentIndex + 1 <= 4 {
-                let nextTextField = allAttempts[GameLogic.txtFieldArrayIndex][currentIndex + 1]
-                nextTextField.becomeFirstResponder()
-            }
-        }
-    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        let newText = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? ""
-        
-        if newText.count > 1 {
-            return false
-        }
-        if newText.count == 1 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                self.moveToNextTextField(currentTextField: textField)
-            }
-        }
-        return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.layer.borderWidth = 0
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-       textField.layer.borderWidth = textField.frame.height/18
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if allAttempts[GameLogic.txtFieldArrayIndex].allSatisfy({ UITextField in
-            UITextField.text != ""
-        }) { 
-            GameLogic.performCheck(self, allAttempts)
-            return true
-        } else {
-            return false
-        }
-    }
-}
-    
 
 
 
