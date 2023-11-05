@@ -6,10 +6,8 @@
 //
 
 import UIKit
-import IQKeyboardManagerSwift
 
 class GameViewController: UIViewController {
-    
     
     @IBOutlet var firstAttempt: [UILabel]!
     @IBOutlet var secondAttempt: [UILabel]!

@@ -129,7 +129,6 @@ struct GameLogic {
                 labelArrayIndex += 1
                 labelIndex = 0
                 
-                
             } else {
                 //WRONG WORD GUESSED AND NO MORE ATTEMPTS REMAIN (GAME LOST)
                 alertTitle = "Darn it..."

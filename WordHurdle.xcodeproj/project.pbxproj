@@ -18,12 +18,9 @@
 		62A958542AF40CBB0056FA25 /* Sacco-SemiBoldCondensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62A958532AF40CBA0056FA25 /* Sacco-SemiBoldCondensed.ttf */; };
 		62A958572AF4154F0056FA25 /* Game Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A958562AF4154F0056FA25 /* Game Logic.swift */; };
 		62A958592AF419FD0056FA25 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A958582AF419FD0056FA25 /* Alerts.swift */; };
-		6B26305E3E077D616DDBE793 /* Pods_WordHurdle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 081FCEA7FCEEF8E16516FFA6 /* Pods_WordHurdle.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		081FCEA7FCEEF8E16516FFA6 /* Pods_WordHurdle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WordHurdle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2F27FC7A7B17672F9615166C /* Pods-WordHurdle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordHurdle.release.xcconfig"; path = "Target Support Files/Pods-WordHurdle/Pods-WordHurdle.release.xcconfig"; sourceTree = "<group>"; };
 		62A9582E2AEC52B50056FA25 /* WordHurdle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordHurdle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		62A958312AEC52B50056FA25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		62A958332AEC52B50056FA25 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,7 +34,6 @@
 		62A958532AF40CBA0056FA25 /* Sacco-SemiBoldCondensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sacco-SemiBoldCondensed.ttf"; sourceTree = "<group>"; };
 		62A958562AF4154F0056FA25 /* Game Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game Logic.swift"; sourceTree = "<group>"; };
 		62A958582AF419FD0056FA25 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
-		6659A36D3A7CDB02553112AE /* Pods-WordHurdle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordHurdle.debug.xcconfig"; path = "Target Support Files/Pods-WordHurdle/Pods-WordHurdle.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,28 +41,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B26305E3E077D616DDBE793 /* Pods_WordHurdle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6105A5BB043147FA13AFC5A4 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				081FCEA7FCEEF8E16516FFA6 /* Pods_WordHurdle.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		62A958252AEC52B50056FA25 = {
 			isa = PBXGroup;
 			children = (
 				62A958302AEC52B50056FA25 /* WordHurdle */,
 				62A9582F2AEC52B50056FA25 /* Products */,
-				B9EBED2D53FE27430AA116D1 /* Pods */,
-				6105A5BB043147FA13AFC5A4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -129,15 +114,6 @@
 			path = "Custom Font";
 			sourceTree = "<group>";
 		};
-		B9EBED2D53FE27430AA116D1 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				6659A36D3A7CDB02553112AE /* Pods-WordHurdle.debug.xcconfig */,
-				2F27FC7A7B17672F9615166C /* Pods-WordHurdle.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -145,11 +121,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 62A958422AEC52BA0056FA25 /* Build configuration list for PBXNativeTarget "WordHurdle" */;
 			buildPhases = (
-				2572D39918141CF9C292C6F6 /* [CP] Check Pods Manifest.lock */,
 				62A9582A2AEC52B50056FA25 /* Sources */,
 				62A9582B2AEC52B50056FA25 /* Frameworks */,
 				62A9582C2AEC52B50056FA25 /* Resources */,
-				BFA4F1C01908B32A44C72E91 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -206,48 +180,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		2572D39918141CF9C292C6F6 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-WordHurdle-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BFA4F1C01908B32A44C72E91 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WordHurdle/Pods-WordHurdle-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WordHurdle/Pods-WordHurdle-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WordHurdle/Pods-WordHurdle-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		62A9582A2AEC52B50056FA25 /* Sources */ = {
@@ -407,7 +339,6 @@
 		};
 		62A958432AEC52BA0056FA25 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6659A36D3A7CDB02553112AE /* Pods-WordHurdle.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -436,7 +367,6 @@
 		};
 		62A958442AEC52BA0056FA25 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2F27FC7A7B17672F9615166C /* Pods-WordHurdle.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
