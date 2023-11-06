@@ -124,7 +124,7 @@ extension GameViewController: GameLogicDelegate {
             for view in row {
                 view.text = ""
                 if view.backgroundColor != .white {
-                    UIView.transition(with: view, duration: 0.65, options: .transitionFlipFromRight) {
+                    UIView.transition(with: view, duration: 0.7, options: .transitionFlipFromRight) {
                         view.backgroundColor = .white
                     }
                 }
@@ -159,7 +159,7 @@ extension GameViewController: GameLogicDelegate {
                     UIView.transition(with: view, duration: 0.7, options: .transitionFlipFromLeft) {
                         view.backgroundColor = .systemGray
                     }
-                    UIView.transition(with: view, duration: 0.7, options: .transitionCrossDissolve) {
+                    UIView.transition(with: self.keyboard[index], duration: 0.7, options: .transitionCrossDissolve) {
                         self.colorKeysClear(view.text!)
                     }
                     
@@ -171,7 +171,7 @@ extension GameViewController: GameLogicDelegate {
                     UIView.transition(with: view, duration: 0.7, options: .transitionFlipFromLeft) {
                         view.backgroundColor = .systemGreen
                     }
-                    UIView.transition(with: view, duration: 0.7, options: .transitionCrossDissolve) {
+                    UIView.transition(with: self.keyboard[index], duration: 0.7, options: .transitionCrossDissolve) {
                         self.colorKeysGreen(view.text!)
                     }
                     
