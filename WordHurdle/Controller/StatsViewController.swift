@@ -28,17 +28,11 @@ class StatsViewController: UIViewController {
 
 extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    
-        statArray = []
+        statArray = PlayerStats.stats.filter({ Stat in
+            Stat.isIncludedInChart == false
+        })
         
-        for stat in PlayerStats.stats {
-            if stat.isIncludedInChart == false {
-                statArray.append(stat)
-            }
-        }
         return statArray.count
-           
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
