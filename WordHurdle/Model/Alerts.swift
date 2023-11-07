@@ -9,9 +9,11 @@ import UIKit
 
 struct Alerts {
     
-    static func endGameAlert(_ VC: UIViewController, _ title: String, _ message: String, _ newGameFunc: @escaping () -> Void) {
+    static func endGameAlert(_ VC: UIViewController, _ title: String, _ message: String, _ newGameFunc: @escaping () -> Void, _ cancelFunc: @escaping () -> Void) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
+            cancelFunc()
+        }))
         alert.addAction(UIAlertAction(title: "New Game", style: .default, handler: { UIAlertAction in
             newGameFunc()
         }))

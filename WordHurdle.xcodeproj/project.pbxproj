@@ -10,6 +10,8 @@
 		62575A1F2AFAA2A9000D6417 /* PlayerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62575A1E2AFAA2A9000D6417 /* PlayerStats.swift */; };
 		62575A212AFAA385000D6417 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62575A202AFAA385000D6417 /* StatsViewController.swift */; };
 		62575A232AFAA49A000D6417 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62575A222AFAA49A000D6417 /* Stat.swift */; };
+		62575A262AFAB287000D6417 /* StatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62575A242AFAB287000D6417 /* StatTableViewCell.swift */; };
+		62575A272AFAB287000D6417 /* StatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62575A252AFAB287000D6417 /* StatTableViewCell.xib */; };
 		62A958322AEC52B50056FA25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A958312AEC52B50056FA25 /* AppDelegate.swift */; };
 		62A958342AEC52B50056FA25 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A958332AEC52B50056FA25 /* SceneDelegate.swift */; };
 		62A958392AEC52B60056FA25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62A958372AEC52B60056FA25 /* Main.storyboard */; };
@@ -27,6 +29,8 @@
 		62575A1E2AFAA2A9000D6417 /* PlayerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStats.swift; sourceTree = "<group>"; };
 		62575A202AFAA385000D6417 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		62575A222AFAA49A000D6417 /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
+		62575A242AFAB287000D6417 /* StatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatTableViewCell.swift; sourceTree = "<group>"; };
+		62575A252AFAB287000D6417 /* StatTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatTableViewCell.xib; sourceTree = "<group>"; };
 		62A9582E2AEC52B50056FA25 /* WordHurdle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordHurdle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		62A958312AEC52B50056FA25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		62A958332AEC52B50056FA25 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -94,6 +98,7 @@
 				62A958582AF419FD0056FA25 /* Alerts.swift */,
 				62575A222AFAA49A000D6417 /* Stat.swift */,
 				62575A1E2AFAA2A9000D6417 /* PlayerStats.swift */,
+				62575A242AFAB287000D6417 /* StatTableViewCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -111,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				62A958372AEC52B60056FA25 /* Main.storyboard */,
+				62575A252AFAB287000D6417 /* StatTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -185,6 +191,7 @@
 				62A9583B2AEC52BA0056FA25 /* Assets.xcassets in Resources */,
 				62A958392AEC52B60056FA25 /* Main.storyboard in Resources */,
 				62A958542AF40CBB0056FA25 /* Sacco-SemiBoldCondensed.ttf in Resources */,
+				62575A272AFAB287000D6417 /* StatTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +202,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62575A262AFAB287000D6417 /* StatTableViewCell.swift in Sources */,
 				62575A1F2AFAA2A9000D6417 /* PlayerStats.swift in Sources */,
 				62A958522AEF16BB0056FA25 /* AllLetters.swift in Sources */,
 				62A958572AF4154F0056FA25 /* Game Logic.swift in Sources */,

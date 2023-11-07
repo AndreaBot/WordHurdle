@@ -115,7 +115,7 @@ struct GameLogic {
             alertMessage = "You succeeded!"
             Alerts.endGameAlert(VC, alertTitle, alertMessage, {
                 self.startNewGame(allAttempts)
-            })
+            }, { delegate?.loadStats()})
             delegate?.disableKeyboard()
             
             PlayerStats.stats[0].value += 1
@@ -147,7 +147,7 @@ struct GameLogic {
                 alertMessage = "The secret word was: \n\(randomWord.uppercased())"
                 Alerts.endGameAlert(VC, alertTitle, alertMessage, {
                     self.startNewGame(allAttempts)
-                })
+                }, { delegate?.loadStats()})
                 delegate?.disableKeyboard()
                 PlayerStats.stats[0].value += 1
                 PlayerStats.stats[2].value = 0

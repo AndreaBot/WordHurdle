@@ -15,6 +15,7 @@ struct PlayerStats {
         Stat(name: "Wins", value: 0, isIncludedInChart: false),
         Stat(name: "Current streak", value: 0, isIncludedInChart: false),
         Stat(name: "Max streak", value: 0, isIncludedInChart: false),
+        Stat(name: "Test", value: 99, isIncludedInChart: true)
         
     ]
 }

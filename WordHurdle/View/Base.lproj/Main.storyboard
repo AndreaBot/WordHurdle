@@ -706,10 +706,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="350" height="416"/>
                                         <color key="backgroundColor" red="0.40784314269999999" green="0.60784316059999999" blue="0.9529411793" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="statCell" id="oCh-Xf-eB0">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="statCell" id="oCh-Xf-eB0" customClass="StatTableViewCell" customModule="WordHurdle" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="50" width="350" height="43.666667938232422"/>
                                                 <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oCh-Xf-eB0" id="XEM-rX-cZW">
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oCh-Xf-eB0" id="XEM-rX-cZW" customClass="StatTableViewCell" customModule="WordHurdle" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="350" height="43.666667938232422"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </tableViewCellContentView>
@@ -732,6 +732,9 @@
                             <constraint firstItem="MYA-G0-EgT" firstAttribute="top" secondItem="V2g-93-J0I" secondAttribute="top" constant="20" id="cfJ-TB-1oo"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="statsTableView" destination="8MA-yV-Tyq" id="y9o-Vj-Xvw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mJu-h4-5mH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
