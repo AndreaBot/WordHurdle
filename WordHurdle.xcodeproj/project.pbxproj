@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		62575A1F2AFAA2A9000D6417 /* PlayerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62575A1E2AFAA2A9000D6417 /* PlayerStats.swift */; };
+		62575A212AFAA385000D6417 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62575A202AFAA385000D6417 /* StatsViewController.swift */; };
+		62575A232AFAA49A000D6417 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62575A222AFAA49A000D6417 /* Stat.swift */; };
 		62A958322AEC52B50056FA25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A958312AEC52B50056FA25 /* AppDelegate.swift */; };
 		62A958342AEC52B50056FA25 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A958332AEC52B50056FA25 /* SceneDelegate.swift */; };
 		62A958392AEC52B60056FA25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62A958372AEC52B60056FA25 /* Main.storyboard */; };
@@ -21,6 +24,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		62575A1E2AFAA2A9000D6417 /* PlayerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStats.swift; sourceTree = "<group>"; };
+		62575A202AFAA385000D6417 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
+		62575A222AFAA49A000D6417 /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
 		62A9582E2AEC52B50056FA25 /* WordHurdle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordHurdle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		62A958312AEC52B50056FA25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		62A958332AEC52B50056FA25 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +92,8 @@
 				62A958512AEF16BB0056FA25 /* AllLetters.swift */,
 				62A958562AF4154F0056FA25 /* Game Logic.swift */,
 				62A958582AF419FD0056FA25 /* Alerts.swift */,
+				62575A222AFAA49A000D6417 /* Stat.swift */,
+				62575A1E2AFAA2A9000D6417 /* PlayerStats.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -94,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				62A9584C2AEC54430056FA25 /* GameViewController.swift */,
+				62575A202AFAA385000D6417 /* StatsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -186,12 +195,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62575A1F2AFAA2A9000D6417 /* PlayerStats.swift in Sources */,
 				62A958522AEF16BB0056FA25 /* AllLetters.swift in Sources */,
 				62A958572AF4154F0056FA25 /* Game Logic.swift in Sources */,
+				62575A232AFAA49A000D6417 /* Stat.swift in Sources */,
 				62A958462AEC52F60056FA25 /* AllWords.swift in Sources */,
 				62A958322AEC52B50056FA25 /* AppDelegate.swift in Sources */,
 				62A9584D2AEC54430056FA25 /* GameViewController.swift in Sources */,
 				62A958592AF419FD0056FA25 /* Alerts.swift in Sources */,
+				62575A212AFAA385000D6417 /* StatsViewController.swift in Sources */,
 				62A958342AEC52B50056FA25 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -351,7 +363,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -379,7 +391,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

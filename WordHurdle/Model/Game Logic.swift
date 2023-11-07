@@ -8,6 +8,8 @@
 import UIKit
 
 protocol GameLogicDelegate {
+    func saveStats()
+    func loadStats()
     func enableKeyboard()
     func disableKeyboard()
     func resetBoxes()
@@ -16,6 +18,8 @@ protocol GameLogicDelegate {
 }
 
 struct GameLogic {
+    
+    static let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: "Stats.plist")
     
     static var delegate: GameLogicDelegate?
     static var characterArray = [String]()
@@ -65,7 +69,7 @@ struct GameLogic {
             Alerts.timedAlert(VC, guessedLetters.joined())
         }
         
-         func checkGreen() {
+        func checkGreen() {
             var labelIndex = 0
             
             for letter in guessedLetters {
@@ -77,19 +81,19 @@ struct GameLogic {
             }
         }
         
-         func checkRest() {
+        func checkRest() {
             var labelIndex = 0
             for letter in guessedLetters {
                 
                 if characterArray.contains(where: { string in string == letter}) && AllLetters.letters[letter]! > 0 {
-
+                    
                     if checkResults[labelIndex] != 3 {
                         checkResults[labelIndex] = 2
                         AllLetters.letters[letter]! -= 1
                     }
-                } else if !characterArray.contains(where: { string in string == letter }) 
+                } else if !characterArray.contains(where: { string in string == letter })
                             || characterArray.contains(where: { string in string == letter}) && (AllLetters.letters[letter]! == 0) {
-
+                    
                     if checkResults[labelIndex] != 3 {
                         checkResults[labelIndex] = 1
                     }
@@ -102,7 +106,7 @@ struct GameLogic {
     static private func progressGame(_ VC: UIViewController, _ allAttempts: [[UILabel]]) {
         var alertTitle = ""
         var alertMessage = ""
-
+        
         if checkResults.allSatisfy({ Int in
             Int == 3
         }) {
@@ -114,12 +118,20 @@ struct GameLogic {
             })
             delegate?.disableKeyboard()
             
+            PlayerStats.stats[0].value += 1
+            PlayerStats.stats[1].value += 1
+            PlayerStats.stats[2].value += 1
+            if PlayerStats.stats[2].value > PlayerStats.stats[3].value {
+                PlayerStats.stats[3].value = PlayerStats.stats[2].value
+            }
+            delegate?.saveStats()
+            
         } else {
             //WRONG WORD GUESSED AND MORE ATTEMPTS REMAIN
             if labelArrayIndex + 1 <= allAttempts.count - 1 {
                 
                 var index = 0
-
+                
                 for result in checkResults {
                     if result == 3 || result == 2 {
                         AllLetters.letters[allAttempts[labelArrayIndex][index].text!]! += 1
@@ -137,6 +149,9 @@ struct GameLogic {
                     self.startNewGame(allAttempts)
                 })
                 delegate?.disableKeyboard()
+                PlayerStats.stats[0].value += 1
+                PlayerStats.stats[2].value = 0
+                delegate?.saveStats()
             }
         }
     }
@@ -149,5 +164,6 @@ struct GameLogic {
         labelArrayIndex = 0
         labelIndex = 0
         delegate?.enableKeyboard()
+        delegate?.loadStats()
     }
 }
