@@ -8,8 +8,6 @@
 import UIKit
 
 protocol GameLogicDelegate {
-    func saveStats()
-    func loadStats()
     func enableKeyboard()
     func disableKeyboard()
     func resetBoxes()
@@ -115,7 +113,7 @@ struct GameLogic {
             alertMessage = "You succeeded!"
             Alerts.endGameAlert(VC, alertTitle, alertMessage, {
                 self.startNewGame(allAttempts)
-            }, { delegate?.loadStats()})
+            })
             delegate?.disableKeyboard()
             
             PlayerStats.stats[0].value += 1
@@ -124,7 +122,7 @@ struct GameLogic {
             if PlayerStats.stats[2].value > PlayerStats.stats[3].value {
                 PlayerStats.stats[3].value = PlayerStats.stats[2].value
             }
-            delegate?.saveStats()
+            saveStats()
             
         } else {
             //WRONG WORD GUESSED AND MORE ATTEMPTS REMAIN
@@ -147,11 +145,11 @@ struct GameLogic {
                 alertMessage = "The secret word was: \n\(randomWord.uppercased())"
                 Alerts.endGameAlert(VC, alertTitle, alertMessage, {
                     self.startNewGame(allAttempts)
-                }, { delegate?.loadStats()})
+                })
                 delegate?.disableKeyboard()
                 PlayerStats.stats[0].value += 1
                 PlayerStats.stats[2].value = 0
-                delegate?.saveStats()
+                saveStats()
             }
         }
     }
@@ -164,6 +162,36 @@ struct GameLogic {
         labelArrayIndex = 0
         labelIndex = 0
         delegate?.enableKeyboard()
-        delegate?.loadStats()
+        loadStats()
+    }
+    
+//MARK: - Plist methods
+    
+    static func saveStats() {
+        
+        let encoder = PropertyListEncoder()
+        
+        do {
+            let data = try encoder.encode(PlayerStats.stats)
+            try data.write(to: GameLogic.dataFilePath!)
+        } catch {
+            print("error encoding item array, \(error)")
+        }
+    }
+    
+    static func loadStats() {
+        
+        if let data = try? Data(contentsOf: GameLogic.dataFilePath!) {
+            let decoder = PropertyListDecoder()
+            do {
+                PlayerStats.stats = try decoder.decode([Stat].self, from: data)
+                
+                for stat in PlayerStats.stats {
+                    print("\(stat.name) : \(stat.value)")
+                }
+            } catch {
+                print("error decoding item array, \(error)")
+            }
+        }
     }
 }

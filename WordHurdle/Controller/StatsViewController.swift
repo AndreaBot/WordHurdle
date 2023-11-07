@@ -19,9 +19,6 @@ class StatsViewController: UIViewController {
         statsTableView.dataSource = self
         statsTableView.register(UINib(nibName: "StatTableViewCell", bundle: nil), forCellReuseIdentifier: "statCell")
     }
-    
-    
-    
 }
 
 //MARK: - TableViewDelegate & DataSource

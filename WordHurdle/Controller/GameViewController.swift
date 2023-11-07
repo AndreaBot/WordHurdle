@@ -101,34 +101,6 @@ class GameViewController: UIViewController {
 
 extension GameViewController: GameLogicDelegate {
     
-    func saveStats() {
-        
-        let encoder = PropertyListEncoder()
-        
-        do {
-            let data = try encoder.encode(PlayerStats.stats)
-            try data.write(to: GameLogic.dataFilePath!)
-        } catch {
-            print("error encoding item array, \(error)")
-        }
-    }
-    
-    func loadStats() {
-        
-        if let data = try? Data(contentsOf: GameLogic.dataFilePath!) {
-            let decoder = PropertyListDecoder()
-            do{
-                PlayerStats.stats = try decoder.decode([Stat].self, from: data)
-                
-                for stat in PlayerStats.stats {
-                    print("\(stat.name) : \(stat.value)")
-                }
-            } catch {
-                print("error decoding item array, \(error)")
-            }
-        }
-    }
-    
     func enableKeyboard() {
         for key in keyboard {
             key.isEnabled = true
