@@ -1,0 +1,6 @@
+framework module AnyChartiOS {
+  umbrella header "AnyChartiOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

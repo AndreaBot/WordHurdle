@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import AnyChartiOS
 
 class StatsViewController: UIViewController {
     
     @IBOutlet weak var statsTableView: UITableView!
+    @IBOutlet weak var chartView: UIView!
     
     var statArray = [Stat]()
     
@@ -18,6 +20,8 @@ class StatsViewController: UIViewController {
         statsTableView.delegate = self
         statsTableView.dataSource = self
         statsTableView.register(UINib(nibName: "StatTableViewCell", bundle: nil), forCellReuseIdentifier: "statCell")
+        
+        chartView.addSubview(AnyChartiOS.createChart(chartView))
     }
 }
 

@@ -1,0 +1,16 @@
+PODS:
+  - AnyChartiOS (1.0.4)
+
+DEPENDENCIES:
+  - AnyChartiOS (~> 1.0.3)
+
+SPEC REPOS:
+  trunk:
+    - AnyChartiOS
+
+SPEC CHECKSUMS:
+  AnyChartiOS: 7ce3964cb1ed0918410423beb0856ec0c2606d8f
+
+PODFILE CHECKSUM: 3f754bdf02bfef78ffe67893360811cc2f195e46
+
+COCOAPODS: 1.12.1

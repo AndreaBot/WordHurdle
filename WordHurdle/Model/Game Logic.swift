@@ -122,6 +122,7 @@ struct GameLogic {
             if PlayerStats.stats[2].value > PlayerStats.stats[3].value {
                 PlayerStats.stats[3].value = PlayerStats.stats[2].value
             }
+            setGuessDistributionStat(labelArrayIndex)
             saveStats()
             
         } else {
@@ -150,6 +151,18 @@ struct GameLogic {
                 PlayerStats.stats[0].value += 1
                 PlayerStats.stats[2].value = 0
                 saveStats()
+            }
+        }
+        
+        func setGuessDistributionStat(_ index: Int) {
+            switch index {
+            case 0: PlayerStats.stats[4].value += 1
+            case 1: PlayerStats.stats[5].value += 1
+            case 2: PlayerStats.stats[6].value += 1
+            case 3: PlayerStats.stats[7].value += 1
+            case 4: PlayerStats.stats[8].value += 1
+            case 5: PlayerStats.stats[9].value += 1
+            default: PlayerStats.stats[4].value += 0
             }
         }
     }
