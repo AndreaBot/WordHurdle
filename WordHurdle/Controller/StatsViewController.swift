@@ -20,8 +20,18 @@ class StatsViewController: UIViewController {
         statsTableView.delegate = self
         statsTableView.dataSource = self
         statsTableView.register(UINib(nibName: "StatTableViewCell", bundle: nil), forCellReuseIdentifier: "statCell")
-        
-        chartView.addSubview(AnyChartiOS.createChart(chartView))
+        setupChartView()
+    }
+    
+    func setupChartView() {
+        chartView.addSubview(AnyChartiOS.createChart(view))
+        chartView.subviews[0].translatesAutoresizingMaskIntoConstraints = false
+        chartView.subviews[0].centerXAnchor.constraint(equalTo: chartView.centerXAnchor).isActive = true
+        chartView.subviews[0].centerYAnchor.constraint(equalTo: chartView.centerYAnchor).isActive = true
+        chartView.subviews[0].widthAnchor.constraint(equalTo: chartView.widthAnchor).isActive = true
+        chartView.subviews[0].heightAnchor.constraint(equalTo: chartView.heightAnchor).isActive = true
+        chartView.clipsToBounds = true
+        chartView.layer.cornerRadius = chartView.frame.height/30
     }
 }
 
@@ -41,11 +51,8 @@ extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.statNameLabel.text = statArray[indexPath.row].name
         cell.statValueLabel.text = String(statArray[indexPath.row].value)
+        cell.backgroundColor = .clear
         
         return cell
     }
-    
-    
-    
-    
 }

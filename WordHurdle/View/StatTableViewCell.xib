@@ -18,17 +18,17 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" spacing="71" translatesAutoresizingMaskIntoConstraints="NO" id="yWP-0l-rmD">
-                        <rect key="frame" x="20" y="5" width="280" height="34"/>
+                        <rect key="frame" x="0.0" y="5" width="300" height="34"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xeN-D2-Gxx">
-                                <rect key="frame" x="0.0" y="0.0" width="41.333333333333336" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="0.0" y="0.0" width="46" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8hR-pZ-1fw">
-                                <rect key="frame" x="112.33333333333336" y="0.0" width="167.66666666666663" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="117" y="0.0" width="183" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -37,13 +37,14 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="yWP-0l-rmD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="MqL-uJ-mUx"/>
+                    <constraint firstItem="yWP-0l-rmD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="MqL-uJ-mUx"/>
                     <constraint firstAttribute="trailing" secondItem="yWP-0l-rmD" secondAttribute="trailing" constant="20" id="Ssv-85-fFR"/>
                     <constraint firstAttribute="bottom" secondItem="yWP-0l-rmD" secondAttribute="bottom" constant="5" id="WSy-yK-VbO"/>
                     <constraint firstItem="yWP-0l-rmD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="iIb-hc-7N5"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="statNameLabel" destination="xeN-D2-Gxx" id="uph-M5-fLC"/>
                 <outlet property="statValueLabel" destination="8hR-pZ-1fw" id="0HF-zb-8p9"/>
