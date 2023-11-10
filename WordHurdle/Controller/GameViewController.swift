@@ -198,7 +198,9 @@ extension GameViewController: GameLogicDelegate {
             UIButton.currentTitle == letter
         }
         for key in keysToColor {
-            key.backgroundColor = .clear
+            if key.backgroundColor != .systemGreen {
+                key.backgroundColor = .clear
+            }
         }
     }
 }
