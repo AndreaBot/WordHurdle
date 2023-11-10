@@ -11,6 +11,7 @@ import AnyChartiOS
 class StatsViewController: UIViewController {
     
     @IBOutlet weak var statsTableView: UITableView!
+    @IBOutlet weak var chartContainerView: UIView!
     @IBOutlet weak var chartView: UIView!
     
     var statArray = [Stat]()
@@ -30,8 +31,8 @@ class StatsViewController: UIViewController {
         chartView.subviews[0].centerYAnchor.constraint(equalTo: chartView.centerYAnchor).isActive = true
         chartView.subviews[0].widthAnchor.constraint(equalTo: chartView.widthAnchor).isActive = true
         chartView.subviews[0].heightAnchor.constraint(equalTo: chartView.heightAnchor).isActive = true
-        chartView.clipsToBounds = true
-        chartView.layer.cornerRadius = chartView.frame.height/30
+        chartContainerView.clipsToBounds = true
+        chartContainerView.layer.cornerRadius = chartView.frame.height/30
     }
 }
 

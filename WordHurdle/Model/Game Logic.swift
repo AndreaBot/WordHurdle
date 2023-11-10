@@ -198,10 +198,6 @@ struct GameLogic {
             let decoder = PropertyListDecoder()
             do {
                 PlayerStats.stats = try decoder.decode([Stat].self, from: data)
-                
-                for stat in PlayerStats.stats {
-                    print("\(stat.name) : \(stat.value)")
-                }
             } catch {
                 print("error decoding item array, \(error)")
             }

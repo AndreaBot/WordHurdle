@@ -58,12 +58,14 @@ class GameViewController: UIViewController {
             sender.alpha = 1
         }
         
-        let typedLetter = sender.currentTitle
-        
-        allAttempts[GameLogic.labelArrayIndex][GameLogic.labelIndex].text = typedLetter
+        allAttempts[GameLogic.labelArrayIndex][GameLogic.labelIndex].text = sender.currentTitle
         if GameLogic.labelIndex < 4 {
             GameLogic.labelIndex += 1
         }
+    }
+    
+    @IBAction func deleteIsPressed(_ sender: UIButton) {
+        allAttempts[GameLogic.labelArrayIndex][GameLogic.labelIndex].text = ""
     }
     
     
@@ -174,7 +176,6 @@ extension GameViewController: GameLogicDelegate {
                     UIView.transition(with: self.keyboard[index], duration: 0.7, options: .transitionCrossDissolve) {
                         self.colorKeysGreen(view.text!)
                     }
-                    
                 }
                 index += 1
             }
