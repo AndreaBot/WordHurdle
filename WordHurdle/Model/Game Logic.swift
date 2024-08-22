@@ -43,7 +43,7 @@ struct GameLogic {
         }
     }
     
-    static func performCheck(_ VC: UIViewController, _ allAttempts: [[UILabel]]) {
+    static func performCheck(_ allAttempts: [[UILabel]]) {
         var guessedLetters = [String]()
         checkResults = [0, 0, 0, 0, 0]
         
@@ -135,7 +135,8 @@ struct GameLogic {
                 
                 for result in checkResults {
                     if result == 3 || result == 2 {
-                        AllLetters.shared.letters[allAttempts[labelArrayIndex][index].text!]! += 1
+                        let currentLetter = allAttempts[labelArrayIndex][index].text!
+                        AllLetters.shared.letters[currentLetter]! += 1
                     }
                     index += 1
                 }
@@ -167,7 +168,7 @@ struct GameLogic {
         }
     }
     
-    static func startNewGame(_ allAttempts: [[UILabel]]) {
+    static func startNewGame() {
         AllLetters.shared.resetCounters()
         characterArray = [String]()
         delegate?.resetBoxes()

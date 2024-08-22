@@ -31,12 +31,12 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         allAttempts = [firstAttempt, secondAttempt, thirdAttempt, fourthAttempt, fifthAttempt, sixthAttempt]
         setup()
-        GameLogic.startNewGame(allAttempts)
+        GameLogic.startNewGame()
     }
     
     
     @IBAction func newGameIsPressed(_ sender: UIButton) {
-        GameLogic.startNewGame(allAttempts)
+        GameLogic.startNewGame()
     }
     
     @IBAction func navButtonIsPressed(_ sender: UIButton) {
@@ -73,7 +73,7 @@ class GameViewController: UIViewController {
         if allAttempts[GameLogic.labelArrayIndex].allSatisfy({ UILabel in
             UILabel.text != ""
         }) {
-            GameLogic.performCheck(self, allAttempts)
+            GameLogic.performCheck(allAttempts)
         }
     }
     
@@ -112,7 +112,7 @@ extension GameViewController: GameLogicDelegate {
     
     func showEndMessage(title: String, message: String) {
         present(Alerts.endGameAlert(title, message, {
-            GameLogic.startNewGame(self.allAttempts)
+            GameLogic.startNewGame()
         }), animated: true)
     }
     
