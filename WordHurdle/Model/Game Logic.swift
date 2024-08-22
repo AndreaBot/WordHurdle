@@ -5,8 +5,7 @@
 //  Created by Andrea Bottino on 02/11/2023.
 //
 
-import
-UIKit
+import Foundation
 
 protocol GameLogicDelegate {
     func enableKeyboard()
@@ -44,12 +43,14 @@ class GameLogic {
         }
     }
     
-    func performCheck(_ allAttempts: [[UILabel]]) {
+    
+    
+    func performCheck(_ allAttempts: [[String]]) {
         var guessedLetters = [String]()
         checkResults = [0, 0, 0, 0, 0]
         
         for label in allAttempts[labelArrayIndex] {
-            guessedLetters.append(label.text!)
+            guessedLetters.append(label)
         }
         
         guard AllWords.words.contains(where: { word in
@@ -107,7 +108,7 @@ class GameLogic {
     }
     
     
-    private  func progressGame(_ allAttempts: [[UILabel]]) {
+    private  func progressGame(_ allAttempts: [[String]]) {
         var alertTitle = ""
         var alertMessage = ""
         
@@ -137,7 +138,7 @@ class GameLogic {
                 
                 for result in checkResults {
                     if result == 3 || result == 2 {
-                        let currentLetter = allAttempts[labelArrayIndex][index].text!
+                        let currentLetter = allAttempts[labelArrayIndex][index]
                         AllLetters.shared.letters[currentLetter]! += 1
                     }
                     index += 1

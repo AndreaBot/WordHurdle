@@ -24,14 +24,17 @@ class GameViewController: UIViewController {
     @IBOutlet weak var forwardButton: UIButton!
     @IBOutlet weak var clearButton: UIButton!
     
-    var allAttempts = [[UILabel]]()
+    var allAttemptsLabels = [[UILabel]]()
+    var allAttempts = [[String]]()
     
     var gameLogic = GameLogic()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        allAttempts = [firstAttempt, secondAttempt, thirdAttempt, fourthAttempt, fifthAttempt, sixthAttempt]
+        
+        allAttemptsLabels = [firstAttempt, secondAttempt, thirdAttempt, fourthAttempt, fifthAttempt, sixthAttempt]
+        resetAllAttempts()
         setup()
         gameLogic.startNewGame()
     }
@@ -39,6 +42,7 @@ class GameViewController: UIViewController {
     
     @IBAction func newGameIsPressed(_ sender: UIButton) {
         gameLogic.startNewGame()
+        resetAllAttempts()
     }
     
     @IBAction func navButtonIsPressed(_ sender: UIButton) {
@@ -47,8 +51,9 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func clearButtonIsPressed(_ sender: UIButton) {
-        for attempt in allAttempts[gameLogic.labelArrayIndex] {
-            attempt.text = ""
+        for i in 0..<allAttempts[gameLogic.labelArrayIndex].count {
+            allAttempts[gameLogic.labelArrayIndex][i] = ""
+            allAttemptsLabels[gameLogic.labelArrayIndex][i].text! = ""
         }
         gameLogic.labelIndex = 0
     }
@@ -60,20 +65,22 @@ class GameViewController: UIViewController {
             sender.alpha = 1
         }
         
-        allAttempts[gameLogic.labelArrayIndex][gameLogic.labelIndex].text = sender.currentTitle
+        allAttemptsLabels[gameLogic.labelArrayIndex][gameLogic.labelIndex].text! = sender.currentTitle!
+        allAttempts[gameLogic.labelArrayIndex][gameLogic.labelIndex] = sender.currentTitle!
         if gameLogic.labelIndex < 4 {
             gameLogic.labelIndex += 1
         }
     }
     
     @IBAction func deleteIsPressed(_ sender: UIButton) {
-        allAttempts[gameLogic.labelArrayIndex][gameLogic.labelIndex].text = ""
+        allAttemptsLabels[gameLogic.labelArrayIndex][gameLogic.labelIndex].text! = ""
+        allAttempts[gameLogic.labelArrayIndex][gameLogic.labelIndex] = ""
     }
     
     
     @IBAction func checkIsPressed(_ sender: UIButton) {
-        if allAttempts[gameLogic.labelArrayIndex].allSatisfy({ UILabel in
-            UILabel.text != ""
+        if allAttempts[gameLogic.labelArrayIndex].allSatisfy({ text in
+            text != ""
         }) {
             gameLogic.performCheck(allAttempts)
         }
@@ -82,21 +89,34 @@ class GameViewController: UIViewController {
     func setup() {
         gameLogic.delegate = self
         newGameButton.layer.cornerRadius = newGameButton.frame.height/8
-        for attempt in allAttempts {
-            for label in attempt {
-                label.font = UIFont.systemFont(ofSize: label.frame.height * 0.25)
-                label.textColor = UIColor(white: 0.2, alpha: 1)
-                label.backgroundColor = .white
-                label.textAlignment = .center
-                label.layer.cornerRadius = label.frame.height/8
-                label.layer.masksToBounds = true
-                label.layer.borderColor = CGColor(red: 0, green: 0.3, blue: 1, alpha: 1)
-            }
+        for attempt in allAttemptsLabels {
+            setupRow(row: attempt)
+        }
+    }
+    
+    func setupRow(row: [UILabel]) {
+        for label in row {
+            label.font = UIFont.systemFont(ofSize: label.frame.height * 0.25)
+            label.textColor = UIColor(white: 0.2, alpha: 1)
+            label.backgroundColor = .white
+            label.textAlignment = .center
+            label.layer.cornerRadius = label.frame.height/8
+            label.layer.masksToBounds = true
+            label.layer.borderColor = CGColor(red: 0, green: 0.3, blue: 1, alpha: 1)
         }
     }
     
     func resetLastBorder() {
-        allAttempts[gameLogic.labelArrayIndex][gameLogic.labelIndex].layer.borderWidth = 0
+        allAttemptsLabels[gameLogic.labelArrayIndex][gameLogic.labelIndex].layer.borderWidth = 0
+    }
+    
+    func resetAllAttempts() {
+        allAttempts = []
+        
+        for attempt in allAttemptsLabels {
+            let attemptLetters = attempt.map { $0.text ?? "" }
+            allAttempts.append(attemptLetters)
+        }
     }
 }
 
@@ -115,6 +135,7 @@ extension GameViewController: GameLogicDelegate {
     func showEndMessage(title: String, message: String) {
         present(Alerts.endGameAlert(title, message, {
             self.gameLogic.startNewGame()
+            self.resetAllAttempts()
         }), animated: true)
     }
     
@@ -123,7 +144,7 @@ extension GameViewController: GameLogicDelegate {
         for key in keyboard {
             key.isEnabled = true
         }
-        backButton.isEnabled = true
+        backButton.isEnabled = gameLogic.labelIndex == 0 ? false : true
         forwardButton.isEnabled = true
         clearButton.isEnabled = true
     }
@@ -138,7 +159,7 @@ extension GameViewController: GameLogicDelegate {
     }
     
     func resetBoxes() {
-        for row in allAttempts {
+        for row in allAttemptsLabels {
             for view in row {
                 view.text = ""
                 if view.backgroundColor != .white {
@@ -157,7 +178,7 @@ extension GameViewController: GameLogicDelegate {
     }
     
     func setBordersAndNavButtons() {
-        let activeRow = allAttempts[gameLogic.labelArrayIndex]
+        let activeRow = allAttemptsLabels[gameLogic.labelArrayIndex]
         for label in activeRow {
             label.layer.borderWidth = 0
         }
@@ -170,7 +191,7 @@ extension GameViewController: GameLogicDelegate {
         var index = 0
         var delay = 0.0
         
-        for view in allAttempts[gameLogic.labelArrayIndex] {
+        for view in allAttemptsLabels[gameLogic.labelArrayIndex] {
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                 
                 if self.gameLogic.checkResults[index] == 1 {
