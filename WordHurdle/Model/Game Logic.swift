@@ -34,7 +34,7 @@ struct GameLogic {
             for _ in randomWord {
                 let char = String(randomWord[randomWord.index(randomWord.startIndex, offsetBy: characterIndex)])
                 characterArray.append(char)
-                AllLetters.addCounter(char)
+                AllLetters.shared.addCounter(char)
                 characterIndex += 1
             }
             print(randomWord)
@@ -67,13 +67,14 @@ struct GameLogic {
             Alerts.timedAlert(VC, guessedLetters.joined())
         }
         
+        
         func checkGreen() {
             var labelIndex = 0
             
             for letter in guessedLetters {
                 if letter == characterArray[labelIndex] {
                     checkResults[labelIndex] = 3
-                    AllLetters.letters[letter]! -= 1
+                    AllLetters.shared.letters[letter]! -= 1
                 }
                 labelIndex += 1
             }
@@ -83,14 +84,15 @@ struct GameLogic {
             var labelIndex = 0
             for letter in guessedLetters {
                 
-                if characterArray.contains(where: { string in string == letter}) && AllLetters.letters[letter]! > 0 {
+                if characterArray.contains(where: { string in string == letter}) && AllLetters.shared.letters[letter]! > 0 {
                     
                     if checkResults[labelIndex] != 3 {
                         checkResults[labelIndex] = 2
-                        AllLetters.letters[letter]! -= 1
+                        AllLetters.shared.letters[letter]! -= 1
                     }
                 } else if !characterArray.contains(where: { string in string == letter })
-                            || characterArray.contains(where: { string in string == letter}) && (AllLetters.letters[letter]! == 0) {
+                            || characterArray.contains(where: { string in string == letter}) &&
+                            (AllLetters.shared.letters[letter]! == 0) {
                     
                     if checkResults[labelIndex] != 3 {
                         checkResults[labelIndex] = 1
@@ -133,7 +135,7 @@ struct GameLogic {
                 
                 for result in checkResults {
                     if result == 3 || result == 2 {
-                        AllLetters.letters[allAttempts[labelArrayIndex][index].text!]! += 1
+                        AllLetters.shared.letters[allAttempts[labelArrayIndex][index].text!]! += 1
                     }
                     index += 1
                 }
@@ -168,7 +170,7 @@ struct GameLogic {
     }
     
     static func startNewGame(_ allAttempts: [[UILabel]]) {
-        AllLetters.resetCounters()
+        AllLetters.shared.resetCounters()
         characterArray = [String]()
         delegate?.resetBoxes()
         randomWord = AllWords.words.randomElement()!
@@ -178,7 +180,7 @@ struct GameLogic {
         loadStats()
     }
     
-//MARK: - Plist methods
+    //MARK: - Plist methods
     
     static func saveStats() {
         

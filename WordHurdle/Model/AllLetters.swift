@@ -7,10 +7,11 @@
 
 import Foundation
 
-struct AllLetters {
+class AllLetters {
     
-    static var letters = [
-        
+    static let shared = AllLetters()
+    
+    var letters = [
         "A": 0,
         "B": 0,
         "C": 0,
@@ -39,14 +40,14 @@ struct AllLetters {
         "Z": 0
     ]
     
-    static func addCounter(_ letter: String) {
-        AllLetters.letters[letter]! += 1
+    func addCounter(_ letter: String) {
+        letters[letter]! += 1
     }
     
-    static func resetCounters() {
+    func resetCounters() {
         for (letter, _) in letters {
             letters[letter] = 0
         }
     }
-
 }
+
