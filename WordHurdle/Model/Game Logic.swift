@@ -18,20 +18,20 @@ protocol GameLogicDelegate {
     func showNonExistentWordAlert(_ word: String)
 }
 
-struct GameLogic {
+class GameLogic {
     
-    static let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: "Stats.plist")
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: "Stats.plist")
     
-    static var delegate: GameLogicDelegate?
-    static var characterArray = [String]()
-    static var checkResults = [Int]()
-    static var labelArrayIndex = 0
-    static var labelIndex = 0 {
+    var delegate: GameLogicDelegate?
+    var characterArray = [String]()
+    var checkResults = [Int]()
+    var labelArrayIndex = 0
+    var labelIndex = 0 {
         didSet {
             delegate?.setBordersAndNavButtons()
         }
     }
-    static var randomWord = "" {
+    var randomWord = "" {
         didSet {
             var characterIndex = 0
             for _ in randomWord {
@@ -44,7 +44,7 @@ struct GameLogic {
         }
     }
     
-    static func performCheck(_ allAttempts: [[UILabel]]) {
+    func performCheck(_ allAttempts: [[UILabel]]) {
         var guessedLetters = [String]()
         checkResults = [0, 0, 0, 0, 0]
         
@@ -62,17 +62,17 @@ struct GameLogic {
         
         checkGreen(for: guessedLetters)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            checkRest(for: guessedLetters)
+            self.checkRest(for: guessedLetters)
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            delegate?.showCheckResults()
+            self.delegate?.showCheckResults()
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            progressGame(allAttempts)
+            self.progressGame(allAttempts)
         }
     }
     
-    static func checkGreen(for guessedLetters: [String]) {
+    func checkGreen(for guessedLetters: [String]) {
         var labelIndex = 0
         
         for letter in guessedLetters {
@@ -84,7 +84,7 @@ struct GameLogic {
         }
     }
     
-    static func checkRest(for guessedLetters: [String]) {
+    func checkRest(for guessedLetters: [String]) {
         var labelIndex = 0
         for letter in guessedLetters {
             
@@ -107,7 +107,7 @@ struct GameLogic {
     }
     
     
-    static private func progressGame(_ allAttempts: [[UILabel]]) {
+    private  func progressGame(_ allAttempts: [[UILabel]]) {
         var alertTitle = ""
         var alertMessage = ""
         
@@ -170,7 +170,7 @@ struct GameLogic {
         }
     }
     
-    static func startNewGame() {
+    func startNewGame() {
         AllLetters.shared.resetCounters()
         characterArray = [String]()
         delegate?.resetBoxes()
@@ -183,21 +183,21 @@ struct GameLogic {
     
     //MARK: - Plist methods
     
-    static func saveStats() {
+    func saveStats() {
         
         let encoder = PropertyListEncoder()
         
         do {
             let data = try encoder.encode(PlayerStats.stats)
-            try data.write(to: GameLogic.dataFilePath!)
+            try data.write(to: dataFilePath!)
         } catch {
             print("error encoding item array, \(error)")
         }
     }
     
-    static func loadStats() {
+    func loadStats() {
         
-        if let data = try? Data(contentsOf: GameLogic.dataFilePath!) {
+        if let data = try? Data(contentsOf: dataFilePath!) {
             let decoder = PropertyListDecoder()
             do {
                 PlayerStats.stats = try decoder.decode([Stat].self, from: data)

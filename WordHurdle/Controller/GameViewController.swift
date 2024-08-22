@@ -15,7 +15,7 @@ class GameViewController: UIViewController {
     @IBOutlet var fourthAttempt: [UILabel]!
     @IBOutlet var fifthAttempt: [UILabel]!
     @IBOutlet var sixthAttempt: [UILabel]!
-
+    
     @IBOutlet var keyboard: [UIButton]!
     
     @IBOutlet weak var newGameButton: UIButton!
@@ -26,29 +26,31 @@ class GameViewController: UIViewController {
     
     var allAttempts = [[UILabel]]()
     
+    var gameLogic = GameLogic()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         allAttempts = [firstAttempt, secondAttempt, thirdAttempt, fourthAttempt, fifthAttempt, sixthAttempt]
         setup()
-        GameLogic.startNewGame()
+        gameLogic.startNewGame()
     }
     
     
     @IBAction func newGameIsPressed(_ sender: UIButton) {
-        GameLogic.startNewGame()
+        gameLogic.startNewGame()
     }
     
     @IBAction func navButtonIsPressed(_ sender: UIButton) {
-        GameLogic.labelIndex = sender.tag == 1 ? (GameLogic.labelIndex - 1) : (GameLogic.labelIndex + 1)
-
+        gameLogic.labelIndex = sender.tag == 1 ? (gameLogic.labelIndex - 1) : (gameLogic.labelIndex + 1)
+        
     }
     
     @IBAction func clearButtonIsPressed(_ sender: UIButton) {
-        for attempt in allAttempts[GameLogic.labelArrayIndex] {
+        for attempt in allAttempts[gameLogic.labelArrayIndex] {
             attempt.text = ""
         }
-        GameLogic.labelIndex = 0
+        gameLogic.labelIndex = 0
     }
     
     @IBAction func letterIsPressed(_ sender: UIButton) {
@@ -58,27 +60,27 @@ class GameViewController: UIViewController {
             sender.alpha = 1
         }
         
-        allAttempts[GameLogic.labelArrayIndex][GameLogic.labelIndex].text = sender.currentTitle
-        if GameLogic.labelIndex < 4 {
-            GameLogic.labelIndex += 1
+        allAttempts[gameLogic.labelArrayIndex][gameLogic.labelIndex].text = sender.currentTitle
+        if gameLogic.labelIndex < 4 {
+            gameLogic.labelIndex += 1
         }
     }
     
     @IBAction func deleteIsPressed(_ sender: UIButton) {
-        allAttempts[GameLogic.labelArrayIndex][GameLogic.labelIndex].text = ""
+        allAttempts[gameLogic.labelArrayIndex][gameLogic.labelIndex].text = ""
     }
     
     
     @IBAction func checkIsPressed(_ sender: UIButton) {
-        if allAttempts[GameLogic.labelArrayIndex].allSatisfy({ UILabel in
+        if allAttempts[gameLogic.labelArrayIndex].allSatisfy({ UILabel in
             UILabel.text != ""
         }) {
-            GameLogic.performCheck(allAttempts)
+            gameLogic.performCheck(allAttempts)
         }
     }
     
     func setup() {
-        GameLogic.delegate = self
+        gameLogic.delegate = self
         newGameButton.layer.cornerRadius = newGameButton.frame.height/8
         for attempt in allAttempts {
             for label in attempt {
@@ -94,7 +96,7 @@ class GameViewController: UIViewController {
     }
     
     func resetLastBorder() {
-        allAttempts[GameLogic.labelArrayIndex][GameLogic.labelIndex].layer.borderWidth = 0
+        allAttempts[gameLogic.labelArrayIndex][gameLogic.labelIndex].layer.borderWidth = 0
     }
 }
 
@@ -112,7 +114,7 @@ extension GameViewController: GameLogicDelegate {
     
     func showEndMessage(title: String, message: String) {
         present(Alerts.endGameAlert(title, message, {
-            GameLogic.startNewGame()
+            self.gameLogic.startNewGame()
         }), animated: true)
     }
     
@@ -155,23 +157,23 @@ extension GameViewController: GameLogicDelegate {
     }
     
     func setBordersAndNavButtons() {
-        let activeRow = allAttempts[GameLogic.labelArrayIndex]
+        let activeRow = allAttempts[gameLogic.labelArrayIndex]
         for label in activeRow {
             label.layer.borderWidth = 0
         }
-        activeRow[GameLogic.labelIndex].layer.borderWidth = activeRow[GameLogic.labelIndex].layer.frame.height/20
-        backButton.isEnabled = GameLogic.labelIndex == 0 ? false : true
-        forwardButton.isEnabled = GameLogic.labelIndex == 4 ? false : true
+        activeRow[gameLogic.labelIndex].layer.borderWidth = activeRow[gameLogic.labelIndex].layer.frame.height/20
+        backButton.isEnabled = gameLogic.labelIndex == 0 ? false : true
+        forwardButton.isEnabled = gameLogic.labelIndex == 4 ? false : true
     }
     
     func showCheckResults() {
         var index = 0
         var delay = 0.0
         
-        for view in allAttempts[GameLogic.labelArrayIndex] {
+        for view in allAttempts[gameLogic.labelArrayIndex] {
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                 
-                if GameLogic.checkResults[index] == 1 {
+                if self.gameLogic.checkResults[index] == 1 {
                     UIView.transition(with: view, duration: 0.7, options: .transitionFlipFromLeft) {
                         view.backgroundColor = .systemGray
                     }
@@ -179,7 +181,7 @@ extension GameViewController: GameLogicDelegate {
                         self.colorKeysClear(view.text!)
                     }
                     
-                } else if GameLogic.checkResults[index] == 2 {
+                } else if self.gameLogic.checkResults[index] == 2 {
                     UIView.transition(with: view, duration: 0.7, options: .transitionFlipFromLeft) {
                         view.backgroundColor = .systemYellow
                     }
