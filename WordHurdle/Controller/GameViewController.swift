@@ -103,6 +103,20 @@ class GameViewController: UIViewController {
 
 extension GameViewController: GameLogicDelegate {
     
+    func showNonExistentWordAlert(_ word: String) {
+        present(Alerts.timedAlert(word), animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.dismiss(animated: true)
+        }
+    }
+    
+    func showEndMessage(title: String, message: String) {
+        present(Alerts.endGameAlert(title, message, {
+            GameLogic.startNewGame(self.allAttempts)
+        }), animated: true)
+    }
+    
+    
     func enableKeyboard() {
         for key in keyboard {
             key.isEnabled = true

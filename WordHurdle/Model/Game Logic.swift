@@ -13,6 +13,8 @@ protocol GameLogicDelegate {
     func resetBoxes()
     func setBordersAndNavButtons()
     func showCheckResults()
+    func showEndMessage(title: String, message: String)
+    func showNonExistentWordAlert(_ word: String)
 }
 
 struct GameLogic {
@@ -61,10 +63,10 @@ struct GameLogic {
                 delegate?.showCheckResults()
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                progressGame(VC, allAttempts)
+                progressGame(allAttempts)
             }
         } else {
-            Alerts.timedAlert(VC, guessedLetters.joined())
+            delegate?.showNonExistentWordAlert(guessedLetters.joined())
         }
         
         
@@ -103,7 +105,7 @@ struct GameLogic {
         }
     }
     
-    static private func progressGame(_ VC: UIViewController, _ allAttempts: [[UILabel]]) {
+    static private func progressGame(_ allAttempts: [[UILabel]]) {
         var alertTitle = ""
         var alertMessage = ""
         
@@ -113,10 +115,8 @@ struct GameLogic {
             //CORRECT WORD GUESSED (GAME WON)
             alertTitle = "Congrats!"
             alertMessage = "You succeeded!"
-            Alerts.endGameAlert(VC, alertTitle, alertMessage, {
-                self.startNewGame(allAttempts)
-            })
             delegate?.disableKeyboard()
+            delegate?.showEndMessage(title: alertTitle, message: alertMessage)
             
             PlayerStats.stats[0].value += 1
             PlayerStats.stats[1].value += 1
@@ -146,10 +146,8 @@ struct GameLogic {
                 //WRONG WORD GUESSED AND NO MORE ATTEMPTS REMAIN (GAME LOST)
                 alertTitle = "Darn it..."
                 alertMessage = "The secret word was: \n\(randomWord.uppercased())"
-                Alerts.endGameAlert(VC, alertTitle, alertMessage, {
-                    self.startNewGame(allAttempts)
-                })
                 delegate?.disableKeyboard()
+                delegate?.showEndMessage(title: alertTitle, message: alertMessage)
                 PlayerStats.stats[0].value += 1
                 PlayerStats.stats[2].value = 0
                 saveStats()
