@@ -5,7 +5,8 @@
 //  Created by Andrea Bottino on 02/11/2023.
 //
 
-import UIKit
+import
+UIKit
 
 protocol GameLogicDelegate {
     func enableKeyboard()
@@ -51,66 +52,67 @@ struct GameLogic {
             guessedLetters.append(label.text!)
         }
         
-        if AllWords.words.contains(where: { gameWord in
+        guard AllWords.words.contains(where: { word in
             let guess = guessedLetters.joined()
-            return gameWord == guess
-        }) {
-            checkGreen()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                checkRest()
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                delegate?.showCheckResults()
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                progressGame(allAttempts)
-            }
-        } else {
+            return word == guess
+        }) else {
             delegate?.showNonExistentWordAlert(guessedLetters.joined())
+            return
         }
         
-        
-        func checkGreen() {
-            var labelIndex = 0
-            
-            for letter in guessedLetters {
-                if letter == characterArray[labelIndex] {
-                    checkResults[labelIndex] = 3
-                    AllLetters.shared.letters[letter]! -= 1
-                }
-                labelIndex += 1
-            }
+        checkGreen(for: guessedLetters)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            checkRest(for: guessedLetters)
         }
-        
-        func checkRest() {
-            var labelIndex = 0
-            for letter in guessedLetters {
-                
-                if characterArray.contains(where: { string in string == letter}) && AllLetters.shared.letters[letter]! > 0 {
-                    
-                    if checkResults[labelIndex] != 3 {
-                        checkResults[labelIndex] = 2
-                        AllLetters.shared.letters[letter]! -= 1
-                    }
-                } else if !characterArray.contains(where: { string in string == letter })
-                            || characterArray.contains(where: { string in string == letter}) &&
-                            (AllLetters.shared.letters[letter]! == 0) {
-                    
-                    if checkResults[labelIndex] != 3 {
-                        checkResults[labelIndex] = 1
-                    }
-                }
-                labelIndex += 1
-            }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            delegate?.showCheckResults()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            progressGame(allAttempts)
         }
     }
+    
+    static func checkGreen(for guessedLetters: [String]) {
+        var labelIndex = 0
+        
+        for letter in guessedLetters {
+            if letter == characterArray[labelIndex] {
+                checkResults[labelIndex] = 3
+                AllLetters.shared.letters[letter]! -= 1
+            }
+            labelIndex += 1
+        }
+    }
+    
+    static func checkRest(for guessedLetters: [String]) {
+        var labelIndex = 0
+        for letter in guessedLetters {
+            
+            if characterArray.contains(where: { $0 == letter }) && AllLetters.shared.letters[letter]! > 0 {
+                
+                if checkResults[labelIndex] != 3 {
+                    checkResults[labelIndex] = 2
+                    AllLetters.shared.letters[letter]! -= 1
+                }
+            } else if !characterArray.contains(where: { $0 == letter })
+                        || characterArray.contains(where: { $0 == letter }) &&
+                        (AllLetters.shared.letters[letter]! == 0) {
+                
+                if checkResults[labelIndex] != 3 {
+                    checkResults[labelIndex] = 1
+                }
+            }
+            labelIndex += 1
+        }
+    }
+    
     
     static private func progressGame(_ allAttempts: [[UILabel]]) {
         var alertTitle = ""
         var alertMessage = ""
         
-        if checkResults.allSatisfy({ Int in
-            Int == 3
+        if checkResults.allSatisfy({ int in
+            int == 3
         }) {
             //CORRECT WORD GUESSED (GAME WON)
             alertTitle = "Congrats!"
