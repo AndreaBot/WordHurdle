@@ -191,27 +191,25 @@ extension GameViewController: GameLogicDelegate {
         var index = 0
         var delay = 0.0
         
-        for view in allAttemptsLabels[gameLogic.labelArrayIndex] {
+        for label in allAttemptsLabels[gameLogic.labelArrayIndex] {
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                
-                if self.gameLogic.checkResults[index] == .letterNotPresent {
-                    UIView.transition(with: view, duration: 0.7, options: .transitionFlipFromLeft) {
-                        view.backgroundColor = .systemGray
-                    }
-                    UIView.transition(with: self.keyboard[index], duration: 0.7, options: .transitionCrossDissolve) {
-                        self.colorKeysClear(view.text!)
-                    }
-                    
-                } else if self.gameLogic.checkResults[index] == .wrongLetterPlacement {
-                    UIView.transition(with: view, duration: 0.7, options: .transitionFlipFromLeft) {
-                        view.backgroundColor = .systemYellow
-                    }
-                } else {
-                    UIView.transition(with: view, duration: 0.7, options: .transitionFlipFromLeft) {
-                        view.backgroundColor = .systemGreen
-                    }
-                    UIView.transition(with: self.keyboard[index], duration: 0.7, options: .transitionCrossDissolve) {
-                        self.colorKeysGreen(view.text!)
+                UIView.transition(with: label, duration: 0.7, options: .transitionFlipFromLeft) {
+                    switch self.gameLogic.checkResults[index] {
+                        
+                    case .correctLetterPlacement:
+                        label.backgroundColor = .systemGreen
+                        UIView.transition(with: self.keyboard[index], duration: 0.7, options: .transitionCrossDissolve) {
+                            self.colorKeys(label.text!, color: .systemGreen)
+                        }
+                    case .wrongLetterPlacement:
+                        label.backgroundColor = .systemYellow
+                    case .letterNotPresent:
+                        label.backgroundColor = .systemGray
+                        UIView.transition(with: self.keyboard[index], duration: 0.7, options: .transitionCrossDissolve) {
+                            self.colorKeys(label.text!, color: .clear)
+                        }
+                    case .neutral:
+                        label.backgroundColor = .clear
                     }
                 }
                 index += 1
@@ -221,23 +219,11 @@ extension GameViewController: GameLogicDelegate {
         resetLastBorder()
     }
     
-    func colorKeysGreen(_ letter: String) {
-        let keysToColor = keyboard.filter { UIButton in
-            UIButton.currentTitle == letter
-        }
-        for key in keysToColor {
-            key.backgroundColor = .systemGreen
-        }
-    }
-    
-    func colorKeysClear(_ letter: String) {
-        let keysToColor = keyboard.filter { UIButton in
-            UIButton.currentTitle == letter
-        }
-        for key in keysToColor {
-            if key.backgroundColor != .systemGreen {
-                key.backgroundColor = .clear
-            }
+    func colorKeys(_ letter: String, color: UIColor) {
+        for key in keyboard.filter({ button in
+            button.currentTitle == letter
+        }) {
+            key.backgroundColor = color
         }
     }
 }
