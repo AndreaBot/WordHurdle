@@ -16,7 +16,7 @@ class GameLogic {
     
     var delegate: GameLogicDelegate?
     var characterArray = [String]()
-    var checkResults = [Int]()
+    var checkResults = [CheckResults]()
     var labelArrayIndex = 0
     var labelIndex = 0 {
         didSet {
@@ -42,7 +42,7 @@ class GameLogic {
     
     func performCheck(_ allAttempts: [[String]]) {
         var guessedLetters = [String]()
-        checkResults = [0, 0, 0, 0, 0]
+        checkResults = [.neutral, .neutral, .neutral, .neutral, .neutral]
         
         for letter in allAttempts[labelArrayIndex] {
             guessedLetters.append(letter)
@@ -73,7 +73,7 @@ class GameLogic {
         
         for letter in guessedLetters {
             if letter == characterArray[labelIndex] {
-                checkResults[labelIndex] = 3
+                checkResults[labelIndex] = .correctLetterPlacement
                 allLetters.letters[letter]! -= 1
             }
             labelIndex += 1
@@ -86,16 +86,19 @@ class GameLogic {
             
             if characterArray.contains(where: { $0 == letter }) && allLetters.letters[letter]! > 0 {
                 
-                if checkResults[labelIndex] != 3 {
-                    checkResults[labelIndex] = 2
+                if checkResults[labelIndex] != .correctLetterPlacement {
+                    checkResults[labelIndex] = .wrongLetterPlacement
                     allLetters.letters[letter]! -= 1
                 }
             } else if !characterArray.contains(where: { $0 == letter })
                         || characterArray.contains(where: { $0 == letter }) &&
                         (allLetters.letters[letter]! == 0) {
                 
-                if checkResults[labelIndex] != 3 {
-                    checkResults[labelIndex] = 1
+                //                if checkResults[labelIndex] != 3 {
+                //                    checkResults[labelIndex] = 1
+                //                }
+                if checkResults[labelIndex] != .correctLetterPlacement {
+                    checkResults[labelIndex] = .letterNotPresent
                 }
             }
             labelIndex += 1
@@ -107,8 +110,8 @@ class GameLogic {
         var alertTitle = ""
         var alertMessage = ""
         
-        if checkResults.allSatisfy({ int in
-            int == 3
+        if checkResults.allSatisfy({ result in
+            result == .correctLetterPlacement
         }) {
             //CORRECT WORD GUESSED (GAME WON)
             alertTitle = "Congrats!"
@@ -132,7 +135,7 @@ class GameLogic {
                 var index = 0
                 
                 for result in checkResults {
-                    if result == 3 || result == 2 {
+                    if result == .correctLetterPlacement || result == .wrongLetterPlacement {
                         let currentLetter = allAttempts[labelArrayIndex][index]
                         allLetters.letters[currentLetter]! += 1
                     }

@@ -25,6 +25,7 @@
 		62A958572AF4154F0056FA25 /* Game Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A958562AF4154F0056FA25 /* Game Logic.swift */; };
 		62A958592AF419FD0056FA25 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A958582AF419FD0056FA25 /* Alerts.swift */; };
 		62F4D73D2C7E5C5F00CEC7A7 /* GameLogicDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F4D73C2C7E5C5F00CEC7A7 /* GameLogicDelegate.swift */; };
+		62F4D7402C7E5EC500CEC7A7 /* CheckResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F4D73F2C7E5EC500CEC7A7 /* CheckResults.swift */; };
 		FDD6DB5DC1C801F2FCEF89B5 /* Pods_WordHurdle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07915E3817D27611D3F9C5E7 /* Pods_WordHurdle.framework */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		62A958562AF4154F0056FA25 /* Game Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game Logic.swift"; sourceTree = "<group>"; };
 		62A958582AF419FD0056FA25 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		62F4D73C2C7E5C5F00CEC7A7 /* GameLogicDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogicDelegate.swift; sourceTree = "<group>"; };
+		62F4D73F2C7E5EC500CEC7A7 /* CheckResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckResults.swift; sourceTree = "<group>"; };
 		780EFAA0F9A1402A8A4B07EF /* Pods-WordHurdle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordHurdle.debug.xcconfig"; path = "Target Support Files/Pods-WordHurdle/Pods-WordHurdle.debug.xcconfig"; sourceTree = "<group>"; };
 		9E9AA02DBC5D9EE5E43BB8D8 /* Pods-WordHurdle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordHurdle.release.xcconfig"; path = "Target Support Files/Pods-WordHurdle/Pods-WordHurdle.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,6 +115,7 @@
 		62A958472AEC53790056FA25 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				62F4D73F2C7E5EC500CEC7A7 /* CheckResults.swift */,
 				62A958452AEC52F60056FA25 /* AllWords.swift */,
 				62A958512AEF16BB0056FA25 /* AllLetters.swift */,
 				62A958562AF4154F0056FA25 /* Game Logic.swift */,
@@ -291,6 +294,7 @@
 				62F4D73D2C7E5C5F00CEC7A7 /* GameLogicDelegate.swift in Sources */,
 				62575A232AFAA49A000D6417 /* Stat.swift in Sources */,
 				62A958462AEC52F60056FA25 /* AllWords.swift in Sources */,
+				62F4D7402C7E5EC500CEC7A7 /* CheckResults.swift in Sources */,
 				62A958322AEC52B50056FA25 /* AppDelegate.swift in Sources */,
 				62A9584D2AEC54430056FA25 /* GameViewController.swift in Sources */,
 				62A958592AF419FD0056FA25 /* Alerts.swift in Sources */,

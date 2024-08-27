@@ -194,7 +194,7 @@ extension GameViewController: GameLogicDelegate {
         for view in allAttemptsLabels[gameLogic.labelArrayIndex] {
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                 
-                if self.gameLogic.checkResults[index] == 1 {
+                if self.gameLogic.checkResults[index] == .letterNotPresent {
                     UIView.transition(with: view, duration: 0.7, options: .transitionFlipFromLeft) {
                         view.backgroundColor = .systemGray
                     }
@@ -202,7 +202,7 @@ extension GameViewController: GameLogicDelegate {
                         self.colorKeysClear(view.text!)
                     }
                     
-                } else if self.gameLogic.checkResults[index] == 2 {
+                } else if self.gameLogic.checkResults[index] == .wrongLetterPlacement {
                     UIView.transition(with: view, duration: 0.7, options: .transitionFlipFromLeft) {
                         view.backgroundColor = .systemYellow
                     }
