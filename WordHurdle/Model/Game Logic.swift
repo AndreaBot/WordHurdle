@@ -15,7 +15,7 @@ class GameLogic {
     let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: "Stats.plist")
     
     var delegate: GameLogicDelegate?
-    var characterArray = [String]()
+    var correctCharacterArray = [String]()
     var checkResults = [CheckResults]()
     var labelArrayIndex = 0
     var labelIndex = 0 {
@@ -28,7 +28,7 @@ class GameLogic {
             var characterIndex = 0
             for _ in randomWord {
                 let char = String(randomWord[randomWord.index(randomWord.startIndex, offsetBy: characterIndex)])
-                characterArray.append(char)
+                correctCharacterArray.append(char)
                 allLetters.addCounter(char)
                 characterIndex += 1
             }
@@ -56,7 +56,7 @@ class GameLogic {
             return
         }
         
-        check(guessedLetters)
+        check(guessedLetters, correctCharacterArray: correctCharacterArray)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.delegate?.showCheckResults()
         }
@@ -65,10 +65,10 @@ class GameLogic {
         }
     }
     
-    func check(_ guessedLetters: [String]) {
+    func check(_ guessedLetters: [String], correctCharacterArray: [String]) {
         var index = 0
         for letter in guessedLetters {
-            if letter == characterArray[index] {
+            if letter == correctCharacterArray[index] {
                 checkResults[index] = .correctLetterPlacement
                 allLetters.letters[letter]! -= 1
             } else {
@@ -84,7 +84,7 @@ class GameLogic {
     }
     
     
-    private  func progressGame(_ allAttempts: [[String]]) {
+    private func progressGame(_ allAttempts: [[String]]) {
         var alertTitle = ""
         var alertMessage = ""
         
@@ -149,7 +149,7 @@ class GameLogic {
     
     func startNewGame() {
         allLetters.resetCounters()
-        characterArray = [String]()
+        correctCharacterArray = [String]()
         delegate?.resetBoxes()
         randomWord = AllWords.words.randomElement()!
         labelArrayIndex = 0
