@@ -69,39 +69,29 @@ class GameLogic {
     }
     
     func checkGreen(for guessedLetters: [String]) {
-        var labelIndex = 0
+        var index = 0
         
         for letter in guessedLetters {
-            if letter == characterArray[labelIndex] {
-                checkResults[labelIndex] = .correctLetterPlacement
+            if letter == characterArray[index] {
+                checkResults[index] = .correctLetterPlacement
                 allLetters.letters[letter]! -= 1
             }
-            labelIndex += 1
+            index += 1
         }
     }
     
     func checkRest(for guessedLetters: [String]) {
-        var labelIndex = 0
+        var index = 0
         for letter in guessedLetters {
-            
-            if characterArray.contains(where: { $0 == letter }) && allLetters.letters[letter]! > 0 {
-                
-                if checkResults[labelIndex] != .correctLetterPlacement {
-                    checkResults[labelIndex] = .wrongLetterPlacement
+            if checkResults[index] != .correctLetterPlacement {
+                if allLetters.letters[letter]! > 0 {
+                    checkResults[index] = .wrongLetterPlacement
                     allLetters.letters[letter]! -= 1
-                }
-            } else if !characterArray.contains(where: { $0 == letter })
-                        || characterArray.contains(where: { $0 == letter }) &&
-                        (allLetters.letters[letter]! == 0) {
-                
-                //                if checkResults[labelIndex] != 3 {
-                //                    checkResults[labelIndex] = 1
-                //                }
-                if checkResults[labelIndex] != .correctLetterPlacement {
-                    checkResults[labelIndex] = .letterNotPresent
+                } else {
+                    checkResults[index] = .letterNotPresent
                 }
             }
-            labelIndex += 1
+            index += 1
         }
     }
     
@@ -183,7 +173,6 @@ class GameLogic {
     //MARK: - Plist methods
     
     func saveStats() {
-        
         let encoder = PropertyListEncoder()
         
         do {
@@ -195,7 +184,6 @@ class GameLogic {
     }
     
     func loadStats() {
-        
         if let data = try? Data(contentsOf: dataFilePath!) {
             let decoder = PropertyListDecoder()
             do {
