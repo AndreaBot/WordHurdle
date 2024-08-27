@@ -56,10 +56,7 @@ class GameLogic {
             return
         }
         
-        checkGreen(for: guessedLetters)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.checkRest(for: guessedLetters)
-        }
+        check(guessedLetters)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.delegate?.showCheckResults()
         }
@@ -68,22 +65,13 @@ class GameLogic {
         }
     }
     
-    func checkGreen(for guessedLetters: [String]) {
+    func check(_ guessedLetters: [String]) {
         var index = 0
-        
         for letter in guessedLetters {
             if letter == characterArray[index] {
                 checkResults[index] = .correctLetterPlacement
                 allLetters.letters[letter]! -= 1
-            }
-            index += 1
-        }
-    }
-    
-    func checkRest(for guessedLetters: [String]) {
-        var index = 0
-        for letter in guessedLetters {
-            if checkResults[index] != .correctLetterPlacement {
+            } else {
                 if allLetters.letters[letter]! > 0 {
                     checkResults[index] = .wrongLetterPlacement
                     allLetters.letters[letter]! -= 1
