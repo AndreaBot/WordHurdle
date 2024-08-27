@@ -27,7 +27,7 @@ class GameViewController: UIViewController {
     var allAttemptsLabels = [[UILabel]]()
     var allAttempts = [[String]]()
     
-    var gameLogic = GameLogic()
+    var gameLogic = GameLogic(allLetters: AllLetters())
     
     
     override func viewDidLoad() {

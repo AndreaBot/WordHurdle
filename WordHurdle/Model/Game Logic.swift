@@ -7,17 +7,10 @@
 
 import Foundation
 
-protocol GameLogicDelegate {
-    func enableKeyboard()
-    func disableKeyboard()
-    func resetBoxes()
-    func setBordersAndNavButtons()
-    func showCheckResults()
-    func showEndMessage(title: String, message: String)
-    func showNonExistentWordAlert(_ word: String)
-}
 
 class GameLogic {
+    
+    let allLetters: AllLetters
     
     let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: "Stats.plist")
     
@@ -36,21 +29,23 @@ class GameLogic {
             for _ in randomWord {
                 let char = String(randomWord[randomWord.index(randomWord.startIndex, offsetBy: characterIndex)])
                 characterArray.append(char)
-                AllLetters.shared.addCounter(char)
+                allLetters.addCounter(char)
                 characterIndex += 1
             }
             print(randomWord)
         }
     }
     
-    
+    init(allLetters: AllLetters) {
+        self.allLetters = allLetters
+    }
     
     func performCheck(_ allAttempts: [[String]]) {
         var guessedLetters = [String]()
         checkResults = [0, 0, 0, 0, 0]
         
-        for label in allAttempts[labelArrayIndex] {
-            guessedLetters.append(label)
+        for letter in allAttempts[labelArrayIndex] {
+            guessedLetters.append(letter)
         }
         
         guard AllWords.words.contains(where: { word in
@@ -79,7 +74,7 @@ class GameLogic {
         for letter in guessedLetters {
             if letter == characterArray[labelIndex] {
                 checkResults[labelIndex] = 3
-                AllLetters.shared.letters[letter]! -= 1
+                allLetters.letters[letter]! -= 1
             }
             labelIndex += 1
         }
@@ -89,15 +84,15 @@ class GameLogic {
         var labelIndex = 0
         for letter in guessedLetters {
             
-            if characterArray.contains(where: { $0 == letter }) && AllLetters.shared.letters[letter]! > 0 {
+            if characterArray.contains(where: { $0 == letter }) && allLetters.letters[letter]! > 0 {
                 
                 if checkResults[labelIndex] != 3 {
                     checkResults[labelIndex] = 2
-                    AllLetters.shared.letters[letter]! -= 1
+                    allLetters.letters[letter]! -= 1
                 }
             } else if !characterArray.contains(where: { $0 == letter })
                         || characterArray.contains(where: { $0 == letter }) &&
-                        (AllLetters.shared.letters[letter]! == 0) {
+                        (allLetters.letters[letter]! == 0) {
                 
                 if checkResults[labelIndex] != 3 {
                     checkResults[labelIndex] = 1
@@ -139,7 +134,7 @@ class GameLogic {
                 for result in checkResults {
                     if result == 3 || result == 2 {
                         let currentLetter = allAttempts[labelArrayIndex][index]
-                        AllLetters.shared.letters[currentLetter]! += 1
+                        allLetters.letters[currentLetter]! += 1
                     }
                     index += 1
                 }
@@ -172,7 +167,7 @@ class GameLogic {
     }
     
     func startNewGame() {
-        AllLetters.shared.resetCounters()
+        allLetters.resetCounters()
         characterArray = [String]()
         delegate?.resetBoxes()
         randomWord = AllWords.words.randomElement()!

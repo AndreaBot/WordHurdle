@@ -9,8 +9,6 @@ import Foundation
 
 class AllLetters {
     
-    static let shared = AllLetters()
-    
     var letters = [
         "A": 0,
         "B": 0,
