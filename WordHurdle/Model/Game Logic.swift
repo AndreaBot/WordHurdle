@@ -14,6 +14,8 @@ class GameLogic {
     
     let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: "Stats.plist")
     
+    var allAttempts = [[String]]()
+    
     var delegate: GameLogicDelegate?
     var correctCharacterArray = [String]()
     var checkResults = [CheckResults]()
@@ -41,6 +43,12 @@ class GameLogic {
     }
     
     func performCheck(_ allAttempts: [[String]]) {
+        guard allAttempts[labelArrayIndex].allSatisfy({ text in
+            text != ""
+        }) else {
+            return
+        }
+        
         var guessedLetters = [String]()
         checkResults = [.neutral, .neutral, .neutral, .neutral, .neutral]
         
@@ -156,6 +164,22 @@ class GameLogic {
         labelIndex = 0
         delegate?.enableKeyboard()
         loadStats()
+    }
+    
+    func appendToAttempts(text: String) {
+       allAttempts[labelArrayIndex][labelIndex] = text
+    }
+    
+    func clear() {
+        for i in 0..<allAttempts[labelArrayIndex].count {
+            allAttempts[labelArrayIndex][i] = ""
+            delegate?.clearRow()
+        }
+        labelIndex = 0
+    }
+    
+    func deleteLetter() {
+       allAttempts[labelArrayIndex][labelIndex] = ""
     }
     
     //MARK: - Plist methods

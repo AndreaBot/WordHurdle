@@ -25,14 +25,12 @@ class GameViewController: UIViewController {
     @IBOutlet weak var clearButton: UIButton!
     
     var allAttemptsLabels = [[UILabel]]()
-    var allAttempts = [[String]]()
     
     var gameLogic = GameLogic(allLetters: AllLetters())
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         allAttemptsLabels = [firstAttempt, secondAttempt, thirdAttempt, fourthAttempt, fifthAttempt, sixthAttempt]
         resetAllAttempts()
         setup()
@@ -51,22 +49,13 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func clearButtonIsPressed(_ sender: UIButton) {
-        for i in 0..<allAttempts[gameLogic.labelArrayIndex].count {
-            allAttempts[gameLogic.labelArrayIndex][i] = ""
-            allAttemptsLabels[gameLogic.labelArrayIndex][i].text! = ""
-        }
-        gameLogic.labelIndex = 0
+        gameLogic.clear()
     }
     
     @IBAction func letterIsPressed(_ sender: UIButton) {
-        
-        sender.alpha = 0.7
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            sender.alpha = 1
-        }
-        
         allAttemptsLabels[gameLogic.labelArrayIndex][gameLogic.labelIndex].text! = sender.currentTitle!
-        allAttempts[gameLogic.labelArrayIndex][gameLogic.labelIndex] = sender.currentTitle!
+        gameLogic.appendToAttempts(text: sender.currentTitle!)
+        
         if gameLogic.labelIndex < 4 {
             gameLogic.labelIndex += 1
         }
@@ -74,16 +63,12 @@ class GameViewController: UIViewController {
     
     @IBAction func deleteIsPressed(_ sender: UIButton) {
         allAttemptsLabels[gameLogic.labelArrayIndex][gameLogic.labelIndex].text! = ""
-        allAttempts[gameLogic.labelArrayIndex][gameLogic.labelIndex] = ""
+        gameLogic.deleteLetter()
     }
     
     
     @IBAction func checkIsPressed(_ sender: UIButton) {
-        if allAttempts[gameLogic.labelArrayIndex].allSatisfy({ text in
-            text != ""
-        }) {
-            gameLogic.performCheck(allAttempts)
-        }
+        gameLogic.performCheck(gameLogic.allAttempts)
     }
     
     func setup() {
@@ -111,11 +96,11 @@ class GameViewController: UIViewController {
     }
     
     func resetAllAttempts() {
-        allAttempts = []
+        gameLogic.allAttempts = []
         
         for attempt in allAttemptsLabels {
             let attemptLetters = attempt.map { $0.text ?? "" }
-            allAttempts.append(attemptLetters)
+            gameLogic.allAttempts.append(attemptLetters)
         }
     }
 }
@@ -124,6 +109,12 @@ class GameViewController: UIViewController {
 //MARK: - GameLogicDelegate
 
 extension GameViewController: GameLogicDelegate {
+    
+    func clearRow() {
+        for label in allAttemptsLabels[gameLogic.labelArrayIndex] {
+            label.text = ""
+        }
+    }
     
     func showNonExistentWordAlert(_ word: String) {
         present(Alerts.timedAlert(word), animated: true)

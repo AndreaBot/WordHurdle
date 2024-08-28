@@ -15,4 +15,5 @@ protocol GameLogicDelegate {
     func showCheckResults()
     func showEndMessage(title: String, message: String)
     func showNonExistentWordAlert(_ word: String)
+    func clearRow()
 }
