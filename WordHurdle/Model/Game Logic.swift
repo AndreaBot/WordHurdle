@@ -34,10 +34,9 @@ class GameLogic {
     var randomWord = "" {
         didSet {
             var characterIndex = 0
-            for _ in randomWord {
-                let char = String(randomWord[randomWord.index(randomWord.startIndex, offsetBy: characterIndex)])
-                correctCharacterArray.append(char)
-                allLetters.addCounter(char)
+            for character in randomWord {
+                correctCharacterArray.append(String(character))
+                allLetters.addCounter(String(character))
                 characterIndex += 1
             }
             print(randomWord)
