@@ -32,7 +32,6 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         allAttemptsLabels = [firstAttempt, secondAttempt, thirdAttempt, fourthAttempt, fifthAttempt, sixthAttempt]
-        resetAllAttempts()
         setup()
         gameLogic.startNewGame()
     }
@@ -40,7 +39,6 @@ class GameViewController: UIViewController {
     
     @IBAction func newGameIsPressed(_ sender: UIButton) {
         gameLogic.startNewGame()
-        resetAllAttempts()
     }
     
     @IBAction func navButtonIsPressed(_ sender: UIButton) {
@@ -53,7 +51,6 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func letterIsPressed(_ sender: UIButton) {
-        allAttemptsLabels[gameLogic.labelArrayIndex][gameLogic.labelIndex].text! = sender.currentTitle!
         gameLogic.appendToAttempts(text: sender.currentTitle!)
         
         if gameLogic.labelIndex < 4 {
@@ -62,7 +59,6 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func deleteIsPressed(_ sender: UIButton) {
-        allAttemptsLabels[gameLogic.labelArrayIndex][gameLogic.labelIndex].text! = ""
         gameLogic.deleteLetter()
     }
     
@@ -94,15 +90,6 @@ class GameViewController: UIViewController {
     func resetLastBorder() {
         allAttemptsLabels[gameLogic.labelArrayIndex][gameLogic.labelIndex].layer.borderWidth = 0
     }
-    
-    func resetAllAttempts() {
-        gameLogic.allAttempts = []
-        
-        for attempt in allAttemptsLabels {
-            let attemptLetters = attempt.map { $0.text ?? "" }
-            gameLogic.allAttempts.append(attemptLetters)
-        }
-    }
 }
 
 
@@ -110,9 +97,9 @@ class GameViewController: UIViewController {
 
 extension GameViewController: GameLogicDelegate {
     
-    func clearRow() {
-        for label in allAttemptsLabels[gameLogic.labelArrayIndex] {
-            label.text = ""
+    func updateCurrentLabel() {
+        for (index, letter) in gameLogic.allAttempts[gameLogic.labelArrayIndex].enumerated() {
+            allAttemptsLabels[gameLogic.labelArrayIndex][index].text! = letter
         }
     }
     
@@ -126,7 +113,6 @@ extension GameViewController: GameLogicDelegate {
     func showEndMessage(title: String, message: String) {
         present(Alerts.endGameAlert(title, message, {
             self.gameLogic.startNewGame()
-            self.resetAllAttempts()
         }), animated: true)
     }
     
@@ -152,7 +138,7 @@ extension GameViewController: GameLogicDelegate {
     func resetBoxes() {
         for row in allAttemptsLabels {
             for view in row {
-                view.text = ""
+               view.text = ""
                 if view.backgroundColor != .white {
                     UIView.transition(with: view, duration: 0.7, options: .transitionFlipFromRight) {
                         view.backgroundColor = .white
