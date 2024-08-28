@@ -23,6 +23,8 @@ class GameLogic {
     }
     
     var delegate: GameLogicDelegate?
+    var keyboardManager: KeyboardManager?
+    
     var correctCharacterArray = [String]()
     var checkResults = [CheckResults]()
     var labelArrayIndex = 0
@@ -118,7 +120,7 @@ class GameLogic {
             //CORRECT WORD GUESSED (GAME WON)
             alertTitle = "Congrats!"
             alertMessage = "You succeeded!"
-            delegate?.disableKeyboard()
+            keyboardManager?.disableKeyboard()
             delegate?.showEndMessage(title: alertTitle, message: alertMessage)
             
             PlayerStats.stats[0].value += 1
@@ -150,7 +152,7 @@ class GameLogic {
                 //WRONG WORD GUESSED AND NO MORE ATTEMPTS REMAIN (GAME LOST)
                 alertTitle = "Darn it..."
                 alertMessage = "The secret word was: \n\(randomWord.uppercased())"
-                delegate?.disableKeyboard()
+                keyboardManager?.disableKeyboard()
                 delegate?.showEndMessage(title: alertTitle, message: alertMessage)
                 PlayerStats.stats[0].value += 1
                 PlayerStats.stats[2].value = 0
@@ -178,7 +180,7 @@ class GameLogic {
         randomWord = AllWords.words.randomElement()!
         labelArrayIndex = 0
         labelIndex = 0
-        delegate?.enableKeyboard()
+        keyboardManager?.enableKeyboard()
         loadStats()
         resetAllAttempts()
     }

@@ -8,8 +8,6 @@
 import Foundation
 
 protocol GameLogicDelegate {
-    func enableKeyboard()
-    func disableKeyboard()
     func resetBoxes()
     func setBordersAndNavButtons()
     func showCheckResults()
@@ -17,3 +15,5 @@ protocol GameLogicDelegate {
     func showNonExistentWordAlert(_ word: String)
     func updateCurrentLabel()
 }
+
+

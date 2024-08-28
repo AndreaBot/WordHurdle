@@ -69,6 +69,7 @@ class GameViewController: UIViewController {
     
     func setup() {
         gameLogic.delegate = self
+        gameLogic.keyboardManager = self
         newGameButton.layer.cornerRadius = newGameButton.frame.height/8
         for attempt in allAttemptsLabels {
             setupRow(row: attempt)
@@ -114,25 +115,6 @@ extension GameViewController: GameLogicDelegate {
         present(Alerts.endGameAlert(title, message, {
             self.gameLogic.startNewGame()
         }), animated: true)
-    }
-    
-    
-    func enableKeyboard() {
-        for key in keyboard {
-            key.isEnabled = true
-        }
-        backButton.isEnabled = gameLogic.labelIndex == 0 ? false : true
-        forwardButton.isEnabled = true
-        clearButton.isEnabled = true
-    }
-    
-    func disableKeyboard() {
-        for key in keyboard {
-            key.isEnabled = false
-        }
-        backButton.isEnabled = false
-        forwardButton.isEnabled = false
-        clearButton.isEnabled = false
     }
     
     func resetBoxes() {
@@ -205,6 +187,28 @@ extension GameViewController: GameLogicDelegate {
     }
 }
 
+//MARK: - KeybordManager protocol
+
+extension GameViewController: KeyboardManager {
+    
+    func enableKeyboard() {
+        for key in keyboard {
+            key.isEnabled = true
+        }
+        backButton.isEnabled = gameLogic.labelIndex == 0 ? false : true
+        forwardButton.isEnabled = true
+        clearButton.isEnabled = true
+    }
+    
+    func disableKeyboard() {
+        for key in keyboard {
+            key.isEnabled = false
+        }
+        backButton.isEnabled = false
+        forwardButton.isEnabled = false
+        clearButton.isEnabled = false
+    }
+}
 
 
 
