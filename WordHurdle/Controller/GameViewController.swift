@@ -70,6 +70,7 @@ class GameViewController: UIViewController {
     func setup() {
         gameLogic.delegate = self
         gameLogic.keyboardManager = self
+        gameLogic.alertsDelegate = self
         newGameButton.layer.cornerRadius = newGameButton.frame.height/8
         for attempt in allAttemptsLabels {
             setupRow(row: attempt)
@@ -102,19 +103,6 @@ extension GameViewController: GameLogicDelegate {
         for (index, letter) in gameLogic.allAttempts[gameLogic.labelArrayIndex].enumerated() {
             allAttemptsLabels[gameLogic.labelArrayIndex][index].text! = letter
         }
-    }
-    
-    func showNonExistentWordAlert(_ word: String) {
-        present(Alerts.timedAlert(word), animated: true)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            self.dismiss(animated: true)
-        }
-    }
-    
-    func showEndMessage(title: String, message: String) {
-        present(Alerts.endGameAlert(title, message, {
-            self.gameLogic.startNewGame()
-        }), animated: true)
     }
     
     func resetBoxes() {
@@ -207,6 +195,24 @@ extension GameViewController: KeyboardManager {
         backButton.isEnabled = false
         forwardButton.isEnabled = false
         clearButton.isEnabled = false
+    }
+}
+
+//MARK: - AlertsDelegate protocol
+
+extension GameViewController: AlertsDelegate {
+    
+    func showNonExistentWordAlert(_ word: String) {
+        present(Alerts.timedAlert(word), animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.dismiss(animated: true)
+        }
+    }
+    
+    func showEndMessage(title: String, message: String) {
+        present(Alerts.endGameAlert(title, message, {
+            self.gameLogic.startNewGame()
+        }), animated: true)
     }
 }
 

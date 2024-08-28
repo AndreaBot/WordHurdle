@@ -24,6 +24,7 @@ class GameLogic {
     
     var delegate: GameLogicDelegate?
     var keyboardManager: KeyboardManager?
+    var alertsDelegate: AlertsDelegate?
     
     var correctCharacterArray = [String]()
     var checkResults = [CheckResults]()
@@ -67,7 +68,7 @@ class GameLogic {
             let guess = guessedLetters.joined()
             return word == guess
         }) else {
-            delegate?.showNonExistentWordAlert(guessedLetters.joined())
+            alertsDelegate?.showNonExistentWordAlert(guessedLetters.joined())
             return
         }
         
@@ -121,7 +122,7 @@ class GameLogic {
             alertTitle = "Congrats!"
             alertMessage = "You succeeded!"
             keyboardManager?.disableKeyboard()
-            delegate?.showEndMessage(title: alertTitle, message: alertMessage)
+            alertsDelegate?.showEndMessage(title: alertTitle, message: alertMessage)
             
             PlayerStats.stats[0].value += 1
             PlayerStats.stats[1].value += 1
@@ -153,7 +154,7 @@ class GameLogic {
                 alertTitle = "Darn it..."
                 alertMessage = "The secret word was: \n\(randomWord.uppercased())"
                 keyboardManager?.disableKeyboard()
-                delegate?.showEndMessage(title: alertTitle, message: alertMessage)
+                alertsDelegate?.showEndMessage(title: alertTitle, message: alertMessage)
                 PlayerStats.stats[0].value += 1
                 PlayerStats.stats[2].value = 0
                 saveStats()
