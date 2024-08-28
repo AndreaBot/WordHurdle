@@ -69,8 +69,11 @@ class GameLogic {
             return
         }
         
-        check(guessedLetters, correctCharacterArray: correctCharacterArray)
+        checkGreen(guessedLetters: guessedLetters, correctCharacterArray: correctCharacterArray)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.checkRest(guessedLetters: guessedLetters, correctCharacterArray: self.correctCharacterArray)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.delegate?.showCheckResults()
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
@@ -78,16 +81,25 @@ class GameLogic {
         }
     }
     
-    func check(_ guessedLetters: [String], correctCharacterArray: [String]) {
+    func checkGreen(guessedLetters: [String], correctCharacterArray: [String]) {
         var index = 0
         for letter in guessedLetters {
             if letter == correctCharacterArray[index] {
                 checkResults[index] = .correctLetterPlacement
                 allLetters.letters[letter]! -= 1
-            } else {
+            }
+            index += 1
+        }
+    }
+    
+    func checkRest(guessedLetters: [String], correctCharacterArray: [String]) {
+        var index = 0
+        for letter in guessedLetters {
+            if checkResults[index] != .correctLetterPlacement {
                 if allLetters.letters[letter]! > 0 {
                     checkResults[index] = .wrongLetterPlacement
                     allLetters.letters[letter]! -= 1
+                    
                 } else {
                     checkResults[index] = .letterNotPresent
                 }
@@ -95,7 +107,6 @@ class GameLogic {
             index += 1
         }
     }
-    
     
     private func progressGame(_ allAttempts: [[String]]) {
         var alertTitle = ""
@@ -173,7 +184,7 @@ class GameLogic {
     }
     
     func appendToAttempts(text: String) {
-       allAttempts[labelArrayIndex][labelIndex] = text
+        allAttempts[labelArrayIndex][labelIndex] = text
     }
     
     func clear() {
@@ -184,16 +195,16 @@ class GameLogic {
     }
     
     func deleteLetter() {
-       allAttempts[labelArrayIndex][labelIndex] = ""
+        allAttempts[labelArrayIndex][labelIndex] = ""
     }
     
     func resetAllAttempts() {
         allAttempts = []
         for _ in 0...5 {
-           allAttempts.append(["", "", "", "", ""])
+            allAttempts.append(["", "", "", "", ""])
         }
     }
-
+    
     
     //MARK: - Plist methods
     
@@ -219,3 +230,7 @@ class GameLogic {
         }
     }
 }
+
+
+
+
