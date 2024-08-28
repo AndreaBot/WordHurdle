@@ -11,8 +11,6 @@ protocol GameLogicDelegate {
     func resetBoxes()
     func setBordersAndNavButtons()
     func showCheckResults()
-//    func showEndMessage(title: String, message: String)
-//    func showNonExistentWordAlert(_ word: String)
     func updateCurrentLabel()
 }
 
