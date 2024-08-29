@@ -25,7 +25,7 @@ class StatsViewController: UIViewController {
     }
     
     func setupChartView() {
-        chartView.addSubview(AnyChartiOS.createChart(view, playerStats: playerStats ?? PlayerStats(dataFilePath: PlayerStats.workingDataFilePath!)))
+        chartView.addSubview(AnyChartiOS.createChart(playerStats: playerStats ?? PlayerStats(dataFilePath: PlayerStats.workingDataFilePath!)))
         chartView.subviews[0].translatesAutoresizingMaskIntoConstraints = false
         chartView.subviews[0].centerXAnchor.constraint(equalTo: chartView.centerXAnchor).isActive = true
         chartView.subviews[0].centerYAnchor.constraint(equalTo: chartView.centerYAnchor).isActive = true

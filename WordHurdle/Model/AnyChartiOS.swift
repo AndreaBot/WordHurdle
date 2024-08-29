@@ -10,7 +10,7 @@ import AnyChartiOS
 
 struct AnyChartiOS {
     
-    static func createChart(_ view: UIView, playerStats: StatsManagerProtocol) -> AnyChartView {
+    static func createChart(playerStats: StatsManagerProtocol) -> AnyChartView {
         
         let anyChartView = AnyChartView()
         
