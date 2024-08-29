@@ -45,7 +45,7 @@ class GameLogic {
     
     init(allLetters: AllLetters, statsManager: StatsManagerProtocol) {
         self.allLetters = allLetters
-        self.statsManager = PlayerStats()
+        self.statsManager = PlayerStats(dataFilePath: PlayerStats.workingDataFilePath!)
     }
     
     func performCheck(_ allAttempts: [[String]]) {
@@ -129,7 +129,7 @@ class GameLogic {
                 statsManager.stats[3].value = statsManager.stats[2].value
             }
             statsManager.setGuessDistribution(index: labelArrayIndex)
-            statsManager.saveStats()
+            statsManager.saveStats(path: PlayerStats.workingDataFilePath!)
             
         } else {
             //WRONG WORD GUESSED AND MORE ATTEMPTS REMAIN
@@ -155,7 +155,7 @@ class GameLogic {
                 alertsDelegate?.showEndMessage(title: alertTitle, message: alertMessage)
                 statsManager.stats[0].value += 1
                 statsManager.stats[2].value = 0
-                statsManager.saveStats()
+                statsManager.saveStats(path: PlayerStats.workingDataFilePath!)
             }
         }
     }
@@ -168,7 +168,7 @@ class GameLogic {
         labelArrayIndex = 0
         labelIndex = 0
         keyboardManager?.enableKeyboard()
-        statsManager.loadStats()
+        statsManager.loadStats(path: PlayerStats.workingDataFilePath!)
         resetAllAttempts()
     }
     

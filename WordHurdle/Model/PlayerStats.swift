@@ -9,7 +9,12 @@ import Foundation
 
 class PlayerStats: StatsManagerProtocol {
     
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: "Stats.plist")
+    static let workingDataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: "Stats.plist")
+    let dataFilePath: URL
+    
+    init(dataFilePath: URL) {
+        self.dataFilePath = dataFilePath
+    }
     
     var stats = [
         Stat(name: "Games played", value: 0, isIncludedInChart: false),
@@ -36,18 +41,18 @@ class PlayerStats: StatsManagerProtocol {
         }
     }
     
-    func saveStats() {
+    func saveStats(path: URL) {
         let encoder = PropertyListEncoder()
         do {
             let data = try encoder.encode(stats)
-            try data.write(to: dataFilePath!)
+            try data.write(to: path)
         } catch {
             print("error encoding item array, \(error)")
         }
     }
-    
-    func loadStats() {
-        if let data = try? Data(contentsOf: dataFilePath!) {
+
+    func loadStats(path: URL) {
+        if let data = try? Data(contentsOf: path) {
             let decoder = PropertyListDecoder()
             do {
                 stats = try decoder.decode([Stat].self, from: data)
@@ -56,6 +61,4 @@ class PlayerStats: StatsManagerProtocol {
             }
         }
     }
-    
-    
 }
