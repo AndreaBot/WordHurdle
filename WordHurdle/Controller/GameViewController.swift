@@ -98,8 +98,7 @@ class GameViewController: UIViewController {
             if let destinationVC = segue.destination as? StatsViewController {
                 destinationVC.playerStats = gameLogic.statsManager
             }
-    }
-        
+        }
     }
 }
 
@@ -117,7 +116,7 @@ extension GameViewController: GameLogicDelegate {
     func resetBoxes() {
         for row in allAttemptsLabels {
             for view in row {
-               view.text = ""
+                view.text = ""
                 if view.backgroundColor != .white {
                     UIView.transition(with: view, duration: 0.7, options: .transitionFlipFromRight) {
                         view.backgroundColor = .white

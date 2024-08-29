@@ -25,7 +25,7 @@ class StatsViewController: UIViewController {
     }
     
     func setupChartView() {
-        chartView.addSubview(AnyChartiOS.createChart(view, playerStats: playerStats!))
+        chartView.addSubview(AnyChartiOS.createChart(view, playerStats: playerStats ?? PlayerStats()))
         chartView.subviews[0].translatesAutoresizingMaskIntoConstraints = false
         chartView.subviews[0].centerXAnchor.constraint(equalTo: chartView.centerXAnchor).isActive = true
         chartView.subviews[0].centerYAnchor.constraint(equalTo: chartView.centerYAnchor).isActive = true
@@ -40,21 +40,25 @@ class StatsViewController: UIViewController {
 
 extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return playerStats!.stats.filter { stat in
-            stat.isIncludedInChart == false
-        }.count
+        if let playerStats = playerStats {
+            return playerStats.stats.filter { stat in
+                stat.isIncludedInChart == false
+            }.count
+        } else {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let filtered = playerStats!.stats.filter { stat in
-            stat.isIncludedInChart == false
-        }
         let cell = tableView.dequeueReusableCell(withIdentifier: "statCell", for: indexPath) as! StatTableViewCell
-        
-        cell.statNameLabel.text = filtered[indexPath.row].name
-        cell.statValueLabel.text = String(filtered[indexPath.row].value)
-        cell.backgroundColor = .clear
-        
+        if let playerStats = playerStats {
+            let filtered = playerStats.stats.filter { stat in
+                stat.isIncludedInChart == false
+            }
+            cell.statNameLabel.text = filtered[indexPath.row].name
+            cell.statValueLabel.text = String(filtered[indexPath.row].value)
+            cell.backgroundColor = .clear
+        }
         return cell
     }
 }
