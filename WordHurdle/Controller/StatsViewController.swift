@@ -13,9 +13,9 @@ class StatsViewController: UIViewController {
     @IBOutlet weak var statsTableView: UITableView!
     @IBOutlet weak var chartContainerView: UIView!
     @IBOutlet weak var chartView: UIView!
-    
-    var statArray = [Stat]()
-    
+
+    var playerStats: StatsManagerProtocol? = nil
+
     override func viewDidLoad() {
         super.viewDidLoad()
         statsTableView.delegate = self
@@ -25,7 +25,7 @@ class StatsViewController: UIViewController {
     }
     
     func setupChartView() {
-        chartView.addSubview(AnyChartiOS.createChart(view))
+        chartView.addSubview(AnyChartiOS.createChart(view, playerStats: playerStats!))
         chartView.subviews[0].translatesAutoresizingMaskIntoConstraints = false
         chartView.subviews[0].centerXAnchor.constraint(equalTo: chartView.centerXAnchor).isActive = true
         chartView.subviews[0].centerYAnchor.constraint(equalTo: chartView.centerYAnchor).isActive = true
@@ -40,18 +40,19 @@ class StatsViewController: UIViewController {
 
 extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        statArray = PlayerStats.stats.filter({ Stat in
-            Stat.isIncludedInChart == false
-        })
-        
-        return statArray.count
+        return playerStats!.stats.filter { stat in
+            stat.isIncludedInChart == false
+        }.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let filtered = playerStats!.stats.filter { stat in
+            stat.isIncludedInChart == false
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: "statCell", for: indexPath) as! StatTableViewCell
         
-        cell.statNameLabel.text = statArray[indexPath.row].name
-        cell.statValueLabel.text = String(statArray[indexPath.row].value)
+        cell.statNameLabel.text = filtered[indexPath.row].name
+        cell.statValueLabel.text = String(filtered[indexPath.row].value)
         cell.backgroundColor = .clear
         
         return cell

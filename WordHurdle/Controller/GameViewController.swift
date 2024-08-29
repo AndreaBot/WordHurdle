@@ -26,7 +26,7 @@ class GameViewController: UIViewController {
     
     var allAttemptsLabels = [[UILabel]]()
     
-    var gameLogic = GameLogic(allLetters: AllLetters())
+    var gameLogic = GameLogic(allLetters: AllLetters(), statsManager: PlayerStats())
     
     
     override func viewDidLoad() {
@@ -91,6 +91,15 @@ class GameViewController: UIViewController {
     
     func resetLastBorder() {
         allAttemptsLabels[gameLogic.labelArrayIndex][gameLogic.labelIndex].layer.borderWidth = 0
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showStats" {
+            if let destinationVC = segue.destination as? StatsViewController {
+                destinationVC.playerStats = gameLogic.statsManager
+            }
+    }
+        
     }
 }
 

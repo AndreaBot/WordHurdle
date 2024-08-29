@@ -10,7 +10,7 @@ import AnyChartiOS
 
 struct AnyChartiOS {
     
-    static func createChart(_ view: UIView) -> AnyChartView {
+    static func createChart(_ view: UIView, playerStats: StatsManagerProtocol) -> AnyChartView {
         
         let anyChartView = AnyChartView()
         
@@ -20,12 +20,12 @@ struct AnyChartiOS {
         _ = chart.yScale().maximumGap(gap: 1.0)
         
         let data: Array<DataEntry> = [
-            ValueDataEntry(x: "1", value: PlayerStats.stats[4].value),
-            ValueDataEntry(x: "2", value: PlayerStats.stats[5].value),
-            ValueDataEntry(x: "3", value: PlayerStats.stats[6].value),
-            ValueDataEntry(x: "4", value: PlayerStats.stats[7].value),
-            ValueDataEntry(x: "5", value: PlayerStats.stats[8].value),
-            ValueDataEntry(x: "6", value: PlayerStats.stats[9].value),
+            ValueDataEntry(x: "1", value: playerStats.stats[4].value),
+            ValueDataEntry(x: "2", value: playerStats.stats[5].value),
+            ValueDataEntry(x: "3", value: playerStats.stats[6].value),
+            ValueDataEntry(x: "4", value: playerStats.stats[7].value),
+            ValueDataEntry(x: "5", value: playerStats.stats[8].value),
+            ValueDataEntry(x: "6", value: playerStats.stats[9].value)
         ]
         
         let column = chart.column(data: data)

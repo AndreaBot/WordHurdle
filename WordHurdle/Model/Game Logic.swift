@@ -11,9 +11,7 @@ import Foundation
 class GameLogic {
     
     let allLetters: AllLetters
-    
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: "Stats.plist")
-    
+
     var allAttempts = [[String]]() {
         didSet {
             if !allAttempts.isEmpty {
@@ -25,6 +23,7 @@ class GameLogic {
     var delegate: GameLogicDelegate?
     var keyboardManager: KeyboardManager?
     var alertsDelegate: AlertsDelegate?
+    var statsManager: StatsManagerProtocol
     
     var correctCharacterArray = [String]()
     var checkResults = [CheckResults]()
@@ -44,8 +43,9 @@ class GameLogic {
         }
     }
     
-    init(allLetters: AllLetters) {
+    init(allLetters: AllLetters, statsManager: StatsManagerProtocol) {
         self.allLetters = allLetters
+        self.statsManager = PlayerStats()
     }
     
     func performCheck(_ allAttempts: [[String]]) {
@@ -122,14 +122,14 @@ class GameLogic {
             keyboardManager?.disableKeyboard()
             alertsDelegate?.showEndMessage(title: alertTitle, message: alertMessage)
             
-            PlayerStats.stats[0].value += 1
-            PlayerStats.stats[1].value += 1
-            PlayerStats.stats[2].value += 1
-            if PlayerStats.stats[2].value > PlayerStats.stats[3].value {
-                PlayerStats.stats[3].value = PlayerStats.stats[2].value
+            statsManager.stats[0].value += 1
+            statsManager.stats[1].value += 1
+            statsManager.stats[2].value += 1
+            if statsManager.stats[2].value > statsManager.stats[3].value {
+                statsManager.stats[3].value = statsManager.stats[2].value
             }
-            setGuessDistributionStat(labelArrayIndex)
-            saveStats()
+            statsManager.setGuessDistribution(index: labelArrayIndex)
+            statsManager.saveStats()
             
         } else {
             //WRONG WORD GUESSED AND MORE ATTEMPTS REMAIN
@@ -153,21 +153,9 @@ class GameLogic {
                 alertMessage = "The secret word was: \n\(randomWord.uppercased())"
                 keyboardManager?.disableKeyboard()
                 alertsDelegate?.showEndMessage(title: alertTitle, message: alertMessage)
-                PlayerStats.stats[0].value += 1
-                PlayerStats.stats[2].value = 0
-                saveStats()
-            }
-        }
-        
-        func setGuessDistributionStat(_ index: Int) {
-            switch index {
-            case 0: PlayerStats.stats[4].value += 1
-            case 1: PlayerStats.stats[5].value += 1
-            case 2: PlayerStats.stats[6].value += 1
-            case 3: PlayerStats.stats[7].value += 1
-            case 4: PlayerStats.stats[8].value += 1
-            case 5: PlayerStats.stats[9].value += 1
-            default: PlayerStats.stats[4].value += 0
+                statsManager.stats[0].value += 1
+                statsManager.stats[2].value = 0
+                statsManager.saveStats()
             }
         }
     }
@@ -180,7 +168,7 @@ class GameLogic {
         labelArrayIndex = 0
         labelIndex = 0
         keyboardManager?.enableKeyboard()
-        loadStats()
+        statsManager.loadStats()
         resetAllAttempts()
     }
     
@@ -203,31 +191,6 @@ class GameLogic {
         allAttempts = []
         for _ in 0...5 {
             allAttempts.append(["", "", "", "", ""])
-        }
-    }
-    
-    
-    //MARK: - Plist methods
-    
-    func saveStats() {
-        let encoder = PropertyListEncoder()
-        
-        do {
-            let data = try encoder.encode(PlayerStats.stats)
-            try data.write(to: dataFilePath!)
-        } catch {
-            print("error encoding item array, \(error)")
-        }
-    }
-    
-    func loadStats() {
-        if let data = try? Data(contentsOf: dataFilePath!) {
-            let decoder = PropertyListDecoder()
-            do {
-                PlayerStats.stats = try decoder.decode([Stat].self, from: data)
-            } catch {
-                print("error decoding item array, \(error)")
-            }
         }
     }
 }
