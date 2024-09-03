@@ -36,6 +36,11 @@ class StatsViewController: UIViewController {
         chartContainerView.clipsToBounds = true
         chartContainerView.layer.cornerRadius = chartView.frame.height/30
     }
+    
+    @IBAction func dismissStatsView(_ sender: UIButton) {
+        dismiss(animated: true)
+    }
+    
 }
 
 //MARK: - TableViewDelegate & DataSource
