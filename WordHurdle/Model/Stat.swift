@@ -8,7 +8,6 @@
 import Foundation
 
 struct Stat: Codable {
-    
     let name: String
     var value: Int
     let isIncludedInChart: Bool

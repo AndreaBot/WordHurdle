@@ -10,6 +10,6 @@ import Foundation
 protocol StatsManagerProtocol {
     var stats: [Stat] { get set }
     func setGuessDistribution(index: Int)
-    func saveStats(path: URL)
-    func loadStats(path: URL)
+    func saveStats()
+    func loadStats()
 }

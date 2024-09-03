@@ -22,10 +22,12 @@ class StatsViewController: UIViewController {
         statsTableView.dataSource = self
         statsTableView.register(UINib(nibName: "StatTableViewCell", bundle: nil), forCellReuseIdentifier: "statCell")
         setupChartView()
+        playerStats?.loadStats()
     }
     
     func setupChartView() {
-        chartView.addSubview(AnyChartiOS.createChart(playerStats: playerStats ?? PlayerStats(dataFilePath: PlayerStats.workingDataFilePath!)))
+//        chartView.addSubview(AnyChartiOS.createChart(playerStats: playerStats ?? PlayerStats(dataFilePath: PlayerStats.workingDataFilePath!)))
+        chartView.addSubview(AnyChartiOS.createChart(playerStats: playerStats ?? PlayerStats()))
         chartView.subviews[0].translatesAutoresizingMaskIntoConstraints = false
         chartView.subviews[0].centerXAnchor.constraint(equalTo: chartView.centerXAnchor).isActive = true
         chartView.subviews[0].centerYAnchor.constraint(equalTo: chartView.centerYAnchor).isActive = true
@@ -56,6 +58,7 @@ extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
                 stat.isIncludedInChart == false
             }
             cell.statNameLabel.text = filtered[indexPath.row].name
+           
             cell.statValueLabel.text = String(filtered[indexPath.row].value)
             cell.backgroundColor = .clear
         }

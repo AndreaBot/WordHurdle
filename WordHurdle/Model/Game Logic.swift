@@ -45,7 +45,7 @@ class GameLogic {
     
     init(allLetters: AllLetters, statsManager: StatsManagerProtocol) {
         self.allLetters = allLetters
-        self.statsManager = PlayerStats(dataFilePath: PlayerStats.workingDataFilePath!)
+        self.statsManager = PlayerStats()
     }
     
     func performCheck(_ allAttempts: [[String]]) {
@@ -121,22 +121,22 @@ class GameLogic {
             alertMessage = "You succeeded!"
             keyboardManager?.disableKeyboard()
             alertsDelegate?.showEndMessage(title: alertTitle, message: alertMessage)
-            
+          
+    
             statsManager.stats[0].value += 1
             statsManager.stats[1].value += 1
             statsManager.stats[2].value += 1
+            statsManager.saveStats()
             if statsManager.stats[2].value > statsManager.stats[3].value {
                 statsManager.stats[3].value = statsManager.stats[2].value
             }
             statsManager.setGuessDistribution(index: labelArrayIndex)
-            statsManager.saveStats(path: PlayerStats.workingDataFilePath!)
+            statsManager.saveStats()
             
         } else {
             //WRONG WORD GUESSED AND MORE ATTEMPTS REMAIN
             if labelArrayIndex + 1 <= 5 {
-                
                 var index = 0
-                
                 for result in checkResults {
                     if result == .correctLetterPlacement || result == .wrongLetterPlacement {
                         let currentLetter = allAttempts[labelArrayIndex][index]
@@ -155,7 +155,7 @@ class GameLogic {
                 alertsDelegate?.showEndMessage(title: alertTitle, message: alertMessage)
                 statsManager.stats[0].value += 1
                 statsManager.stats[2].value = 0
-                statsManager.saveStats(path: PlayerStats.workingDataFilePath!)
+                statsManager.saveStats()
             }
         }
     }
@@ -168,7 +168,7 @@ class GameLogic {
         labelArrayIndex = 0
         labelIndex = 0
         keyboardManager?.enableKeyboard()
-        statsManager.loadStats(path: PlayerStats.workingDataFilePath!)
+        statsManager.loadStats()
         resetAllAttempts()
     }
     

@@ -9,13 +9,6 @@ import Foundation
 
 class PlayerStats: StatsManagerProtocol {
     
-    static let workingDataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: "Stats.plist")
-    let dataFilePath: URL
-    
-    init(dataFilePath: URL = PlayerStats.workingDataFilePath!) {
-        self.dataFilePath = dataFilePath
-    }
-    
     var stats = [
         Stat(name: "Games played", value: 0, isIncludedInChart: false),
         Stat(name: "Wins", value: 0, isIncludedInChart: false),
@@ -29,6 +22,27 @@ class PlayerStats: StatsManagerProtocol {
         Stat(name: "Win in 6", value: 0, isIncludedInChart: true)
     ]
     
+    func saveStats() {
+        do {
+            let encodedData = try JSONEncoder().encode(stats)
+            UserDefaults.standard.setValue(encodedData, forKey: "stats")
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func loadStats() {
+        if let allStats = UserDefaults.standard.object(forKey: "stats") {
+            do {
+                let decodedData = try JSONDecoder().decode([Stat].self, from: allStats as! Data )
+                stats = decodedData
+                
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     func setGuessDistribution(index: Int) {
         switch index {
         case 0: stats[4].value += 1
@@ -38,27 +52,6 @@ class PlayerStats: StatsManagerProtocol {
         case 4: stats[8].value += 1
         case 5: stats[9].value += 1
         default: stats[4].value += 0
-        }
-    }
-    
-    func saveStats(path: URL) {
-        let encoder = PropertyListEncoder()
-        do {
-            let data = try encoder.encode(stats)
-            try data.write(to: path)
-        } catch {
-            print("error encoding item array, \(error)")
-        }
-    }
-
-    func loadStats(path: URL) {
-        if let data = try? Data(contentsOf: path) {
-            let decoder = PropertyListDecoder()
-            do {
-                stats = try decoder.decode([Stat].self, from: data)
-            } catch {
-                print("error decoding item array, \(error)")
-            }
         }
     }
 }

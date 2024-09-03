@@ -26,7 +26,8 @@ class GameViewController: UIViewController {
     
     var allAttemptsLabels = [[UILabel]]()
     
-    var gameLogic = GameLogic(allLetters: AllLetters(), statsManager: PlayerStats(dataFilePath: PlayerStats.workingDataFilePath!))
+//    var gameLogic = GameLogic(allLetters: AllLetters(), statsManager: PlayerStats(dataFilePath: PlayerStats.workingDataFilePath!))
+    var gameLogic = GameLogic(allLetters: AllLetters(), statsManager: PlayerStats())
     
     
     override func viewDidLoad() {
