@@ -12,7 +12,7 @@ class PlayerStats: StatsManagerProtocol {
     static let workingDataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: "Stats.plist")
     let dataFilePath: URL
     
-    init(dataFilePath: URL) {
+    init(dataFilePath: URL = PlayerStats.workingDataFilePath!) {
         self.dataFilePath = dataFilePath
     }
     

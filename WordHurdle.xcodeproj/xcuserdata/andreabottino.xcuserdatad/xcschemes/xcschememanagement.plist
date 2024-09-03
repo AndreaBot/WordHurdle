@@ -9,6 +9,26 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>f.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>62A9582D2AEC52B50056FA25</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>62F4D75C2C825F8F00CEC7A7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 	</dict>
 </dict>
 </plist>

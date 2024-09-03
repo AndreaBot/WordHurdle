@@ -47,5 +47,11 @@ class AllLetters {
             letters[letter] = 0
         }
     }
+    
+    func setupAllCounters(word: String) {
+        for character in word {
+           letters[String(character)]! += 1
+        }
+    }
 }
 

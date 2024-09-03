@@ -109,7 +109,7 @@ class GameLogic {
         }
     }
     
-    private func progressGame(_ allAttempts: [[String]]) {
+     func progressGame(_ allAttempts: [[String]]) {
         var alertTitle = ""
         var alertMessage = ""
         
@@ -133,7 +133,7 @@ class GameLogic {
             
         } else {
             //WRONG WORD GUESSED AND MORE ATTEMPTS REMAIN
-            if labelArrayIndex + 1 <= allAttempts.count - 1 {
+            if labelArrayIndex + 1 <= 5 {
                 
                 var index = 0
                 
@@ -162,7 +162,7 @@ class GameLogic {
     
     func startNewGame() {
         allLetters.resetCounters()
-        correctCharacterArray = [String]()
+        correctCharacterArray = []
         delegate?.resetBoxes()
         randomWord = AllWords.words.randomElement()!
         labelArrayIndex = 0
