@@ -20,7 +20,11 @@ class PlayerStats: StatsManagerProtocol {
         Stat(name: "Win in 4", value: 0, isIncludedInChart: true),
         Stat(name: "Win in 5", value: 0, isIncludedInChart: true),
         Stat(name: "Win in 6", value: 0, isIncludedInChart: true)
-    ]
+    ] {
+        didSet {
+            saveStats()
+        }
+    }
     
     func saveStats() {
         do {
@@ -53,5 +57,19 @@ class PlayerStats: StatsManagerProtocol {
         case 5: stats[9].value += 1
         default: stats[4].value += 0
         }
+    }
+    
+    func setStatsForGameWon() {
+       stats[0].value += 1
+       stats[1].value += 1
+       stats[2].value += 1
+        if stats[2].value > stats[3].value {
+            stats[3].value = stats[2].value
+        }
+    }
+    
+    func setStatsForGameLost() {
+        stats[0].value += 1
+        stats[2].value = 0
     }
 }

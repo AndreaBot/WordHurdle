@@ -9,7 +9,9 @@ import Foundation
 
 protocol StatsManagerProtocol {
     var stats: [Stat] { get set }
-    func setGuessDistribution(index: Int)
     func saveStats()
     func loadStats()
+    func setGuessDistribution(index: Int)
+    func setStatsForGameWon()
+    func setStatsForGameLost()
 }

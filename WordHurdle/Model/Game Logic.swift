@@ -121,17 +121,8 @@ class GameLogic {
             alertMessage = "You succeeded!"
             keyboardManager?.disableKeyboard()
             alertsDelegate?.showEndMessage(title: alertTitle, message: alertMessage)
-          
-    
-            statsManager.stats[0].value += 1
-            statsManager.stats[1].value += 1
-            statsManager.stats[2].value += 1
-            statsManager.saveStats()
-            if statsManager.stats[2].value > statsManager.stats[3].value {
-                statsManager.stats[3].value = statsManager.stats[2].value
-            }
+            statsManager.setStatsForGameWon()
             statsManager.setGuessDistribution(index: labelArrayIndex)
-            statsManager.saveStats()
             
         } else {
             //WRONG WORD GUESSED AND MORE ATTEMPTS REMAIN
@@ -153,9 +144,7 @@ class GameLogic {
                 alertMessage = "The secret word was: \n\(randomWord.uppercased())"
                 keyboardManager?.disableKeyboard()
                 alertsDelegate?.showEndMessage(title: alertTitle, message: alertMessage)
-                statsManager.stats[0].value += 1
-                statsManager.stats[2].value = 0
-                statsManager.saveStats()
+                statsManager.setStatsForGameLost()
             }
         }
     }
