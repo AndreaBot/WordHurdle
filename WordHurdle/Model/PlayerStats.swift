@@ -10,16 +10,16 @@ import Foundation
 class PlayerStats: StatsManagerProtocol {
     
     var stats = [
-        Stat(name: "Games played", value: 0, isIncludedInChart: false),
-        Stat(name: "Wins", value: 0, isIncludedInChart: false),
-        Stat(name: "Current streak", value: 0, isIncludedInChart: false),
-        Stat(name: "Max streak", value: 0, isIncludedInChart: false),
-        Stat(name: "Win in 1", value: 0, isIncludedInChart: true),
-        Stat(name: "Win in 2", value: 0, isIncludedInChart: true),
-        Stat(name: "Win in 3", value: 0, isIncludedInChart: true),
-        Stat(name: "Win in 4", value: 0, isIncludedInChart: true),
-        Stat(name: "Win in 5", value: 0, isIncludedInChart: true),
-        Stat(name: "Win in 6", value: 0, isIncludedInChart: true)
+        Stat(name: StatsNames.gamesPlayed, value: 0, isIncludedInChart: false),
+        Stat(name: StatsNames.gamesWon, value: 0, isIncludedInChart: false),
+        Stat(name: StatsNames.currentStreak, value: 0, isIncludedInChart: false),
+        Stat(name: StatsNames.maxStreak, value: 0, isIncludedInChart: false),
+        Stat(name: StatsNames.winsIn1, value: 0, isIncludedInChart: true),
+        Stat(name: StatsNames.winsIn2, value: 0, isIncludedInChart: true),
+        Stat(name: StatsNames.winsIn3, value: 0, isIncludedInChart: true),
+        Stat(name: StatsNames.winsIn4, value: 0, isIncludedInChart: true),
+        Stat(name: StatsNames.winsIn5, value: 0, isIncludedInChart: true),
+        Stat(name: StatsNames.winsIn6, value: 0, isIncludedInChart: true)
     ] {
         didSet {
             saveStats()
@@ -47,24 +47,50 @@ class PlayerStats: StatsManagerProtocol {
         }
     }
     
+    func indexForStat(named: String) -> Int? {
+        if let index = stats.firstIndex(where: { $0.name == named }) {
+            return index
+        } else {
+            return nil
+        }
+    }
+    
     func setGuessDistribution(index: Int) {
-        switch index {
-        case 0: stats[4].value += 1
-        case 1: stats[5].value += 1
-        case 2: stats[6].value += 1
-        case 3: stats[7].value += 1
-        case 4: stats[8].value += 1
-        case 5: stats[9].value += 1
-        default: stats[4].value += 0
+        if let winsIn1Index = indexForStat(named: StatsNames.winsIn1),
+           let winsIn2Index = indexForStat(named: StatsNames.winsIn2),
+           let winsIn3Index = indexForStat(named: StatsNames.winsIn3),
+           let winsIn4Index = indexForStat(named: StatsNames.winsIn4),
+           let winsIn5Index = indexForStat(named: StatsNames.winsIn5),
+           let winsIn6Index = indexForStat(named: StatsNames.winsIn6) {
+            
+            switch index {
+            case 0: stats[winsIn1Index].value += 1
+            case 1: stats[winsIn2Index].value += 1
+            case 2: stats[winsIn3Index].value += 1
+            case 3: stats[winsIn4Index].value += 1
+            case 4: stats[winsIn5Index].value += 1
+            case 5: stats[winsIn6Index].value += 1
+            default: break
+            }
         }
     }
     
     func setStatsForGameWon() {
-       stats[0].value += 1
-       stats[1].value += 1
-       stats[2].value += 1
-        if stats[2].value > stats[3].value {
-            stats[3].value = stats[2].value
+        if let gamesPlayedIndex = indexForStat(named: StatsNames.gamesPlayed),
+           let gamesWonIndex = indexForStat(named: StatsNames.gamesWon),
+           let currentStreakIndex = indexForStat(named: StatsNames.currentStreak),
+           let maxStreakIndex = indexForStat(named: StatsNames.maxStreak) {
+            
+            stats[gamesPlayedIndex].value += 1
+            stats[gamesWonIndex].value += 1
+            stats[currentStreakIndex].value += 1
+            
+            if stats[currentStreakIndex].value > stats[maxStreakIndex].value {
+                stats[maxStreakIndex].value = stats[currentStreakIndex].value
+            }
+            
+        } else {
+            print("Error: One or more stats were not found.")
         }
     }
     

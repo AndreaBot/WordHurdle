@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		621B5A272C866825000AC94D /* AllLettersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621B5A262C866825000AC94D /* AllLettersTests.swift */; };
+		621B5A292C8B91EE000AC94D /* PlayerStatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621B5A282C8B91EE000AC94D /* PlayerStatsTests.swift */; };
+		621B5A2C2C8B9FBE000AC94D /* StatsNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621B5A2A2C8B9E10000AC94D /* StatsNames.swift */; };
 		62575A1F2AFAA2A9000D6417 /* PlayerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62575A1E2AFAA2A9000D6417 /* PlayerStats.swift */; };
 		62575A212AFAA385000D6417 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62575A202AFAA385000D6417 /* StatsViewController.swift */; };
 		62575A232AFAA49A000D6417 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62575A222AFAA49A000D6417 /* Stat.swift */; };
@@ -60,6 +62,8 @@
 /* Begin PBXFileReference section */
 		07915E3817D27611D3F9C5E7 /* Pods_WordHurdle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WordHurdle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		621B5A262C866825000AC94D /* AllLettersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllLettersTests.swift; sourceTree = "<group>"; };
+		621B5A282C8B91EE000AC94D /* PlayerStatsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerStatsTests.swift; path = GameLogicTests/PlayerStatsTests.swift; sourceTree = SOURCE_ROOT; };
+		621B5A2A2C8B9E10000AC94D /* StatsNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StatsNames.swift; path = WordHurdle/Model/StatsNames.swift; sourceTree = SOURCE_ROOT; };
 		62575A1E2AFAA2A9000D6417 /* PlayerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStats.swift; sourceTree = "<group>"; };
 		62575A202AFAA385000D6417 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		62575A222AFAA49A000D6417 /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
@@ -163,6 +167,7 @@
 				62A958512AEF16BB0056FA25 /* AllLetters.swift */,
 				62A958562AF4154F0056FA25 /* Game Logic.swift */,
 				62A958582AF419FD0056FA25 /* Alerts.swift */,
+				621B5A2A2C8B9E10000AC94D /* StatsNames.swift */,
 				62575A222AFAA49A000D6417 /* Stat.swift */,
 				62575A1E2AFAA2A9000D6417 /* PlayerStats.swift */,
 				62575A242AFAB287000D6417 /* StatTableViewCell.swift */,
@@ -213,6 +218,7 @@
 			children = (
 				62F4D75F2C825F8F00CEC7A7 /* GameLogicTests.swift */,
 				621B5A262C866825000AC94D /* AllLettersTests.swift */,
+				621B5A282C8B91EE000AC94D /* PlayerStatsTests.swift */,
 			);
 			path = GameLogicTests;
 			sourceTree = "<group>";
@@ -373,6 +379,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				621B5A2C2C8B9FBE000AC94D /* StatsNames.swift in Sources */,
 				62575A262AFAB287000D6417 /* StatTableViewCell.swift in Sources */,
 				62575A1F2AFAA2A9000D6417 /* PlayerStats.swift in Sources */,
 				62F4D7422C7FD71500CEC7A7 /* KeyboardManager.swift in Sources */,
@@ -398,6 +405,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				62F4D7602C825F8F00CEC7A7 /* GameLogicTests.swift in Sources */,
+				621B5A292C8B91EE000AC94D /* PlayerStatsTests.swift in Sources */,
 				621B5A272C866825000AC94D /* AllLettersTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
