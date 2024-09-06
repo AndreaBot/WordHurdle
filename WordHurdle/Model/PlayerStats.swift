@@ -95,7 +95,11 @@ class PlayerStats: StatsManagerProtocol {
     }
     
     func setStatsForGameLost() {
-        stats[0].value += 1
-        stats[2].value = 0
+        if let gamesPlayedIndex = indexForStat(named: StatsNames.gamesPlayed),
+           let currentStreakIndex = indexForStat(named: StatsNames.currentStreak) {
+            
+            stats[gamesPlayedIndex].value += 1
+            stats[currentStreakIndex].value = 0
+        }
     }
 }
