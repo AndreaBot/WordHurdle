@@ -10,6 +10,8 @@
 		621B5A272C866825000AC94D /* AllLettersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621B5A262C866825000AC94D /* AllLettersTests.swift */; };
 		621B5A292C8B91EE000AC94D /* PlayerStatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621B5A282C8B91EE000AC94D /* PlayerStatsTests.swift */; };
 		621B5A2C2C8B9FBE000AC94D /* StatsNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621B5A2A2C8B9E10000AC94D /* StatsNames.swift */; };
+		62372E652C9B68310006FEC7 /* UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62372E642C9B68310006FEC7 /* UITests.swift */; };
+		62372E672C9B68310006FEC7 /* UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62372E662C9B68310006FEC7 /* UITestsLaunchTests.swift */; };
 		62575A1F2AFAA2A9000D6417 /* PlayerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62575A1E2AFAA2A9000D6417 /* PlayerStats.swift */; };
 		62575A212AFAA385000D6417 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62575A202AFAA385000D6417 /* StatsViewController.swift */; };
 		62575A232AFAA49A000D6417 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62575A222AFAA49A000D6417 /* Stat.swift */; };
@@ -37,6 +39,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		62372E682C9B68310006FEC7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 62A958262AEC52B50056FA25 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 62A9582D2AEC52B50056FA25;
+			remoteInfo = WordHurdle;
+		};
 		62F4D7612C825F8F00CEC7A7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 62A958262AEC52B50056FA25 /* Project object */;
@@ -64,6 +73,9 @@
 		621B5A262C866825000AC94D /* AllLettersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllLettersTests.swift; sourceTree = "<group>"; };
 		621B5A282C8B91EE000AC94D /* PlayerStatsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerStatsTests.swift; path = GameLogicTests/PlayerStatsTests.swift; sourceTree = SOURCE_ROOT; };
 		621B5A2A2C8B9E10000AC94D /* StatsNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StatsNames.swift; path = WordHurdle/Model/StatsNames.swift; sourceTree = SOURCE_ROOT; };
+		62372E622C9B68310006FEC7 /* UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		62372E642C9B68310006FEC7 /* UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITests.swift; sourceTree = "<group>"; };
+		62372E662C9B68310006FEC7 /* UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		62575A1E2AFAA2A9000D6417 /* PlayerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStats.swift; sourceTree = "<group>"; };
 		62575A202AFAA385000D6417 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		62575A222AFAA49A000D6417 /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
@@ -95,6 +107,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		62372E5F2C9B68310006FEC7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		62A9582B2AEC52B50056FA25 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -122,11 +141,21 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		62372E632C9B68310006FEC7 /* UITests */ = {
+			isa = PBXGroup;
+			children = (
+				62372E642C9B68310006FEC7 /* UITests.swift */,
+				62372E662C9B68310006FEC7 /* UITestsLaunchTests.swift */,
+			);
+			path = UITests;
+			sourceTree = "<group>";
+		};
 		62A958252AEC52B50056FA25 = {
 			isa = PBXGroup;
 			children = (
 				62A958302AEC52B50056FA25 /* WordHurdle */,
 				62F4D75E2C825F8F00CEC7A7 /* GameLogicTests */,
+				62372E632C9B68310006FEC7 /* UITests */,
 				62A9582F2AEC52B50056FA25 /* Products */,
 				5CDCA5701E9B9D3140FF1327 /* Pods */,
 				B4BA76B693E87FF89D52B106 /* Frameworks */,
@@ -138,6 +167,7 @@
 			children = (
 				62A9582E2AEC52B50056FA25 /* WordHurdle.app */,
 				62F4D75D2C825F8F00CEC7A7 /* GameLogicTests.xctest */,
+				62372E622C9B68310006FEC7 /* UITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -234,6 +264,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		62372E612C9B68310006FEC7 /* UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 62372E6C2C9B68310006FEC7 /* Build configuration list for PBXNativeTarget "UITests" */;
+			buildPhases = (
+				62372E5E2C9B68310006FEC7 /* Sources */,
+				62372E5F2C9B68310006FEC7 /* Frameworks */,
+				62372E602C9B68310006FEC7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				62372E692C9B68310006FEC7 /* PBXTargetDependency */,
+			);
+			name = UITests;
+			productName = UITests;
+			productReference = 62372E622C9B68310006FEC7 /* UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		62A9582D2AEC52B50056FA25 /* WordHurdle */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 62A958422AEC52BA0056FA25 /* Build configuration list for PBXNativeTarget "WordHurdle" */;
@@ -282,6 +330,10 @@
 				LastSwiftUpdateCheck = 1540;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
+					62372E612C9B68310006FEC7 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 62A9582D2AEC52B50056FA25;
+					};
 					62A9582D2AEC52B50056FA25 = {
 						CreatedOnToolsVersion = 15.0.1;
 					};
@@ -306,11 +358,19 @@
 			targets = (
 				62A9582D2AEC52B50056FA25 /* WordHurdle */,
 				62F4D75C2C825F8F00CEC7A7 /* GameLogicTests */,
+				62372E612C9B68310006FEC7 /* UITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		62372E602C9B68310006FEC7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		62A9582C2AEC52B50056FA25 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -375,6 +435,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		62372E5E2C9B68310006FEC7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62372E672C9B68310006FEC7 /* UITestsLaunchTests.swift in Sources */,
+				62372E652C9B68310006FEC7 /* UITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		62A9582A2AEC52B50056FA25 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -413,6 +482,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		62372E692C9B68310006FEC7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 62A9582D2AEC52B50056FA25 /* WordHurdle */;
+			targetProxy = 62372E682C9B68310006FEC7 /* PBXContainerItemProxy */;
+		};
 		62F4D7622C825F8F00CEC7A7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 62A9582D2AEC52B50056FA25 /* WordHurdle */;
@@ -440,6 +514,44 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		62372E6A2C9B68310006FEC7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L52JR8SNCR;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AndreaBottino.UITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = WordHurdle;
+			};
+			name = Debug;
+		};
+		62372E6B2C9B68310006FEC7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L52JR8SNCR;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AndreaBottino.UITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = WordHurdle;
+			};
+			name = Release;
+		};
 		62A958402AEC52BA0056FA25 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -660,6 +772,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		62372E6C2C9B68310006FEC7 /* Build configuration list for PBXNativeTarget "UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				62372E6A2C9B68310006FEC7 /* Debug */,
+				62372E6B2C9B68310006FEC7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		62A958292AEC52B50056FA25 /* Build configuration list for PBXProject "WordHurdle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

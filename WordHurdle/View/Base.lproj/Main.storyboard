@@ -32,6 +32,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DLW-9a-frZ">
                                                 <rect key="frame" x="0.0" y="12.666666666666671" width="75" height="34.333333333333336"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="newGameButton"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" image="square.grid.3x3.square" catalog="system"/>
                                                 <buttonConfiguration key="configuration" style="plain" image="plus.app.fill" catalog="system"/>
@@ -48,6 +49,7 @@
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VgK-R7-LAx" userLabel="Stats Button">
                                                 <rect key="frame" x="344.33333333333331" y="12.666666666666671" width="85.666666666666686" height="34.333333333333336"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="showStatsButton"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" image="chart.bar.fill" catalog="system"/>
                                                 <connections>
@@ -70,30 +72,35 @@
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cda-B6-HDZ">
                                                                         <rect key="frame" x="0.0" y="0.0" width="68" height="60"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="1stAttempt1"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZHG-kp-qQ8">
                                                                         <rect key="frame" x="73" y="0.0" width="68" height="60"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="1stAttempt2"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uZ4-Vb-fUD">
                                                                         <rect key="frame" x="146" y="0.0" width="68" height="60"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="1stAttempt3"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xuJ-gz-hwd">
                                                                         <rect key="frame" x="219" y="0.0" width="68" height="60"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="1stAttempt4"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yGn-kk-qmg">
                                                                         <rect key="frame" x="292" y="0.0" width="68" height="60"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="1stAttempt5"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -105,30 +112,35 @@
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l1V-3d-IdR">
                                                                         <rect key="frame" x="0.0" y="0.0" width="68" height="59.666666666666664"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="2ndAttempt1"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZY7-QO-bJj">
                                                                         <rect key="frame" x="73" y="0.0" width="68" height="59.666666666666664"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="2ndAttempt2"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3jX-Og-Grb">
                                                                         <rect key="frame" x="146" y="0.0" width="68" height="59.666666666666664"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="2ndAttempt3"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U5u-5v-iMH">
                                                                         <rect key="frame" x="219" y="0.0" width="68" height="59.666666666666664"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="2ndAttempt4"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FhV-qL-2Co">
                                                                         <rect key="frame" x="292" y="0.0" width="68" height="59.666666666666664"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="2ndAttempt5"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -140,30 +152,35 @@
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xGG-ro-uIk">
                                                                         <rect key="frame" x="0.0" y="0.0" width="68" height="60"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="3rdAttempt1"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Riu-Ud-xXj">
                                                                         <rect key="frame" x="73" y="0.0" width="68" height="60"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="3rdAttempt2"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tqz-uM-QHI">
                                                                         <rect key="frame" x="146" y="0.0" width="68" height="60"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="3rdAttempt3"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eRc-1H-AXo">
                                                                         <rect key="frame" x="219" y="0.0" width="68" height="60"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="3rdAttempt4"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yDW-NL-11T">
                                                                         <rect key="frame" x="292" y="0.0" width="68" height="60"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="3rdAttempt5"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -175,30 +192,35 @@
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHG-2o-OAK">
                                                                         <rect key="frame" x="0.0" y="0.0" width="68" height="60"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="4thAttempt1"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PtY-Kd-FOh">
                                                                         <rect key="frame" x="73" y="0.0" width="68" height="60"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="4thAttempt2"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Olc-47-MvG">
                                                                         <rect key="frame" x="146" y="0.0" width="68" height="60"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="4thAttempt3"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F2c-Q7-Ryx">
                                                                         <rect key="frame" x="219" y="0.0" width="68" height="60"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="4thAttempt4"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WEE-8q-Rhi">
                                                                         <rect key="frame" x="292" y="0.0" width="68" height="60"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="4thAttempt5"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -210,30 +232,35 @@
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ICW-43-ULt">
                                                                         <rect key="frame" x="0.0" y="0.0" width="68" height="60"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="5thAttempt1"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uLm-YM-A1f">
                                                                         <rect key="frame" x="73" y="0.0" width="68" height="60"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="5thAttempt2"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DVX-La-YuO">
                                                                         <rect key="frame" x="146" y="0.0" width="68" height="60"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="5thAttempt3"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dHa-Yw-WSa">
                                                                         <rect key="frame" x="219" y="0.0" width="68" height="60"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="5thAttempt4"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FrJ-6f-kDb">
                                                                         <rect key="frame" x="292" y="0.0" width="68" height="60"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="5thAttempt5"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -245,30 +272,35 @@
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gLp-c7-vyN">
                                                                         <rect key="frame" x="0.0" y="0.0" width="68" height="59.666666666666664"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="6thAttempt1"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTg-tc-2yu">
                                                                         <rect key="frame" x="73" y="0.0" width="68" height="59.666666666666664"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="6thAttempt2"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lB-oH-eEs">
                                                                         <rect key="frame" x="146" y="0.0" width="68" height="59.666666666666664"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="6thAttempt3"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGS-p7-Lyj">
                                                                         <rect key="frame" x="219" y="0.0" width="68" height="59.666666666666664"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="6thAttempt4"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OTF-e9-LBs">
                                                                         <rect key="frame" x="292" y="0.0" width="68" height="59.666666666666664"/>
+                                                                        <accessibility key="accessibilityConfiguration" identifier="6thAttempt5"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -294,6 +326,7 @@
                                                         <subviews>
                                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mZm-mw-0zY">
                                                                 <rect key="frame" x="0.0" y="0.0" width="143.33333333333334" height="96.333333333333329"/>
+                                                                <accessibility key="accessibilityConfiguration" identifier="backButton"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain" image="chevron.backward" catalog="system">
                                                                     <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" weight="medium"/>
@@ -304,6 +337,7 @@
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ymP-rD-RPg">
                                                                 <rect key="frame" x="143.33333333333331" y="0.0" width="143.33333333333331" height="96.333333333333329"/>
+                                                                <accessibility key="accessibilityConfiguration" identifier="clearButton"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                 <state key="normal" title="CLEAR"/>
@@ -313,6 +347,7 @@
                                                             </button>
                                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cBS-Uq-PcK">
                                                                 <rect key="frame" x="286.66666666666669" y="0.0" width="143.33333333333331" height="96.333333333333329"/>
+                                                                <accessibility key="accessibilityConfiguration" identifier="forwardButton"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain" image="chevron.right" catalog="system">
                                                                     <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" weight="medium"/>
@@ -529,6 +564,7 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dxy-FH-K8O">
                                                                 <rect key="frame" x="0.0" y="0.0" width="47.666666666666664" height="96"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <accessibility key="accessibilityConfiguration" identifier="submitButton"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain" image="checkmark.square.fill" catalog="system"/>
                                                                 <connections>
@@ -608,6 +644,7 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t0t-Wd-IU6">
                                                                 <rect key="frame" x="382.33333333333331" y="0.0" width="47.666666666666686" height="96"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <accessibility key="accessibilityConfiguration" identifier="deleteButton"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain" image="delete.left.fill" catalog="system"/>
                                                                 <connections>
@@ -821,10 +858,10 @@
         <image name="square.grid.3x3.square" catalog="system" width="128" height="114"/>
         <image name="xmark.circle.fill" catalog="system" width="128" height="123"/>
         <systemColor name="systemGray5Color">
-            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
