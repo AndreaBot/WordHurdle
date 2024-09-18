@@ -20,6 +20,7 @@ struct Alerts {
     
     static func timedAlert(_ guess: String) -> UIAlertController {
         let alert = UIAlertController(title: "Try again", message: "\(guess.uppercased()) is not a valid word", preferredStyle: .actionSheet)
+        alert.view.accessibilityIdentifier = "timedAlert"
         return alert
     }
 }

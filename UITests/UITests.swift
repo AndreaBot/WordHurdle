@@ -30,8 +30,7 @@ final class UITests: XCTestCase {
     func testGameHasSixAttemptsFiveBoxesEach() {
         let allRows = [firstRowIdentifiers, secondRowIdentifiers, thirdRowIdentifiers, fourthRowIdentifiers, fifthRowIdentifiers, sixthRowIdentifiers]
         
-        let app = XCUIApplication()
-        app.launch()
+        let app = launchApp()
         
         for row in allRows {
             for id in row {
@@ -43,8 +42,7 @@ final class UITests: XCTestCase {
     func testAppLaunchesWithEmptyBoxes() {
         let allRows = [firstRowIdentifiers, secondRowIdentifiers, thirdRowIdentifiers, fourthRowIdentifiers, fifthRowIdentifiers, sixthRowIdentifiers]
         
-        let app = XCUIApplication()
-        app.launch()
+        let app = launchApp()
         
         for row in allRows {
             for id in row {
@@ -54,8 +52,7 @@ final class UITests: XCTestCase {
     }
     
     func testKeybardHasAllLetters() {
-        let app = XCUIApplication()
-        app.launch()
+        let app = launchApp()
         
         for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" {
             XCTAssertTrue(app.buttons[String(letter)].exists, "The keyboard is missing letter \(letter)")
@@ -63,8 +60,7 @@ final class UITests: XCTestCase {
     }
     
     func testRestOfButtonsExist() {
-        let app = XCUIApplication()
-        app.launch()
+        let app = launchApp()
         
         for id in supportButtonIdentifiers {
             XCTAssertTrue(app.buttons[id].exists, "The button \(id) does not exist")
@@ -73,12 +69,43 @@ final class UITests: XCTestCase {
     }
     
     func testTappingLetterPopulatesBox() {
-        let app = XCUIApplication()
-        app.launch()
+        let app = launchApp()
         
         app.buttons["A"].tap()
         XCTAssertEqual(app.staticTexts[firstRowIdentifiers[0]].label, "A", "The type letter does not fill the first box")
     }
+    
+    func testAttemptGetsFullyFilled() {
+       let app = launchApp()
+        
+        typeTestWord(app: app)
+        
+        for id in firstRowIdentifiers {
+            XCTAssertTrue(!app.staticTexts[id].label.isEmpty, "The box named \(id) has no text")
+        }
+    }
+    
+    func testClearButtonEmptiesRow() {
+        let app = launchApp()
+        typeTestWord(app: app)
+        app.buttons["clearButton"].tap()
+        
+        for id in firstRowIdentifiers {
+            XCTAssertTrue(app.staticTexts[id].label.isEmpty, "The row has not been cleared")
+        }
+    }
+    
+    func testInvalidWordAlertAppearsAndDisappears() {
+        let app = launchApp()
+        typeInvalidWord(app: app)
+        app.buttons["submitButton"].tap()
+        
+        XCTAssertTrue(app.otherElements["timedAlert"].waitForExistence(timeout: 1))
+        sleep(3)
+        XCTAssertFalse(app.otherElements["timedAlert"].exists)
+    }
+    
+    
 
     func testLaunchPerformance() throws {
         if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
@@ -86,6 +113,28 @@ final class UITests: XCTestCase {
                 XCUIApplication().launch()
             }
         }
+    }
+    
+    func launchApp() -> XCUIApplication {
+        let app = XCUIApplication()
+        app.launch()
+        return app
+    }
+    
+    func typeTestWord(app: XCUIApplication) {
+        app.buttons["F"].tap()
+        app.buttons["L"].tap()
+        app.buttons["A"].tap()
+        app.buttons["M"].tap()
+        app.buttons["E"].tap()
+    }
+    
+    func typeInvalidWord(app: XCUIApplication) {
+        app.buttons["X"].tap()
+        app.buttons["T"].tap()
+        app.buttons["D"].tap()
+        app.buttons["P"].tap()
+        app.buttons["Z"].tap()
     }
 }
 
