@@ -17,16 +17,16 @@ final class UITests: XCTestCase {
     let sixthRowIdentifiers = ["6thAttempt1", "6thAttempt2", "6thAttempt3", "6thAttempt4", "6thAttempt5"]
     
     let supportButtonIdentifiers = ["newGameButton", "showStatsButton", "backButton", "clearButton", "forwardButton", "submitButton", "deleteButton"]
-
+    
     override func setUpWithError() throws {
         continueAfterFailure = false
-
+        
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
-
+    
     override func tearDownWithError() throws {
     }
-
+    
     func testGameHasSixAttemptsFiveBoxesEach() {
         let allRows = [firstRowIdentifiers, secondRowIdentifiers, thirdRowIdentifiers, fourthRowIdentifiers, fifthRowIdentifiers, sixthRowIdentifiers]
         
@@ -76,7 +76,7 @@ final class UITests: XCTestCase {
     }
     
     func testAttemptGetsFullyFilled() {
-       let app = launchApp()
+        let app = launchApp()
         
         typeTestWord(app: app)
         
@@ -105,8 +105,16 @@ final class UITests: XCTestCase {
         XCTAssertFalse(app.otherElements["timedAlert"].exists)
     }
     
+    func testGameWonAlert() {
+        let app = XCUIApplication()
+        app.launchEnvironment["TEST_WORD"] = "FLAME"
+        app.launch()
+        
+        typeTestWord(app: app)
+        app.buttons["submitButton"].tap()
+        XCTAssertTrue(app.alerts["endGameAlert"].waitForExistence(timeout: 5))
+    }
     
-
     func testLaunchPerformance() throws {
         if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
             measure(metrics: [XCTApplicationLaunchMetric()]) {

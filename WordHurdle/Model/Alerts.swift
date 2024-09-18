@@ -15,6 +15,7 @@ struct Alerts {
         alert.addAction(UIAlertAction(title: "New Game", style: .default, handler: { UIAlertAction in
             newGameFunc()
         }))
+        alert.view.accessibilityIdentifier = "endGameAlert"
         return alert
     }
     

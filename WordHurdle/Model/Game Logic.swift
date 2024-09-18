@@ -153,7 +153,13 @@ class GameLogic {
         allLetters.resetCounters()
         correctCharacterArray = []
         delegate?.resetBoxes()
-        randomWord = AllWords.words.randomElement()!
+        
+        if let testWord = ProcessInfo.processInfo.environment["TEST_WORD"] {
+            randomWord = testWord
+        } else {
+            randomWord = AllWords.words.randomElement()!
+        }
+        
         labelArrayIndex = 0
         labelIndex = 0
         keyboardManager?.enableKeyboard()
