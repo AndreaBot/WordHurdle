@@ -10,8 +10,9 @@
 		621B5A272C866825000AC94D /* AllLettersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621B5A262C866825000AC94D /* AllLettersTests.swift */; };
 		621B5A292C8B91EE000AC94D /* PlayerStatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621B5A282C8B91EE000AC94D /* PlayerStatsTests.swift */; };
 		621B5A2C2C8B9FBE000AC94D /* StatsNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621B5A2A2C8B9E10000AC94D /* StatsNames.swift */; };
-		62372E652C9B68310006FEC7 /* UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62372E642C9B68310006FEC7 /* UITests.swift */; };
+		62372E652C9B68310006FEC7 /* GameVC-UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62372E642C9B68310006FEC7 /* GameVC-UITests.swift */; };
 		62372E672C9B68310006FEC7 /* UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62372E662C9B68310006FEC7 /* UITestsLaunchTests.swift */; };
+		62372E6E2C9CCB9D0006FEC7 /* StatsVC-UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62372E6D2C9CCB9D0006FEC7 /* StatsVC-UITests.swift */; };
 		62575A1F2AFAA2A9000D6417 /* PlayerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62575A1E2AFAA2A9000D6417 /* PlayerStats.swift */; };
 		62575A212AFAA385000D6417 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62575A202AFAA385000D6417 /* StatsViewController.swift */; };
 		62575A232AFAA49A000D6417 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62575A222AFAA49A000D6417 /* Stat.swift */; };
@@ -74,8 +75,9 @@
 		621B5A282C8B91EE000AC94D /* PlayerStatsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerStatsTests.swift; path = GameLogicTests/PlayerStatsTests.swift; sourceTree = SOURCE_ROOT; };
 		621B5A2A2C8B9E10000AC94D /* StatsNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StatsNames.swift; path = WordHurdle/Model/StatsNames.swift; sourceTree = SOURCE_ROOT; };
 		62372E622C9B68310006FEC7 /* UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		62372E642C9B68310006FEC7 /* UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITests.swift; sourceTree = "<group>"; };
+		62372E642C9B68310006FEC7 /* GameVC-UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameVC-UITests.swift"; sourceTree = "<group>"; };
 		62372E662C9B68310006FEC7 /* UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		62372E6D2C9CCB9D0006FEC7 /* StatsVC-UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatsVC-UITests.swift"; sourceTree = "<group>"; };
 		62575A1E2AFAA2A9000D6417 /* PlayerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStats.swift; sourceTree = "<group>"; };
 		62575A202AFAA385000D6417 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		62575A222AFAA49A000D6417 /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
@@ -144,7 +146,8 @@
 		62372E632C9B68310006FEC7 /* UITests */ = {
 			isa = PBXGroup;
 			children = (
-				62372E642C9B68310006FEC7 /* UITests.swift */,
+				62372E642C9B68310006FEC7 /* GameVC-UITests.swift */,
+				62372E6D2C9CCB9D0006FEC7 /* StatsVC-UITests.swift */,
 				62372E662C9B68310006FEC7 /* UITestsLaunchTests.swift */,
 			);
 			path = UITests;
@@ -439,8 +442,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62372E6E2C9CCB9D0006FEC7 /* StatsVC-UITests.swift in Sources */,
 				62372E672C9B68310006FEC7 /* UITestsLaunchTests.swift in Sources */,
-				62372E652C9B68310006FEC7 /* UITests.swift in Sources */,
+				62372E652C9B68310006FEC7 /* GameVC-UITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

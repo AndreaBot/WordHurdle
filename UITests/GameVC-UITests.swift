@@ -9,6 +9,16 @@ import XCTest
 
 final class UITests: XCTestCase {
     
+    override func setUpWithError() throws {
+        continueAfterFailure = false
+    }
+    
+    override func tearDownWithError() throws {
+    }
+    
+    
+    //MARK: - Identifiers
+    
     let firstRowIdentifiers = ["1stAttempt1", "1stAttempt2", "1stAttempt3", "1stAttempt4", "1stAttempt5"]
     let secondRowIdentifiers = ["2ndAttempt1", "2ndAttempt2", "2ndAttempt3", "2ndAttempt4", "2ndAttempt5"]
     let thirdRowIdentifiers = ["3rdAttempt1", "3rdAttempt2", "3rdAttempt3", "3rdAttempt4", "3rdAttempt5"]
@@ -18,14 +28,30 @@ final class UITests: XCTestCase {
     
     let supportButtonIdentifiers = ["newGameButton", "showStatsButton", "backButton", "clearButton", "forwardButton", "submitButton", "deleteButton"]
     
-    override func setUpWithError() throws {
-        continueAfterFailure = false
-        
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+    
+    //MARK: - Support functions
+    
+    func launchApp() -> XCUIApplication {
+        let app = XCUIApplication()
+        app.launch()
+        return app
     }
     
-    override func tearDownWithError() throws {
+    func launchAppWithTestWord(_ word: String) -> XCUIApplication {
+        let app = XCUIApplication()
+        app.launchEnvironment["TEST_WORD"] = word
+        app.launch()
+        return app
     }
+    
+    func typeWord(_ word: String, in app: XCUIApplication) {
+        for letter in word {
+            app.buttons[String(letter)].tap()
+        }
+    }
+    
+    
+    //MARK: - Test UI elements existence
     
     func testGameHasSixAttemptsFiveBoxesEach() {
         let allRows = [firstRowIdentifiers, secondRowIdentifiers, thirdRowIdentifiers, fourthRowIdentifiers, fifthRowIdentifiers, sixthRowIdentifiers]
@@ -65,8 +91,10 @@ final class UITests: XCTestCase {
         for id in supportButtonIdentifiers {
             XCTAssertTrue(app.buttons[id].exists, "The button \(id) does not exist")
         }
-        
     }
+    
+    
+    //MARK: - Test boxes get filled and cleared
     
     func testTappingLetterPopulatesBox() {
         let app = launchApp()
@@ -78,7 +106,7 @@ final class UITests: XCTestCase {
     func testAttemptGetsFullyFilled() {
         let app = launchApp()
         
-        typeFLAME(app: app)
+        typeWord("FLAME", in: app)
         
         for id in firstRowIdentifiers {
             XCTAssertTrue(!app.staticTexts[id].label.isEmpty, "The box named \(id) has no text")
@@ -87,7 +115,7 @@ final class UITests: XCTestCase {
     
     func testClearButtonEmptiesRow() {
         let app = launchApp()
-        typeFLAME(app: app)
+        typeWord("FLAME", in: app)
         app.buttons["clearButton"].tap()
         
         for id in firstRowIdentifiers {
@@ -95,39 +123,43 @@ final class UITests: XCTestCase {
         }
     }
     
+    
+    //MARK: - Test alerts presentation and interaction
+    
     func testInvalidWordAlertAppearsAndDisappears() {
         let app = launchApp()
-        typeInvalidWord(app: app)
+        typeWord("WGSRT", in: app)
         app.buttons["submitButton"].tap()
         
         XCTAssertTrue(app.otherElements["timedAlert"].waitForExistence(timeout: 1))
-        sleep(3)
-        XCTAssertFalse(app.otherElements["timedAlert"].exists)
+        XCTAssertFalse(app.otherElements["timedAlert"].waitForExistence(timeout: 5))
     }
     
     func testGameWonAlert() {
-        let app = launchAppWithTestWord()
+        let app = launchAppWithTestWord("FLAME")
         
-        typeFLAME(app: app)
+        typeWord("FLAME", in: app)
         app.buttons["submitButton"].tap()
         XCTAssertTrue(app.alerts["endGameAlert"].waitForExistence(timeout: 5))
     }
     
     func testGameLostAlert() {
-        let app = launchAppWithTestWord()
+        let app = launchAppWithTestWord("FLAME")
         let allRows = [firstRowIdentifiers, secondRowIdentifiers, thirdRowIdentifiers, fourthRowIdentifiers, fifthRowIdentifiers, sixthRowIdentifiers]
-      
+        
         for _ in allRows.indices {
-            submitWordSCARF(app: app)
+            typeWord("SCARF", in: app)
+            app.buttons["submitButton"].tap()
+            sleep(2)
         }
         
         XCTAssertTrue(app.alerts["endGameAlert"].waitForExistence(timeout: 5), "The end game alert was not presented")
     }
     
     func testStartNewGameFromAlert() {
-        let app = launchAppWithTestWord()
+        let app = launchAppWithTestWord("FLAME")
         let allRows = [firstRowIdentifiers, secondRowIdentifiers, thirdRowIdentifiers, fourthRowIdentifiers, fifthRowIdentifiers, sixthRowIdentifiers]
-        typeFLAME(app: app)
+        typeWord("FLAME", in: app)
         app.buttons["submitButton"].tap()
         sleep(2)
         app.alerts["endGameAlert"].buttons["New Game"].tap()
@@ -139,34 +171,8 @@ final class UITests: XCTestCase {
         }
     }
     
-    func testStatsViewAppears() {
-        let app = launchApp()
-        app.buttons["showStatsButton"].tap()
-        XCTAssertTrue(app.otherElements["statsVC"].waitForExistence(timeout: 2), "The stats screen was not presented")
-    }
     
-    func testStatsScreenHasBasicStats() {
-        let app = launchApp()
-        app.buttons["showStatsButton"].tap()
-        XCTAssertTrue(app.cells["Games played"].waitForExistence(timeout: 2), "The stat for games played is not shown")
-        XCTAssertTrue(app.cells["Wins"].waitForExistence(timeout: 2), "The stat for games won is not shown")
-        XCTAssertTrue(app.cells["Current streak"].waitForExistence(timeout: 2), "The stat for the current streak is not shown")
-        XCTAssertTrue(app.cells["Longest streak"].waitForExistence(timeout: 2), "The stat for the longest streak is not shown")
-    }
-    
-    func testStatsIncludesChartView() {
-        let app = launchApp()
-        app.buttons["showStatsButton"].tap()
-        XCTAssertTrue(app.otherElements["chartView"].waitForExistence(timeout: 2), "The chart is not being shown")
-    }
-    
-    func testStatsScreenGetsDismissed() {
-        let app = launchApp()
-        app.buttons["showStatsButton"].tap()
-        XCTAssertTrue(app.otherElements["statsVC"].waitForExistence(timeout: 2))
-        app.buttons["dismissStatsButton"].tap()
-        XCTAssertFalse(app.otherElements["statsVC"].waitForExistence(timeout: 2), "The stats screen was not dismissed")
-    }
+    //MARK: - Test performance
     
     func testLaunchPerformance() throws {
         if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
@@ -174,45 +180,6 @@ final class UITests: XCTestCase {
                 XCUIApplication().launch()
             }
         }
-    }
-    
-    func launchApp() -> XCUIApplication {
-        let app = XCUIApplication()
-        app.launch()
-        return app
-    }
-    
-    func launchAppWithTestWord() -> XCUIApplication {
-        let app = XCUIApplication()
-        app.launchEnvironment["TEST_WORD"] = "FLAME"
-        app.launch()
-        return app
-    }
-    
-    func typeFLAME(app: XCUIApplication) {
-        app.buttons["F"].tap()
-        app.buttons["L"].tap()
-        app.buttons["A"].tap()
-        app.buttons["M"].tap()
-        app.buttons["E"].tap()
-    }
-    
-    func submitWordSCARF(app: XCUIApplication) {
-        app.buttons["S"].tap()
-        app.buttons["C"].tap()
-        app.buttons["A"].tap()
-        app.buttons["R"].tap()
-        app.buttons["F"].tap()
-        app.buttons["submitButton"].tap()
-        sleep(2)
-    }
-    
-    func typeInvalidWord(app: XCUIApplication) {
-        app.buttons["X"].tap()
-        app.buttons["T"].tap()
-        app.buttons["D"].tap()
-        app.buttons["P"].tap()
-        app.buttons["Z"].tap()
     }
 }
 
