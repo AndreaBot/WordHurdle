@@ -768,6 +768,7 @@
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GvV-KQ-J0t">
                                                         <rect key="frame" x="324.33333333333331" y="0.0" width="25.666666666666686" height="24"/>
+                                                        <accessibility key="accessibilityConfiguration" identifier="dismissStatsButton"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal">

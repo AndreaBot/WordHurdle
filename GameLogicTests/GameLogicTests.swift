@@ -84,7 +84,7 @@ final class GameLogicTests: XCTestCase {
         gameLogic.performCheck(gameLogic.allAttempts)
         
         // THEN
-        XCTAssertTrue(alertsDelegate.invalidWordRecognised, "ShwoingNonExistentWordAlert was not triggered")
+        XCTAssertTrue(alertsDelegate.invalidWordRecognised, "ShowingNonExistentWordAlert was not triggered")
     }
     
     func test_performCheck_recognisesValidWord() {
