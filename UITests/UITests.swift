@@ -78,7 +78,7 @@ final class UITests: XCTestCase {
     func testAttemptGetsFullyFilled() {
         let app = launchApp()
         
-        typeTestWord(app: app)
+        typeFLAME(app: app)
         
         for id in firstRowIdentifiers {
             XCTAssertTrue(!app.staticTexts[id].label.isEmpty, "The box named \(id) has no text")
@@ -87,7 +87,7 @@ final class UITests: XCTestCase {
     
     func testClearButtonEmptiesRow() {
         let app = launchApp()
-        typeTestWord(app: app)
+        typeFLAME(app: app)
         app.buttons["clearButton"].tap()
         
         for id in firstRowIdentifiers {
@@ -106,13 +106,37 @@ final class UITests: XCTestCase {
     }
     
     func testGameWonAlert() {
-        let app = XCUIApplication()
-        app.launchEnvironment["TEST_WORD"] = "FLAME"
-        app.launch()
+        let app = launchAppWithTestWord()
         
-        typeTestWord(app: app)
+        typeFLAME(app: app)
         app.buttons["submitButton"].tap()
         XCTAssertTrue(app.alerts["endGameAlert"].waitForExistence(timeout: 5))
+    }
+    
+    func testGameLostAlert() {
+        let app = launchAppWithTestWord()
+        let allRows = [firstRowIdentifiers, secondRowIdentifiers, thirdRowIdentifiers, fourthRowIdentifiers, fifthRowIdentifiers, sixthRowIdentifiers]
+      
+        for _ in allRows.indices {
+            submitWordSCARF(app: app)
+        }
+        
+        XCTAssertTrue(app.alerts["endGameAlert"].waitForExistence(timeout: 5), "The end game alert was not presented")
+    }
+    
+    func testStartNewGameFromAlert() {
+        let app = launchAppWithTestWord()
+        let allRows = [firstRowIdentifiers, secondRowIdentifiers, thirdRowIdentifiers, fourthRowIdentifiers, fifthRowIdentifiers, sixthRowIdentifiers]
+        typeFLAME(app: app)
+        app.buttons["submitButton"].tap()
+        sleep(2)
+        app.alerts["endGameAlert"].buttons["New Game"].tap()
+        
+        for row in allRows {
+            for id in row {
+                XCTAssertTrue(app.staticTexts[id].label.isEmpty)
+            }
+        }
     }
     
     func testLaunchPerformance() throws {
@@ -129,12 +153,29 @@ final class UITests: XCTestCase {
         return app
     }
     
-    func typeTestWord(app: XCUIApplication) {
+    func launchAppWithTestWord() -> XCUIApplication {
+        let app = XCUIApplication()
+        app.launchEnvironment["TEST_WORD"] = "FLAME"
+        app.launch()
+        return app
+    }
+    
+    func typeFLAME(app: XCUIApplication) {
         app.buttons["F"].tap()
         app.buttons["L"].tap()
         app.buttons["A"].tap()
         app.buttons["M"].tap()
         app.buttons["E"].tap()
+    }
+    
+    func submitWordSCARF(app: XCUIApplication) {
+        app.buttons["S"].tap()
+        app.buttons["C"].tap()
+        app.buttons["A"].tap()
+        app.buttons["R"].tap()
+        app.buttons["F"].tap()
+        app.buttons["submitButton"].tap()
+        sleep(2)
     }
     
     func typeInvalidWord(app: XCUIApplication) {
